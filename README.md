@@ -18,5 +18,7 @@ qrgba
 
 
 ## Executable usage
-To compile your Qt-SASS stylesheets:
+To compile your SASS stylesheet to a Qt compliant CSS file:
+```
 qtsass style.scss -o style.css
+```
