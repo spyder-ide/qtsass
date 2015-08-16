@@ -1,9 +1,14 @@
 import sass
 import argparse
 import logging
+import os
+import time
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
 
 
 def rgba(r, g, b, a):
@@ -67,20 +72,53 @@ def compile_to_css(input_file):
                       )
 
 
+def compile_to_css_and_save(input_file, dest_file):
+    stylesheet = compile_to_css(input_file)
+    if dest_file:
+        with open(dest_file, 'w') as css_file:
+            css_file.write(stylesheet)
+            logger.info("Created CSS file {}".format(args.output))
+    else:
+        print(stylesheet)
+
+class MyEventHandler(FileSystemEventHandler):
+    def __init__(self, input_file, dest_file):
+        super(MyEventHandler, self).__init__()
+        self._input_file = input_file
+        self._dest_file = dest_file
+        self._watched_extension = os.path.split(self._input_file)[1]
+
+    def on_modified(self, event):
+        # TODO: watch a specific kind of file
+        #       but for now, watchdog only returns the directory...
+        # if os.path.split(event.src_path)[1] == self._watched_extension:
+        logger.debug("Have to reload : {}".format(event.src_path))
+        compile_to_css_and_save(self._input_file, self._dest_file)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog="QtSASS",
-                                     description="Compile a Qt compliant CSS file from a SCSS stylesheet.",
+                                     description="Compile a Qt compliant CSS file from a SASS stylesheet.",
                                      )
-    parser.add_argument('input', type=str, help="The SCSS stylesheet file.")
+    parser.add_argument('input', type=str, help="The SASS stylesheet file.")
     parser.add_argument('-o', '--output', type=str, help="The path of the generated Qt compliant CSS file.")
+    parser.add_argument('-w', '--watch', help="Whether to watch source file "
+                                                         "and automatically recompile on file change.")
 
     args = parser.parse_args()
 
     stylesheet = compile_to_css(args.input)
 
-    if args.output:
-        with open(args.output, 'w') as css_file:
-            css_file.write(stylesheet)
-            logger.info("Created CSS file {}".format(args.output))
+    if args.watch:
+        event_handler = MyEventHandler(args.input, args.output)
+        observer = Observer()
+        observer.schedule(event_handler, os.path.dirname(args.input), recursive=False)
+        observer.start()
+        try:
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            observer.stop()
+        observer.join()
     else:
-        print(stylesheet)
+        compile_to_css_and_save(args.input, None)
