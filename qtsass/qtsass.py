@@ -10,7 +10,6 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
-
 def rgba(r, g, b, a):
     result = "rgba({}, {}, {}, {}%)"
     if isinstance(r, sass.SassNumber):
@@ -77,24 +76,32 @@ def compile_to_css_and_save(input_file, dest_file):
     if dest_file:
         with open(dest_file, 'w') as css_file:
             css_file.write(stylesheet)
-            logger.info("Created CSS file {}".format(args.output))
+            logger.info("Created CSS file {}".format(dest_file))
     else:
         print(stylesheet)
 
-class MyEventHandler(FileSystemEventHandler):
+
+class SourceModificationEventHandler(FileSystemEventHandler):
     def __init__(self, input_file, dest_file):
-        super(MyEventHandler, self).__init__()
+        super(SourceModificationEventHandler, self).__init__()
         self._input_file = input_file
         self._dest_file = dest_file
         self._watched_extension = os.path.split(self._input_file)[1]
 
     def on_modified(self, event):
-        # TODO: watch a specific kind of file
-        #       but for now, watchdog only returns the directory...
-        # if os.path.split(event.src_path)[1] == self._watched_extension:
-        logger.debug("Have to reload : {}".format(event.src_path))
-        compile_to_css_and_save(self._input_file, self._dest_file)
-
+        # On Mac, event will always be a directory.
+        # On Windows, only recompile if event's file has the same extension as the input file
+        if event.is_directory or os.path.split(event.src_path)[1] == self._watched_extension:
+            logger.debug("Recompiling {}...".format(event.src_path))
+            i = 0
+            success = False
+            while i < 10 and not success:
+                try:
+                    time.sleep(0.2)
+                    compile_to_css_and_save(self._input_file, self._dest_file)
+                    success = True
+                except FileNotFoundError:
+                    i += 1
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog="QtSASS",
@@ -102,15 +109,15 @@ if __name__ == "__main__":
                                      )
     parser.add_argument('input', type=str, help="The SASS stylesheet file.")
     parser.add_argument('-o', '--output', type=str, help="The path of the generated Qt compliant CSS file.")
-    parser.add_argument('-w', '--watch', help="Whether to watch source file "
-                                                         "and automatically recompile on file change.")
+    parser.add_argument('-w', '--watch', action='store_true', help="Whether to watch source file "
+                                                                   "and automatically recompile on file change.")
 
     args = parser.parse_args()
-
-    stylesheet = compile_to_css(args.input)
+    compile_to_css_and_save(args.input, args.output)
 
     if args.watch:
-        event_handler = MyEventHandler(args.input, args.output)
+        event_handler = SourceModificationEventHandler(args.input, args.output)
+        logging.info("qtsass is watching {}...".format(args.input))
         observer = Observer()
         observer.schedule(event_handler, os.path.dirname(args.input), recursive=False)
         observer.start()
@@ -120,5 +127,3 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             observer.stop()
         observer.join()
-    else:
-        compile_to_css_and_save(args.input, None)
