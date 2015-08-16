@@ -1,8 +1,8 @@
 # qtsass
 Compile SCSS files to valid Qt stylesheets.
 
-SASS brings countless amazing features to CSS.
-Besides being used in web development, CSS is also the way to stylize a Qt desktop application.
+[SASS](http://sass-lang.com/) brings countless amazing features to CSS.
+Besides being used in web development, CSS is also the way to stylize Qt-based desktop applications.
 However, Qt's CSS has a few variations that prevent the direct use of SASS compiler.
 
 The purpose of this tool is to fill the gap between SASS and Qt-CSS by handling those variations.
