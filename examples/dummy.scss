@@ -1,0 +1,18 @@
+
+// This comment will not appear in generated css file
+/* This comment will appear in generated css file */
+
+// !editable is not valid sass/css but is tolerated in qtsass since widespread in Qt stylesheets.
+QComboBox:!editable:on, QComboBox::drop-down:editable:on
+{
+    color: blue;
+}
+
+QTreeView::item:selected{
+    $start: 0.2;
+    $stops: $start #3f3f3f, $start + 0.6 red;
+    // qlineargradient syntax changes a little bit
+    // classic Qt: qlineargradient(x1: 0, y1: 0, x2: 0, y2:1, stop: 0.2 #3f3f3f, stop: 0.8 red)
+    background-color: qlineargradient(0, 0, 0, 1, $stops);
+    color: rgba(255, 10, 10, 0.5);
+}
