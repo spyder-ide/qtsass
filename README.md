@@ -10,11 +10,34 @@ The purpose of this tool is to fill the gap between SASS and Qt-CSS by handling 
 ## Qt's CSS specificities
 WIP 
 
-"!" in selectors
+The goal of QtSASS is be able to generate a Qt-CSS stylesheet based on a 100% valid SASS file.
+This is how it deals with Qt's specifities.
 
-qlineargradient
+### "!" in selectors
+Qt allows to define the style of a widget according to its states, like this:
+```
+QLineEdit:enabled {
+...
+}
+```
+However, a "not" state is problematic because it introduces an exclamation mark in the selector's name, which is not valid SASS/CSS:
+```
+QLineEdit:!editable {
+...
+}
+```
+QtSASS allows "!" in selectors' names; the SASS file is preprocessed and any occurence of ":!" is replaced by ":_qnot_" (for "Qt not"). 
+However, using this feature prevents from having a 100% valid SASS file, so this support of "!" might change in the future.
+This can be replaced by the direct use of the "_qnot_" keyword in your SASS file:
+```
+QLineEdit:_qnot_editable { # will generate QLineEdit:!editable {
+...
+}
+```
 
-qrgba
+### qlineargradient
+
+### qrgba
 
 
 ## Executable usage
