@@ -18,7 +18,14 @@ qrgba
 
 
 ## Executable usage
-To compile your SASS stylesheet to a Qt compliant CSS file:
+
+To compile once your SASS stylesheet to a Qt compliant CSS file:
 ```
+# If -o is omitted, output will be print in console
 qtsass style.scss -o style.css
+```
+To use the watch mode and get your stylesheet auto recompiled on each file save:
+```
+# If -o is omitted, output will be print in console
+qtsass style.scss -w -o style.css
 ```
