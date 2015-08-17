@@ -9,8 +9,8 @@ The purpose of this tool is to fill the gap between SASS and Qt-CSS by handling 
 
 ## Qt's CSS specificities
 
-The goal of QtSASS is be able to generate a Qt-CSS stylesheet based on a 100% valid SASS file.
-This is how it deals with Qt's specifities and how you should modify your CSS stylesheet to use QtSASS
+The goal of QtSASS is to be able to generate a Qt-CSS stylesheet based on a 100% valid SASS file.
+This is how it deals with Qt's specifities and how you should modify your CSS stylesheet to use QtSASS.
 
 #### "!" in selectors
 Qt allows to define the style of a widget according to its states, like this:
