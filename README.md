@@ -8,7 +8,6 @@ However, Qt's CSS has a few variations that prevent the direct use of SASS compi
 The purpose of this tool is to fill the gap between SASS and Qt-CSS by handling those variations.
 
 ## Qt's CSS specificities
-WIP 
 
 The goal of QtSASS is be able to generate a Qt-CSS stylesheet based on a 100% valid SASS file.
 This is how it deals with Qt's specifities.
@@ -36,9 +35,27 @@ QLineEdit:_qnot_editable { # will generate QLineEdit:!editable {
 ```
 
 #### qlineargradient
+The qlineargradient function also has a non-valid CSS syntax.
+```
+qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0, stop: 0.1 blue, stop: 0.8 green)
+```
+Using QtSass, syntax changes a little bit:
+```
+qlineargradient(0, 0, 0, 0, (0.1 blue, 0.8 green))
+# the stops parameter is a list, so you can also use variables:
+$stops = 0.1 blue, 0.8 green
+qlineargradient(0, 0, 0, 0, $stops)
+```
 
 #### qrgba
-
+Qt's rgba:
+```
+qrgba(255, 128, 128, 50%)
+```
+is replaced by CSS rgba:
+```
+qrgba(255, 128, 128, 0.5)
+```
 
 ## Executable usage
 
