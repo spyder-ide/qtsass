@@ -13,7 +13,7 @@ WIP
 The goal of QtSASS is be able to generate a Qt-CSS stylesheet based on a 100% valid SASS file.
 This is how it deals with Qt's specifities.
 
-### "!" in selectors
+#### "!" in selectors
 Qt allows to define the style of a widget according to its states, like this:
 ```
 QLineEdit:enabled {
@@ -35,9 +35,9 @@ QLineEdit:_qnot_editable { # will generate QLineEdit:!editable {
 }
 ```
 
-### qlineargradient
+#### qlineargradient
 
-### qrgba
+#### qrgba
 
 
 ## Executable usage
