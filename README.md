@@ -26,9 +26,9 @@ QLineEdit:!editable {
 ...
 }
 ```
-QtSASS allows "!" in selectors' names; the SASS file is preprocessed and any occurence of ":!" is replaced by ":_qnot_" (for "Qt not"). 
-However, using this feature prevents from having a 100% valid SASS file, so this support of "!" might change in the future.
-This can be replaced by the direct use of the "_qnot_" keyword in your SASS file:
+QtSASS allows "!" in selectors' names; the SASS file is preprocessed and any occurence of `:!` is replaced by `:_qnot_` (for "Qt not"). 
+However, using this feature prevents from having a 100% valid SASS file, so this support of `!` might change in the future.
+This can be replaced by the direct use of the `_qnot_` keyword in your SASS file:
 ```
 QLineEdit:_qnot_editable { # will generate QLineEdit:!editable {
 ...
