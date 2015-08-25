@@ -86,10 +86,11 @@ def compile_to_css_and_save(input_file, dest_file):
 
 
 class SourceModificationEventHandler(FileSystemEventHandler):
-    def __init__(self, input_file, dest_file):
+    def __init__(self, input_file, dest_file, watched_dir):
         super(SourceModificationEventHandler, self).__init__()
         self._input_file = input_file
         self._dest_file = dest_file
+        self._watched_dir = watched_dir
         self._watched_extension = os.path.splitext(self._input_file)[1]
 
     def _recompile(self):
@@ -106,7 +107,8 @@ class SourceModificationEventHandler(FileSystemEventHandler):
     def on_modified(self, event):
         # On Mac, event will always be a directory.
         # On Windows, only recompile if event's file has the same extension as the input file
-        if event.is_directory or os.path.splitext(event.src_path)[1] == self._watched_extension:
+        if event.is_directory and os.path.samefile(event.src_path, self._watched_dir) or (
+           os.path.splitext(event.src_path)[1] == self._watched_extension):
             self._recompile()
 
     def on_created(self, event):
@@ -127,10 +129,11 @@ if __name__ == "__main__":
     compile_to_css_and_save(args.input, args.output)
 
     if args.watch:
-        event_handler = SourceModificationEventHandler(args.input, args.output)
+        watched_dir = os.path.abspath(os.path.dirname(args.input))
+        event_handler = SourceModificationEventHandler(args.input, args.output, watched_dir)
         logging.info("qtsass is watching {}...".format(args.input))
         observer = Observer()
-        observer.schedule(event_handler, os.path.dirname(args.input), recursive=False)
+        observer.schedule(event_handler, watched_dir, recursive=False)
         observer.start()
         try:
             while True:
