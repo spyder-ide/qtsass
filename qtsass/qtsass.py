@@ -61,15 +61,19 @@ def qt_conform(input_str):
 
 
 def compile_to_css(input_file):
-    return qt_conform(sass.compile(string=css_conform(input_file),
-                                   source_comments=False,
-                                   custom_functions={
-                                       'qlineargradient': qlineargradient,
-                                       'rgba': rgba
-                                       }
-                                   )
-                      )
-
+    logger.debug("Compiling {}...".format(input_file))
+    try:
+        return qt_conform(sass.compile(string=css_conform(input_file),
+                                       source_comments=False,
+                                       custom_functions={
+                                           'qlineargradient': qlineargradient,
+                                           'rgba': rgba
+                                           }
+                                       )
+                          )
+    except sass.CompileError as e:
+        logging.error("Failed to compile {}:\n{}".format(input_file, e))
+    return ""
 
 def compile_to_css_and_save(input_file, dest_file):
     stylesheet = compile_to_css(input_file)
@@ -86,22 +90,29 @@ class SourceModificationEventHandler(FileSystemEventHandler):
         super(SourceModificationEventHandler, self).__init__()
         self._input_file = input_file
         self._dest_file = dest_file
-        self._watched_extension = os.path.split(self._input_file)[1]
+        self._watched_extension = os.path.splitext(self._input_file)[1]
+
+    def _recompile(self):
+        i = 0
+        success = False
+        while i < 10 and not success:
+            try:
+                time.sleep(0.2)
+                compile_to_css_and_save(self._input_file, self._dest_file)
+                success = True
+            except FileNotFoundError:
+                i += 1
 
     def on_modified(self, event):
         # On Mac, event will always be a directory.
         # On Windows, only recompile if event's file has the same extension as the input file
-        if event.is_directory or os.path.split(event.src_path)[1] == self._watched_extension:
-            logger.debug("Recompiling {}...".format(event.src_path))
-            i = 0
-            success = False
-            while i < 10 and not success:
-                try:
-                    time.sleep(0.2)
-                    compile_to_css_and_save(self._input_file, self._dest_file)
-                    success = True
-                except FileNotFoundError:
-                    i += 1
+        if event.is_directory or os.path.splitext(event.src_path)[1] == self._watched_extension:
+            self._recompile()
+
+    def on_created(self, event):
+        if os.path.splitext(event.src_path)[1] == self._watched_extension:
+            self._recompile()
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog="QtSASS",
