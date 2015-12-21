@@ -13,9 +13,9 @@ logger = logging.getLogger(__name__)
 def rgba(r, g, b, a):
     result = "rgba({}, {}, {}, {}%)"
     if isinstance(r, sass.SassNumber):
-        return result.format(int(r.value), int(g.value), int(b.value), int(a.value)*100)
+        return result.format(int(r.value), int(g.value), int(b.value), int(a.value*100))
     elif isinstance(r, float):
-        return result.format(int(r), int(g), int(b), int(a)*100)
+        return result.format(int(r), int(g), int(b), int(a*100))
 
 
 def rgba_from_color(color):
