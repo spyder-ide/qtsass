@@ -50,11 +50,11 @@ qlineargradient(0, 0, 0, 0, $stops)
 #### qrgba
 Qt's rgba:
 ```
-qrgba(255, 128, 128, 50%)
+rgba(255, 128, 128, 50%)
 ```
 is replaced by CSS rgba:
 ```
-qrgba(255, 128, 128, 0.5)
+rgba(255, 128, 128, 0.5)
 ```
 
 ## Executable usage
