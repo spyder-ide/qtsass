@@ -1,6 +1,34 @@
 # qtsass
 Compile SCSS files to valid Qt stylesheets.
 
+## Project details
+[![Join the chat at https://gitter.im/spyder-ide/public](https://badges.gitter.im/spyder-ide/spyder.svg)](https://gitter.im/spyder-ide/public)
+[![OpenCollective Backers](https://opencollective.com/spyder/backers/badge.svg?color=blue)](#backers)
+[![OpenCollective Sponsors](https://opencollective.com/spyder/sponsors/badge.svg?color=blue)](#sponsors)
+
+----
+
+## Important Announcement: Spyder is unfunded!
+
+Since mid November/2017, [Anaconda, Inc](https://www.anaconda.com/) has
+stopped funding Spyder development, after doing it for the past 18
+months. Because of that, development will focus from now on maintaining
+Spyder 3 at a much slower pace than before.
+
+If you want to contribute to maintain Spyder, please consider donating at
+
+https://opencollective.com/spyder
+
+We appreciate all the help you can provide us and can't thank you enough for
+supporting the work of Spyder devs and Spyder development.
+
+If you want to know more about this, please read this
+[page](https://github.com/spyder-ide/spyder/wiki/Anaconda-stopped-funding-Spyder).
+
+----
+
+## Overview
+
 [SASS](http://sass-lang.com/) brings countless amazing features to CSS.
 Besides being used in web development, CSS is also the way to stylize Qt-based desktop applications.
 However, Qt's CSS has a few variations that prevent the direct use of SASS compiler.
@@ -69,3 +97,21 @@ To use the watch mode and get your stylesheet auto recompiled on each file save:
 # If -o is omitted, output will be print to console
 qtsass style.scss -w -o style.css
 ```
+
+## Contributing
+
+Everyone is welcome to contribute!
+
+
+## Backers
+
+Support us with a monthly donation and help us continue our activities.
+
+[![Backers](https://opencollective.com/spyder/backers.svg)](https://opencollective.com/spyder#support)
+
+
+## Sponsors
+
+Become a sponsor to get your logo on our README on Github.
+
+[![Sponsors](https://opencollective.com/spyder/sponsors.svg)](https://opencollective.com/spyder#support)
