@@ -1,15 +1,34 @@
-from cx_Freeze import setup, Executable
+from setuptools import setup, find_packages
+import qtsass
 
-build_exe_options = {
-    'include_msvcr': True,
-    'bin_includes': ['msvcp120.dll'],  # Force msvcp120 to be included (libsass dependency, not copied by include_mscvr)
-    'optimize': 2
-}
 
 setup(
-    name="qtsass",
-    description="Compile a SCSS file to a valid Qt CSS.",
-    executables=[Executable("qtsass/qtsass.py")],
-    options={'build_exe': build_exe_options},
-    requires=['libsass', 'cx_Freeze', 'watchdog'],
+    name=qtsass.__title__,
+    version='0.1.0',
+    description=qtsass.__description__,
+    long_description=open('README.md', 'r').read(),
+    author=qtsass.__author__,
+    author_email='N/A',
+    url=qtsass.__url__,
+    license='N/A',
+    packages=find_packages(),
+    entry_points={
+        'console_scripts': [
+            'qtsass = qtsass.qtsass:main'
+        ]
+    },
+    classifiers=(
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Natural Language :: English",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
+        "Topic :: Software Development :: Libraries :: Python Modules",
+    ),
+    install_requires=[
+        'libsass',
+        'watchdog'
+    ]
 )
