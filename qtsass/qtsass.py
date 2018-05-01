@@ -5,7 +5,6 @@ import sass
 import argparse
 import logging
 import os
-import re
 import time
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
@@ -40,33 +39,14 @@ class NotConformer(Conformer):
         return css.replace(':_qnot_', ':!')
 
 
-class NestedSelectorsConformer(Conformer):
-    '''Handle QSS Nested selectors like ::item:hover'''
-
-    pattern = re.compile(r'::[A-Za-z0-9-_!]+((?:\:[A-Za-z0-9-_!]+)+)')
-
-    def to_css(self, qss):
-        '''Replaces ":" in nested selectors with "_qcolon_"'''
-
-        conformed = qss
-        matches = self.pattern.findall(qss)
-        for match in matches:
-            replacement = match.replace(':', '_qcolon_')
-            conformed = conformed.replace(match, replacement, 1)
-        return conformed
-
-    def to_qss(self, css):
-        '''Replaces "_qcolon_" with ":"'''
-
-        return css.replace('_qcolon_', ':')
-
-
 conformers = [c() for c in Conformer.__subclasses__() if c is not Conformer]
 
 
 def css_conform(input_str):
-    '''Conform qss to valid scss. Runs the to_css method of all Conformer
-    subclasses on the input_str.
+    '''Conform qss to valid scss.
+
+    Runs the to_css method of all Conformer subclasses on the input_str.
+    Conformers are run in order of definition.
 
     :param input_str: QSS string
     :returns: Valid SCSS string
@@ -80,17 +60,47 @@ def css_conform(input_str):
 
 
 def qt_conform(input_str):
-    '''Conform css to valid qss. Runs the to_qss method of all Conformer
-    subclasses on the input_str.
+    '''Conform css to valid qss.
+
+    Runs the to_qss method of all Conformer subclasses on the input_str.
+    Conformers are run in reverse order.
 
     :param input_str: CSS string
     :returns: Valid QSS string
     '''
 
     conformed = input_str
-    for conformer in conformers:
+    for conformer in conformers[::-1]:
         conformed = conformer.to_qss(conformed)
     return conformed
+
+
+def qss_importer(where):
+    '''Conform imported qss files to valid scss.'''
+
+    def find_file(import_file):
+
+        if os.path.isfile(import_file):
+            return import_file
+        extensions = ['.scss', '.css', '.sass']
+        for ext in extensions:
+            potential_file = import_file + ext
+            if os.path.isfile(potential_file):
+                return potential_file
+            potential_file = os.path.join(where, import_file + ext)
+            if os.path.isfile(potential_file):
+                return potential_file
+        return import_file
+
+    def import_and_conform_file(import_file):
+
+        real_import_file = find_file(import_file)
+        with open(real_import_file, 'r') as f:
+            import_str = f.read()
+
+        return [(import_file, css_conform(import_str))]
+
+    return import_and_conform_file
 
 
 def rgba(r, g, b, a):
@@ -144,6 +154,7 @@ def compile_to_css(input_file):
         input_str = f.read()
 
     try:
+        importer_root = os.path.dirname(os.path.abspath(input_file))
         return qt_conform(
             sass.compile(
                 string=css_conform(input_str),
@@ -151,7 +162,8 @@ def compile_to_css(input_file):
                 custom_functions={
                     'qlineargradient': qlineargradient,
                     'rgba': rgba
-                }
+                },
+                importers=[(0, qss_importer(importer_root))]
             )
         )
     except sass.CompileError as e:
