@@ -156,7 +156,7 @@ def qlineargradient(x1, y1, x2, y2, stops):
         pos, color = stop[0]
         stops_str += " stop: {} {}".format(pos.value, rgba_from_color(color))
 
-    return "qlineargradient(x1:{}, y1:{}, x2:{}, y2:{} {})".format(
+    return "qlineargradient(x1:{}, y1:{}, x2:{}, y2:{},{})".format(
         x1.value,
         y1.value,
         x2.value,
