@@ -46,11 +46,11 @@ setup(
     description='Compile SCSS files to valid Qt stylesheets.',
     long_description=get_description(),
     author='Yann Lanthony',
-    author_email='N/A',
+    author_email='https://github.com/yann-lty',
     maintainer='Dan Bradham',
     maintainer_email='danielbradham@gmail.com',
     url='https://github.com/spyder-ide/qtsass',
-    license='N/A',
+    license='MIT',
     packages=find_packages(),
     entry_points={
         'console_scripts': [
