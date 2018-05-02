@@ -1,12 +1,12 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function
-import sass
 import argparse
 import logging
 import os
 import re
 import time
+import sass
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
