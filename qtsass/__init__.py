@@ -1,5 +1,4 @@
-__title__ = 'qtsass'
-__description__ = 'Compile SCSS files to valid Qt stylesheets.'
-__author__ = 'yann.lanthony'
-__version__ = '0.1.0'
-__url__ = 'https://github.com/spyder-ide/qtsass'
+# -*- coding: utf-8 -*-
+
+VERSION_INFO = (0, 1, 0)
+__version__ = '.'.join(map(str, VERSION_INFO))
