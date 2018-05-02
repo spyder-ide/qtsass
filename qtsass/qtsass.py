@@ -53,8 +53,8 @@ class QLinearGradientConformer(Conformer):
 
     qss_pattern = re.compile(
         "qlineargradient\("
-        "((?:(?:\s+)?(?:x1|y1|x2|y2):(?:\s+)?\d+,?)+)"  # coords group
-        "((?:(?:\s+)?stop:.*,?)+(?:\s+)?)?"  # stops group
+        "((?:(?:\s+)?(?:x1|y1|x2|y2):(?:\s+)?[0-9A-Za-z$_-]+,?)+)"  # coords
+        "((?:(?:\s+)?stop:.*,?)+(?:\s+)?)?"  # stops
         "\)",
         re.MULTILINE
     )
