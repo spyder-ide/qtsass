@@ -67,7 +67,11 @@ The qlineargradient function also has a non-valid CSS syntax.
 ```
 qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.1 blue, stop: 0.8 green)
 ```
-Using QtSass, syntax changes a little bit:
+To support qlineargradient QtSASS provides a preprocessor and a SASS implementation of the qlineargradient function. The above QSS syntax will be replaced with the following:
+```
+qlineargradient(0, 0, 0, 1, (0.1 blue, 0.8 green))
+```
+You may also use this syntax directly in your QtSASS.
 ```
 qlineargradient(0, 0, 0, 1, (0.1 blue, 0.8 green))
 # the stops parameter is a list, so you can also use variables:
