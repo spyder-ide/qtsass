@@ -1,20 +1,21 @@
 from setuptools import setup, find_packages
+from io import open
 import qtsass
 
 
 setup(
     name=qtsass.__title__,
-    version='0.1.0',
+    version=qtsass.__version__,
     description=qtsass.__description__,
-    long_description=open('README.md', 'r').read(),
+    long_description=open("README.md", "r", encoding="utf-8").read(),
     author=qtsass.__author__,
-    author_email='N/A',
+    author_email="N/A",
     url=qtsass.__url__,
-    license='N/A',
+    license="N/A",
     packages=find_packages(),
     entry_points={
-        'console_scripts': [
-            'qtsass = qtsass.qtsass:main'
+        "console_scripts": [
+            "qtsass = qtsass.qtsass:main"
         ]
     },
     classifiers=(

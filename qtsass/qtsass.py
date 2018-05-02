@@ -9,32 +9,40 @@ import time
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
+# py2 has no FileNotFoundError
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = IOError
+
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
 class Conformer(object):
-    '''Base class for all Text transformations'''
+    """Base class for all text transformations."""
 
     def to_css(self, qss):
-        '''Transform some qss to valid scss'''
+        """Transform some qss to valid scss."""
+
         return NotImplemented
 
     def to_qss(self, css):
-        '''Transform some css to valid qss'''
+        """Transform some css to valid qss."""
+
         return NotImplemented
 
 
 class NotConformer(Conformer):
-    '''Handle QSS "!" in selectors'''
+    """Handle QSS "!" in selectors."""
 
     def to_css(self, qss):
-        '''Replaces "!" not in selectors with "_qnot_"'''
+        """Replaces "!" in selectors with "_qnot_"."""
 
         return qss.replace(':!', ':_qnot_')
 
     def to_qss(self, css):
-        '''Replaces "_qnot_" in selectors with "!"'''
+        """Replaces "_qnot_" in selectors with "!"."""
 
         return css.replace(':_qnot_', ':!')
 
@@ -43,14 +51,13 @@ conformers = [c() for c in Conformer.__subclasses__() if c is not Conformer]
 
 
 def css_conform(input_str):
-    '''Conform qss to valid scss.
-
-    Runs the to_css method of all Conformer subclasses on the input_str.
-    Conformers are run in order of definition.
+    """
+    Conform qss to valid scss. Runs the to_css method of all Conformer
+    subclasses on the input_str. Conformers are run in order of definition.
 
     :param input_str: QSS string
     :returns: Valid SCSS string
-    '''
+    """
 
     conformed = input_str
     for conformer in conformers:
@@ -60,14 +67,13 @@ def css_conform(input_str):
 
 
 def qt_conform(input_str):
-    '''Conform css to valid qss.
-
-    Runs the to_qss method of all Conformer subclasses on the input_str.
-    Conformers are run in reverse order.
+    """
+    Conform css to valid qss. Runs the to_qss method of all Conformer
+    subclasses on the input_str. Conformers are run in reverse order.
 
     :param input_str: CSS string
     :returns: Valid QSS string
-    '''
+    """
 
     conformed = input_str
     for conformer in conformers[::-1]:
@@ -76,7 +82,12 @@ def qt_conform(input_str):
 
 
 def qss_importer(where):
-    '''Conform imported qss files to valid scss.'''
+    """
+    Returns a function which conforms imported qss files to valid scss to be
+    used as an importer for sass.compile.
+
+    :param where: Directory containing scss, css, and sass files
+    """
 
     def find_file(import_file):
 
@@ -182,6 +193,7 @@ def compile_to_css_and_save(input_file, dest_file):
 
 
 class SourceModificationEventHandler(FileSystemEventHandler):
+
     def __init__(self, input_file, dest_file, watched_dir):
         super(SourceModificationEventHandler, self).__init__()
         self._input_file = input_file
@@ -202,8 +214,8 @@ class SourceModificationEventHandler(FileSystemEventHandler):
 
     def on_modified(self, event):
         # On Mac, event will always be a directory.
-        # On Windows, only recompile if event's file has
-        #             the same extension as the input file
+        # On Windows, only recompile if event's file
+        # has the same extension as the input file
         we_should_recompile = (
             event.is_directory and
             os.path.samefile(event.src_path, self._watched_dir) or
@@ -233,10 +245,7 @@ def main():
         '-w',
         '--watch',
         action='store_true',
-        help=(
-            "Whether to watch source file "
-            "and automatically recompile on file change."
-        )
+        help="If set, recompile when the source file changes."
     )
 
     args = parser.parse_args()
