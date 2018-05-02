@@ -88,8 +88,13 @@ class QLinearGradientConformer(Conformer):
         conformed = qss
 
         for coords, stops in self.qss_pattern.findall(qss):
+
             new_coords = self._conform_group_to_css(coords)
             conformed = conformed.replace(coords, new_coords, 1)
+
+            if not stops:
+                continue
+
             new_stops = ", ({})".format(self._conform_group_to_css(stops))
             conformed = conformed.replace(stops, new_stops, 1)
 

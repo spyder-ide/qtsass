@@ -33,6 +33,8 @@ class TestNotConformer(unittest.TestCase):
 class TestQLinearGradientConformer(unittest.TestCase):
 
     css_str = "qlineargradient(0, 0, 0, 0, (0 red, 1 blue))"
+    css_nostops_str = "qlineargradient(0, 0, 0, 0)"
+    qss_nostops_str = "qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0)"
     qss_singleline_str = (
         "qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0, "
         "stop: 0 red, stop: 1 blue)"
@@ -76,6 +78,12 @@ class TestQLinearGradientConformer(unittest.TestCase):
 
         c = QLinearGradientConformer()
         self.assertEqual(c.to_css(self.qss_weird_whitespace_str), self.css_str)
+
+    def test_conform_nostops_str(self):
+        """QLinearGradientConformer qss with no stops to css"""
+
+        c = QLinearGradientConformer()
+        self.assertEqual(c.to_css(self.qss_nostops_str), self.css_nostops_str)
 
 
 if __name__ == '__main__':
