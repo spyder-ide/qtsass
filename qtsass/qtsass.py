@@ -16,9 +16,9 @@ import logging
 import os
 import re
 import time
-import sass
 
 # Third party imports
+import sass
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
