@@ -52,8 +52,10 @@ conformers = [c() for c in Conformer.__subclasses__() if c is not Conformer]
 
 def css_conform(input_str):
     """
-    Conform qss to valid scss. Runs the to_css method of all Conformer
-    subclasses on the input_str. Conformers are run in order of definition.
+    Conform qss to valid scss.
+
+    Runs the to_css method of all Conformer subclasses on the input_str.
+    Conformers are run in order of definition.
 
     :param input_str: QSS string
     :returns: Valid SCSS string
@@ -68,8 +70,10 @@ def css_conform(input_str):
 
 def qt_conform(input_str):
     """
-    Conform css to valid qss. Runs the to_qss method of all Conformer
-    subclasses on the input_str. Conformers are run in reverse order.
+    Conform css to valid qss.
+
+    Runs the to_qss method of all Conformer subclasses on the input_str.
+    Conformers are run in reverse order.
 
     :param input_str: CSS string
     :returns: Valid QSS string
@@ -130,6 +134,7 @@ def rgba(r, g, b, a):
 def rgba_from_color(color):
     """
     Conform rgba
+
     :type color: sass.SassColor
     """
     return rgba(color.r, color.g, color.b, color.a)
@@ -137,6 +142,8 @@ def rgba_from_color(color):
 
 def qlineargradient(x1, y1, x2, y2, stops):
     """
+    Implementation of qss qlineargradient function for scss.
+
     :type x1: sass.SassNumber
     :type y1: sass.SassNumber
     :type x2: sass.SassNumber
