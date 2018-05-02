@@ -5,6 +5,7 @@ import sass
 import argparse
 import logging
 import os
+import re
 import time
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
@@ -34,7 +35,7 @@ class Conformer(object):
 
 
 class NotConformer(Conformer):
-    """Handle QSS "!" in selectors."""
+    """Conform QSS "!" in selectors."""
 
     def to_css(self, qss):
         """Replaces "!" in selectors with "_qnot_"."""
@@ -45,6 +46,59 @@ class NotConformer(Conformer):
         """Replaces "_qnot_" in selectors with "!"."""
 
         return css.replace(':_qnot_', ':!')
+
+
+class QLinearGradientConformer(Conformer):
+    """Conform QSS qlineargradient function."""
+
+    qss_pattern = re.compile(
+        "qlineargradient\("
+        "((?:(?:\s+)?(?:x1|y1|x2|y2):(?:\s+)?\d+,?)+)"  # coords group
+        "((?:(?:\s+)?stop:.*,?)+(?:\s+)?)?"  # stops group
+        "\)",
+        re.MULTILINE
+    )
+
+    def _conform_group_to_css(self, group):
+        """
+        Takes a qss str containing xy coords or stops and returns a str
+        containing just the values.
+
+        'x1: 0, y1: 0, x2: 0, y2: 0' => '0, 0, 0, 0'
+        'stop: 0 red, stop: 1 blue' => '0 red, 1 blue'
+        """
+        new_group = []
+        for part in group.strip().split(","):
+            if part:
+                _, value = part.split(":")
+                new_group.append(value.strip())
+        return ", ".join(new_group)
+
+    def to_css(self, qss):
+        """
+        Conform qss qlineargradient to scss qlineargradient form.
+
+        Normalizes all whitespace including the removal of newline chars.
+
+        qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0, stop: 0 red, stop: 1 blue)
+        =>
+        qlineargradient(0, 0, 0, 0, (0 red, 1 blue))
+        """
+
+        conformed = qss
+
+        for coords, stops in self.qss_pattern.findall(qss):
+            new_coords = self._conform_group_to_css(coords)
+            conformed = conformed.replace(coords, new_coords, 1)
+            new_stops = ", ({})".format(self._conform_group_to_css(stops))
+            conformed = conformed.replace(stops, new_stops, 1)
+
+        return conformed
+
+    def to_qss(self, css):
+        """Handled by qlineargradient function passed to sass.compile"""
+
+        return css
 
 
 conformers = [c() for c in Conformer.__subclasses__() if c is not Conformer]
@@ -156,7 +210,7 @@ def qlineargradient(x1, y1, x2, y2, stops):
         pos, color = stop[0]
         stops_str += " stop: {} {}".format(pos.value, rgba_from_color(color))
 
-    return "qlineargradient(x1:{}, y1:{}, x2:{}, y2:{},{})".format(
+    return "qlineargradient(x1: {}, y1: {}, x2: {}, y2: {},{})".format(
         x1.value,
         y1.value,
         x2.value,

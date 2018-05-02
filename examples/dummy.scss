@@ -8,11 +8,22 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on
     color: blue;
 }
 
+// standard qss qlineargradient syntax works
+QListView::item:selected{
+    background-color: qlineargradient(
+        x1: 0,
+        y1: 0,
+        x2: 0,
+        y2:1,
+        stop: 0.2 #3f3f3f,
+        stop: 0.8 red
+    );
+}
+
+// You may also use QtSASS syntax directly
 QTreeView::item:selected{
     $start: 0.2;
     $stops: $start #3f3f3f, $start + 0.6 red;
-    // qlineargradient syntax changes a little bit
-    // classic Qt: qlineargradient(x1: 0, y1: 0, x2: 0, y2:1, stop: 0.2 #3f3f3f, stop: 0.8 red)
     background-color: qlineargradient(0, 0, 0, 1, $stops);
     color: rgba(255, 10, 10, 0.5);
 }
