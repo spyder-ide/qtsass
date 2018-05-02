@@ -1,5 +1,15 @@
-#!/usr/bin/env
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# -----------------------------------------------------------------------------
+# Copyright (c) 2015 Yann Lanthony
+# Copyright (c) 2017-2018 Spyder Project Contributors
+#
+# Licensed under the terms of the MIT License
+# (See LICENSE.txt for details)
+# -----------------------------------------------------------------------------
+'''qtsass - Compile SCSS files to valid Qt stylesheets.'''
+
+# Standard library imports
 from __future__ import absolute_import, print_function
 import argparse
 import logging
@@ -7,6 +17,8 @@ import os
 import re
 import time
 import sass
+
+# Third party imports
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
