@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # -----------------------------------------------------------------------------
 # Copyright (c) 2015 Yann Lanthony
@@ -110,7 +109,3 @@ class TestQLinearGradientConformer(unittest.TestCase):
 
         c = QLinearGradientConformer()
         self.assertEqual(c.to_css(self.qss_vars_str), self.css_vars_str)
-
-
-if __name__ == '__main__':
-    unittest.main()
