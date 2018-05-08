@@ -1,12 +1,15 @@
 language: python
 python:
   - "2.7"
-  - "3.4"
   - "3.5"
   - "3.6"
 
 install:
   - "pip install -r requirements.txt"
+  - "pip install codecov pytest pytest-cov"
 
 script:
-  - nosetests -v -s
+  - "pytest tests/ --cov=qtsass"
+
+after_success:
+  - "codecov"
