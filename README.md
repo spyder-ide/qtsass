@@ -11,6 +11,7 @@ Compile SCSS files to valid Qt stylesheets.
 ## Build details
 
 [![Travis branch](https://img.shields.io/travis/spyder-ide/qtsass/master.svg)](https://travis-ci.org/spyder-ide/qtsass)
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/spyder-ide/qtsass/master.svg)](https://ci.appveyor.com/project/spyder-ide/qtsass)
 [![Codecov branch](https://img.shields.io/codecov/c/github/spyder-ide/qtsass/master.svg)](https://codecov.io/gh/spyder-ide/qtsass)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spyder-ide/qtsass/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spyder-ide/qtsass/?branch=master)
 
