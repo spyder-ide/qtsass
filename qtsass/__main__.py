@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # -----------------------------------------------------------------------------
 # Copyright (c) 2015 Yann Lanthony
@@ -6,13 +7,14 @@
 # Licensed under the terms of the MIT License
 # (See LICENSE.txt for details)
 # -----------------------------------------------------------------------------
+"""qtsass command line interface."""
 
 # Standard library imports
 from __future__ import absolute_import
 
 # Local imports
-from qtsass.api import compile, compile_and_save
+from qtsass import cli
 
 
-VERSION_INFO = (0, 1, 0)
-__version__ = '.'.join(map(str, VERSION_INFO))
+if __name__ == '__main__':
+    cli.main()

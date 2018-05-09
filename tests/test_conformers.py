@@ -14,7 +14,7 @@ import unittest
 from textwrap import dedent
 
 # Local imports
-from qtsass.qtsass import NotConformer, QLinearGradientConformer
+from qtsass.conformers import NotConformer, QLinearGradientConformer
 
 
 class TestNotConformer(unittest.TestCase):
@@ -22,11 +22,11 @@ class TestNotConformer(unittest.TestCase):
     qss_str = 'QAbstractItemView::item:!active'
     css_str = 'QAbstractItemView::item:_qnot_active'
 
-    def test_conform_to_css(self):
-        """NotConformer qss to css."""
+    def test_conform_to_scss(self):
+        """NotConformer qss to scss."""
 
         c = NotConformer()
-        self.assertEqual(c.to_css(self.qss_str), self.css_str)
+        self.assertEqual(c.to_scss(self.qss_str), self.css_str)
 
     def test_conform_to_qss(self):
         """NotConformer css to qss."""
@@ -38,7 +38,7 @@ class TestNotConformer(unittest.TestCase):
         """NotConformer roundtrip."""
 
         c = NotConformer()
-        conformed_css = c.to_css(self.qss_str)
+        conformed_css = c.to_scss(self.qss_str)
         self.assertEqual(c.to_qss(conformed_css), self.qss_str)
 
 
@@ -77,35 +77,35 @@ class TestQLinearGradientConformer(unittest.TestCase):
         """QLinearGradientConformer no affect on css qlineargradient func."""
 
         c = QLinearGradientConformer()
-        self.assertEqual(c.to_css(self.css_str), self.css_str)
+        self.assertEqual(c.to_scss(self.css_str), self.css_str)
         self.assertEqual(c.to_qss(self.css_str), self.css_str)
 
     def test_conform_singleline_str(self):
-        """QLinearGradientConformer singleline qss to css."""
+        """QLinearGradientConformer singleline qss to scss."""
 
         c = QLinearGradientConformer()
-        self.assertEqual(c.to_css(self.qss_singleline_str), self.css_str)
+        self.assertEqual(c.to_scss(self.qss_singleline_str), self.css_str)
 
     def test_conform_multiline_str(self):
-        """QLinearGradientConformer multiline qss to css."""
+        """QLinearGradientConformer multiline qss to scss."""
 
         c = QLinearGradientConformer()
-        self.assertEqual(c.to_css(self.qss_multiline_str), self.css_str)
+        self.assertEqual(c.to_scss(self.qss_multiline_str), self.css_str)
 
     def test_conform_weird_whitespace_str(self):
-        """QLinearGradientConformer weird whitespace qss to css."""
+        """QLinearGradientConformer weird whitespace qss to scss."""
 
         c = QLinearGradientConformer()
-        self.assertEqual(c.to_css(self.qss_weird_whitespace_str), self.css_str)
+        self.assertEqual(c.to_scss(self.qss_weird_whitespace_str), self.css_str)
 
     def test_conform_nostops_str(self):
-        """QLinearGradientConformer qss with no stops to css."""
+        """QLinearGradientConformer qss with no stops to scss."""
 
         c = QLinearGradientConformer()
-        self.assertEqual(c.to_css(self.qss_nostops_str), self.css_nostops_str)
+        self.assertEqual(c.to_scss(self.qss_nostops_str), self.css_nostops_str)
 
     def test_conform_vars_str(self):
-        """QLinearGradientConformer qss with vars to css."""
+        """QLinearGradientConformer qss with vars to scss."""
 
         c = QLinearGradientConformer()
-        self.assertEqual(c.to_css(self.qss_vars_str), self.css_vars_str)
+        self.assertEqual(c.to_scss(self.qss_vars_str), self.css_vars_str)
