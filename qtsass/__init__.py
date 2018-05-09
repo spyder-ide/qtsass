@@ -7,5 +7,12 @@
 # (See LICENSE.txt for details)
 # -----------------------------------------------------------------------------
 
+# Standard library imports
+from __future__ import absolute_import
+
+# Local imports
+from qtsass.api import compile, compile_and_save
+
+
 VERSION_INFO = (0, 1, 0)
 __version__ = '.'.join(map(str, VERSION_INFO))
