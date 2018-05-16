@@ -16,6 +16,10 @@ import os
 from qtsass.conformers import scss_conform
 
 
+def norm_path(*parts):
+    return os.path.normpath(os.path.join(*parts))
+
+
 def qss_importer(where):
     """
     Returns a function which conforms imported qss files to valid scss to be
@@ -26,17 +30,29 @@ def qss_importer(where):
 
     def find_file(import_file):
 
-        if os.path.isfile(import_file):
-            return import_file
-        extensions = ['.scss', '.css', '.sass']
-        for ext in extensions:
-            potential_file = import_file + ext
+        # Create partial import filename
+        dirname, basename = os.path.split(import_file)
+        if dirname:
+            import_partial_file = '/'.join([dirname, '_' + basename])
+        else:
+            import_partial_file = '_' + basename
+
+        # Build potential file paths for @import "import_file"
+        potential_files = []
+        for ext in ['', '.scss', '.css', '.sass']:
+            full_name = import_file + ext
+            partial_name = import_partial_file + ext
+            potential_files.append(full_name)
+            potential_files.append(partial_name)
+            potential_files.append(norm_path(where, full_name))
+            potential_files.append(norm_path(where, partial_name))
+
+        # Return first existing potential file
+        for potential_file in potential_files:
             if os.path.isfile(potential_file):
                 return potential_file
-            potential_file = os.path.join(where, import_file + ext)
-            if os.path.isfile(potential_file):
-                return potential_file
-        return import_file
+
+        return None
 
     def import_and_conform_file(import_file):
 

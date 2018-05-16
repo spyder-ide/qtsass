@@ -1,0 +1,13 @@
+QPushButton {
+    background: $background;
+    color: $accent;
+    padding: $text-padding;
+    border: 0;
+    border-radius: $border-radius;
+}
+
+QPushButton:hover,
+QPushButton:focus {
+    background: $accent;
+    color: $background;
+}

@@ -6,7 +6,7 @@
 # Licensed under the terms of the MIT License
 # (See LICENSE.txt for details)
 # -----------------------------------------------------------------------------
-"""Conform qss to compliant scss and css to valid qss."""
+"""Conform qss to compliant scss and css to valid qss."""
 
 # Standard library imports
 from __future__ import absolute_import, print_function
@@ -134,4 +134,5 @@ def qt_conform(input_str):
     conformed = input_str
     for conformer in conformers[::-1]:
         conformed = conformer.to_qss(conformed)
+
     return conformed
