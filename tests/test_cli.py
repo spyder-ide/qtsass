@@ -56,8 +56,6 @@ def invoke(args):
         stderr=PIPE,
         cwd=PROJECT_DIR
     )
-    if PY3:
-        kwargs['encoding'] = 'utf8'
     proc = Popen(['python', '-m', 'qtsass'] + args, **kwargs)
     return proc
 
@@ -67,6 +65,8 @@ def invoke_with_result(args):
 
     proc = invoke(args)
     out, err = proc.communicate()
+    out = out.decode('ascii', errors="ignore")
+    err = err.decode('ascii', errors="ignore")
     return Result(proc.returncode, out, err)
 
 
