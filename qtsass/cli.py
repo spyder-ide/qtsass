@@ -16,6 +16,7 @@ import os
 import sys
 import time
 import logging
+import signal
 
 # Local imports
 from qtsass.api import compile, compile_filename, compile_dirname, watch
@@ -25,7 +26,7 @@ logging.basicConfig(level=logging.DEBUG)
 _log = logging.getLogger(__name__)
 
 
-def main_parser():
+def create_parser():
     """Create qtsass's cli parser."""
 
     parser = argparse.ArgumentParser(
@@ -48,10 +49,10 @@ def main_parser():
     return parser
 
 
-def main():
+def main(args):
     """qtsass's cli entry point."""
 
-    args = main_parser().parse_args()
+    args = create_parser().parse_args(args)
     file_mode = os.path.isfile(args.input)
     dir_mode = os.path.isdir(args.input)
 
@@ -84,3 +85,4 @@ def main():
         except KeyboardInterrupt:
             observer.stop()
         observer.join()
+        sys.exit(0)
