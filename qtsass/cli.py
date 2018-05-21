@@ -13,22 +13,20 @@
 from __future__ import absolute_import, print_function
 import argparse
 import os
+import sys
 import time
 import logging
-
-# Third party imports
-from watchdog.observers import Observer
+import signal
 
 # Local imports
-from qtsass.api import compile_and_save
-from qtsass.events import SourceModificationEventHandler
+from qtsass.api import compile, compile_filename, compile_dirname, watch
 
 
 logging.basicConfig(level=logging.DEBUG)
 _log = logging.getLogger(__name__)
 
 
-def main_parser():
+def create_parser():
     """Create qtsass's cli parser."""
 
     parser = argparse.ArgumentParser(
@@ -51,23 +49,35 @@ def main_parser():
     return parser
 
 
-def main():
+def main(args):
     """qtsass's cli entry point."""
 
-    args = main_parser().parse_args()
-    compile_and_save(args.input, args.output)
+    args = create_parser().parse_args(args)
+    file_mode = os.path.isfile(args.input)
+    dir_mode = os.path.isdir(args.input)
+
+    if file_mode and not args.output:
+        css = compile(args.input)
+        print(css)
+        sys.exit(0)
+
+    elif file_mode:
+        compile_filename(args.input, args.output)
+
+    elif dir_mode and not args.output:
+        print('Error: missing required option: -o/--output')
+        sys.exit(1)
+
+    elif dir_mode:
+        compile_dirname(args.input, args.output)
+
+    else:
+        print('Error: input must be a file or a directory')
+        sys.exit(1)
 
     if args.watch:
-        watched_dir = os.path.abspath(os.path.dirname(args.input))
-        event_handler = SourceModificationEventHandler(
-            args.input,
-            args.output,
-            watched_dir,
-            compile_and_save
-        )
         _log.info('qtsass is watching {}...'.format(args.input))
-        observer = Observer()
-        observer.schedule(event_handler, watched_dir, recursive=False)
+        observer = watch(args.input, args.output)
         observer.start()
         try:
             while True:
@@ -75,3 +85,4 @@ def main():
         except KeyboardInterrupt:
             observer.stop()
         observer.join()
+        sys.exit(0)

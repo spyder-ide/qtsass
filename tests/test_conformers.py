@@ -6,7 +6,7 @@
 # Licensed under the terms of the MIT License
 # (See LICENSE.txt for details)
 # -----------------------------------------------------------------------------
-"""Test suite for qtsass."""
+"""Test qtsass conformers."""
 
 # Standard library imports
 from __future__ import absolute_import
