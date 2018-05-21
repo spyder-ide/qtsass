@@ -182,6 +182,8 @@ def test_watch_complex(tmpdir):
     assert touch_and_wait(input_partial)
     assert touch_and_wait(input_nested)
 
+    proc.terminate()
+
 
 def test_invalid_input():
     """CLI input is not a file or dir."""
