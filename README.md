@@ -1,18 +1,12 @@
 # qtsass
 Compile SCSS files to valid Qt stylesheets.
 
-## Project details
-
-[![GitHub license](https://img.shields.io/github/license/spyder-ide/qtsass.svg)](https://github.com/spyder-ide/qtsass/blob/master/LICENSE.txt)
-[![Join the chat at https://gitter.im/spyder-ide/public](https://badges.gitter.im/spyder-ide/spyder.svg)](https://gitter.im/spyder-ide/public)
+[![License - MIT](https://img.shields.io/github/license/spyder-ide/qtsass.svg)](./LICENSE.txt)
 [![OpenCollective Backers](https://opencollective.com/spyder/backers/badge.svg?color=blue)](#backers)
-[![OpenCollective Sponsors](https://opencollective.com/spyder/sponsors/badge.svg?color=blue)](#sponsors)
-
-## Build details
-
-[![Travis branch](https://img.shields.io/travis/spyder-ide/qtsass/master.svg)](https://travis-ci.org/spyder-ide/qtsass)
-[![AppVeyor branch](https://img.shields.io/appveyor/ci/spyder-ide/qtsass/master.svg)](https://ci.appveyor.com/project/spyder-ide/qtsass)
-[![Codecov branch](https://img.shields.io/codecov/c/github/spyder-ide/qtsass/master.svg)](https://codecov.io/gh/spyder-ide/qtsass)
+[![Join the chat at https://gitter.im/spyder-ide/public](https://badges.gitter.im/spyder-ide/spyder.svg)](https://gitter.im/spyder-ide/public)<br>
+[![Travis build status](https://img.shields.io/travis/spyder-ide/qtsass/master.svg)](https://travis-ci.org/spyder-ide/qtsass)
+[![AppVeyor build status](https://img.shields.io/appveyor/ci/spyder-ide/qtsass/master.svg)](https://ci.appveyor.com/project/spyder-ide/qtsass)
+[![Codecov coverage](https://img.shields.io/codecov/c/github/spyder-ide/qtsass/master.svg)](https://codecov.io/gh/spyder-ide/qtsass)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spyder-ide/qtsass/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spyder-ide/qtsass/?branch=master)
 
 
