@@ -50,7 +50,7 @@ def create_parser():
 
 
 def main(args):
-    """qtsass's cli entry point."""
+    """Run the CLI with the given arguments."""
 
     args = create_parser().parse_args(args)
     file_mode = os.path.isfile(args.input)

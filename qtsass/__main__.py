@@ -17,5 +17,10 @@ import sys
 from qtsass import cli
 
 
-if __name__ == '__main__':
+def entry_point():
+    """qtsass's CLI entry point."""
+
     cli.main(sys.argv[1:])
+
+if __name__ == '__main__':
+    entry_point()
