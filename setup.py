@@ -54,7 +54,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'qtsass = qtsass.cli:main'
+            'qtsass = qtsass.__main__:entry_point'
         ]
     },
     classifiers=(
