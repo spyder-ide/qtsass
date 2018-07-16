@@ -14,38 +14,16 @@ import os
 import time
 import signal
 import sys
-from os.path import join, dirname, normpath, exists, basename
+from os.path import exists, basename
 from textwrap import dedent
 from subprocess import Popen, PIPE
 from collections import namedtuple
 
+#Local imports
+from . import PROJECT_DIR, example, touch, await_condition
 
-PY3 = sys.version_info.major == 3
-PROJECT_DIR = normpath(dirname(dirname(__file__)))
+
 Result = namedtuple('Result', "code stdout stderr")
-
-
-def example(*paths):
-    """Get path to an example."""
-
-    return normpath(join(dirname(__file__), '..', 'examples', *paths))
-
-
-def touch(file):
-    """Touch a file."""
-
-    with open(file, 'a') as f:
-        os.utime(file, None)
-
-
-def await_condition(condition, timeout=2000):
-    """Return True if a condition is met in the given timeout period"""
-
-    for _ in range(timeout):
-        if condition():
-            return True
-        time.sleep(0.001)
-    return False
 
 
 def invoke(args):

@@ -11,11 +11,10 @@
 
 # Standard library imports
 from __future__ import absolute_import
-import sys
 
 # Local imports
 from qtsass import cli
 
 
 if __name__ == '__main__':
-    cli.main(sys.argv[1:])
+    cli.main()
