@@ -75,6 +75,18 @@ def test_compile_import_with_include_paths():
     qtsass.compile(IMPORT_STR, include_paths=[EXAMPLES_DIR])
 
 
+def test_compile_raises_ValueError():
+    """compile raises ValueError with invalid arguments"""
+
+    # Pass invalid type to importers - must be sequence
+    with pytest.raises(ValueError):
+        qtsass.compile(COLORS_STR, importers=lambda x: None)
+
+    # Pass invalid type to custom_functions
+    with pytest.raises(ValueError):
+        qtsass.compile(COLORS_STR, custom_functions=lambda x: None)
+
+
 def test_compile_custom_function():
     """compile string with custom_functions"""
 
