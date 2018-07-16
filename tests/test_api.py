@@ -115,3 +115,16 @@ def test_compile_dirname(tmpdir):
     qtsass.compile_dirname(example('complex'), output.strpath)
     assert exists(output.join('dark.css').strpath)
     assert exists(output.join('light.css').strpath)
+
+
+def test_watch_raises_ValueError(tmpdir):
+    """watch raises ValueError when source does not exist."""
+
+    # Watch file does not raise
+    _ = qtsass.watch(example('dummy.scss'), tmpdir.join('dummy.scss').strpath)
+
+    # Watch dir does not raise
+    _ = qtsass.watch(example('complex'), tmpdir.join('complex').strpath)
+
+    with pytest.raises(ValueError):
+        _ = qtsass.watch('does_not_exist', 'does_not_exist')

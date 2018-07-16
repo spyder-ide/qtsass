@@ -116,12 +116,12 @@ def compile_filename(input_file, output_file, **kwargs):
     with open(input_file, 'r') as f:
         string = f.read()
 
-    _log.debug('Compiling {}...'.format(input_file))
+    _log.debug('Compiling {}...'.format(os.path.normpath(input_file)))
     css = compile(string, **kwargs)
 
     with open(output_file, 'w') as css_file:
         css_file.write(css)
-        _log.info('Created CSS file {}'.format(output_file))
+        _log.info('Created CSS file {}'.format(os.path.normpath(output_file)))
 
 
 def compile_dirname(input_dir, output_dir, **kwargs):
