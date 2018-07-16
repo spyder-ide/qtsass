@@ -38,12 +38,12 @@ def compile(string, **kwargs):
 
     This function conforms QtSASS to valid SCSS before passing it to
     sass.compile. Any keyword arguments you provide will be combined with
-    qtsass's default keyword arguments and passed alone to sass.compile.
+    qtsass's default keyword arguments and passed to sass.compile.
 
     .. code-block:: python
 
-        # Simple use case
-        >>> compile("QWidget {background: rgb(0, 0, 0);}")
+        >>> import qtsass
+        >>> qtsass.compile("QWidget {background: rgb(0, 0, 0);}")
         QWidget {background:black;}
 
     :param string: QtSASS source code to conform and compile.
@@ -97,8 +97,18 @@ def compile(string, **kwargs):
         raise
 
 
-def compile_filename(input_file, dest_file, **kwargs):
-    """Compile and save QtSASS file as CSS."""
+def compile_filename(input_file, output_file, **kwargs):
+    """Compile and save QtSASS file as CSS.
+
+    .. code-block:: python
+
+        >>> import qtsass
+        >>> qtsass.compile_filename("dummy.scss", "dummy.css")
+
+    :param input_file: Path to QtSass file.
+    :param output_file: Path to write Qt compliant CSS.
+    :param kwargs: Keyword arguments to pass to sass.compile
+    """
 
     input_root = os.path.abspath(os.path.dirname(input_file))
     kwargs.setdefault('include_paths', [input_root])
@@ -109,13 +119,23 @@ def compile_filename(input_file, dest_file, **kwargs):
     _log.debug('Compiling {}...'.format(input_file))
     css = compile(string, **kwargs)
 
-    with open(dest_file, 'w') as css_file:
+    with open(output_file, 'w') as css_file:
         css_file.write(css)
-        _log.info('Created CSS file {}'.format(dest_file))
+        _log.info('Created CSS file {}'.format(output_file))
 
 
 def compile_dirname(input_dir, output_dir, **kwargs):
-    """Compiles QtSASS files in a directory including subdirectories."""
+    """Compiles QtSASS files in a directory including subdirectories.
+
+    .. code-block:: python
+
+        >>> import qtsass
+        >>> qtsass.compile_dirname("./scss", "./css")
+
+    :param input_dir: Directory containing QtSass files.
+    :param output_dir: Directory to write compiled Qt compliant CSS files to.
+    :param kwargs: Keyword arguments to pass to sass.compile
+    """
 
     kwargs.setdefault('include_paths', [input_dir])
 
