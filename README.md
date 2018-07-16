@@ -114,11 +114,11 @@ QWidget {background:black;}
 ```
 
 Arguments:
-    string: QtSASS source code to conform and compile.
-    kwargs: Keyword arguments to pass to sass.compile
+- string: QtSASS source code to conform and compile.
+- kwargs: Keyword arguments to pass to sass.compile
 
 Returns:
-    Qt compliant CSS string
+- Qt compliant CSS string
 
 ### compile_filename(input_file, dest_file, **kwargs):
 Compile and save QtSASS file as Qt compliant CSS.
@@ -130,9 +130,9 @@ Examples:
 ```
 
 Arguments:
-    input_file: Path to QtSass file.
-    dest_file: Path to destination Qt compliant CSS file.
-    kwargs: Keyword arguments to pass to sass.compile
+- input_file: Path to QtSass file.
+- dest_file: Path to destination Qt compliant CSS file.
+- kwargs: Keyword arguments to pass to sass.compile
 
 ### compile_filename(input_file, output_file, **kwargs):
 Compile and save QtSASS file as Qt compliant CSS.
@@ -144,9 +144,9 @@ Examples:
 ```
 
 Arguments:
-    input_file: Path to QtSass file.
-    output_file: Path to write Qt compliant CSS.
-    kwargs: Keyword arguments to pass to sass.compile
+- input_file: Path to QtSass file.
+- output_file: Path to write Qt compliant CSS.
+- kwargs: Keyword arguments to pass to sass.compile
 
 ### compile_dirname(input_dir, output_dir, **kwargs):
 Compiles QtSASS files in a directory including subdirectories.
@@ -157,9 +157,9 @@ Compiles QtSASS files in a directory including subdirectories.
 ```
 
 Arguments:
-    input_dir: Path to directory containing QtSass files.
-    output_dir: Directory to write compiled Qt compliant CSS files to.
-    kwargs: Keyword arguments to pass to sass.compile
+- input_dir: Path to directory containing QtSass files.
+- output_dir: Directory to write compiled Qt compliant CSS files to.
+- kwargs: Keyword arguments to pass to sass.compile
 
 ### watch(source, destination, compiler=None, recursive=True):
 Watches a source file or directory, compiling QtSass files when modified.
@@ -168,13 +168,13 @@ The compiler function defaults to compile_filename when source is a file
 and compile_dirname when source is a directory.
 
 Arguments:
-    source: Path to source QtSass file or directory.
-    destination: Path to output css file or directory.
-    compiler: Compile function (optional)
-    recursive: If True, watch subdirectories (default: True).
+- source: Path to source QtSass file or directory.
+- destination: Path to output css file or directory.
+- compiler: Compile function (optional)
+- recursive: If True, watch subdirectories (default: True).
 
 Returns: 
-    watchdog.Observer
+- watchdog.Observer
 
 
 ## Contributing
