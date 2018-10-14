@@ -49,10 +49,10 @@ def create_parser():
     return parser
 
 
-def main(args):
+def main():
     """qtsass's cli entry point."""
 
-    args = create_parser().parse_args(args)
+    args = create_parser().parse_args(sys.argv[1:])
     file_mode = os.path.isfile(args.input)
     dir_mode = os.path.isdir(args.input)
 
