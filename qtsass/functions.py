@@ -31,6 +31,10 @@ def rgba_from_color(color):
 
     :type color: sass.SassColor
     """
+    # Inner rgba() call
+    if not isinstance(color, sass.SassColor):
+        return '{}'.format(color)
+
     return rgba(color.r, color.g, color.b, color.a)
 
 
