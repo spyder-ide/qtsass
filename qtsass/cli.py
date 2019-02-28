@@ -49,15 +49,22 @@ def create_parser():
     return parser
 
 
-def main(args):
+def main():
     """qtsass's cli entry point."""
 
-    args = create_parser().parse_args(args)
+    args = create_parser().parse_args()
     file_mode = os.path.isfile(args.input)
     dir_mode = os.path.isdir(args.input)
 
     if file_mode and not args.output:
-        css = compile(args.input)
+
+        with open(args.input, 'r') as f:
+            string = f.read()
+
+        css = compile(
+            string,
+            include_paths=os.path.abspath(os.path.dirname(args.input))
+        )
         print(css)
         sys.exit(0)
 

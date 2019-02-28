@@ -20,12 +20,12 @@ def norm_path(*parts):
     return os.path.normpath(os.path.join(*parts))
 
 
-def qss_importer(where):
+def qss_importer(*include_paths):
     """
     Returns a function which conforms imported qss files to valid scss to be
     used as an importer for sass.compile.
 
-    :param where: Directory containing scss, css, and sass files
+    :param include_paths: Directorys containing scss, css, and sass files
     """
 
     def find_file(import_file):
@@ -44,8 +44,9 @@ def qss_importer(where):
             partial_name = import_partial_file + ext
             potential_files.append(full_name)
             potential_files.append(partial_name)
-            potential_files.append(norm_path(where, full_name))
-            potential_files.append(norm_path(where, partial_name))
+            for path in include_paths:
+                potential_files.append(norm_path(path, full_name))
+                potential_files.append(norm_path(path, partial_name))
 
         # Return first existing potential file
         for potential_file in potential_files:
