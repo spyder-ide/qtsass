@@ -6,7 +6,7 @@ python:
 
 install:
   - "pip install -r requirements.txt"
-  - "pip install codecov pytest pytest-cov"
+  - "pip install -U codecov pytest pytest-cov"
 
 script:
   - "pytest tests/ --cov=qtsass"
