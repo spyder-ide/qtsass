@@ -15,13 +15,13 @@ from textwrap import dedent
 import sass
 
 # Local imports
-from qtsass.api import compile_source
+from qtsass.api import compile
 
 class BaseCompileTest(unittest.TestCase):
     def compile_scss(self, str):
         # NOTE: revise for better future compatibility
         wstr = '*{{t: {0};}}'.format(str)
-        res = compile_source(wstr, __file__)
+        res = compile(wstr)
         return res.replace('* {\n  t: ', '').replace('; }\n', '')
 
 class TestRgbaFunc(BaseCompileTest):

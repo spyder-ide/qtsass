@@ -124,4 +124,4 @@ class TestQLinearGradientConformer(unittest.TestCase):
 
         c = QLinearGradientConformer()
         #self.assertEqual(c.to_scss(self.qss_rgba_str), self.css_rgba_str)
-        print('TODO: QSS to SCSS with nestest qlineargradient(rgba())')
+        print('TODO: QSS to SCSS with nested qlineargradient(rgba())')
