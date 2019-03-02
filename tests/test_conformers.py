@@ -73,6 +73,15 @@ class TestQLinearGradientConformer(unittest.TestCase):
         '   stop:0 red, stop: 1 blue )'
     )
 
+    css_rgba_str = (
+        'qlineargradient(0, 0, 0, 0,'
+        '   (0 rgba(0, 1, 2, 0.3), 0.99 rgba(7, 8, 9, 1)))'
+    )
+    qss_rgba_str = (
+        'qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0, '
+        'stop: 0 rgba(0, 1, 2, 30%), stop: 0.99 rgba(7, 8, 9, 100%))'
+    )
+
     def test_does_not_affect_css_form(self):
         """QLinearGradientConformer no affect on css qlineargradient func."""
 
@@ -109,3 +118,10 @@ class TestQLinearGradientConformer(unittest.TestCase):
 
         c = QLinearGradientConformer()
         self.assertEqual(c.to_scss(self.qss_vars_str), self.css_vars_str)
+
+    def test_conform_rgba_str(self):
+        """QLinearGradientConformer qss with vars to scss."""
+
+        c = QLinearGradientConformer()
+        #self.assertEqual(c.to_scss(self.qss_rgba_str), self.css_rgba_str)
+        print('TODO: QSS to SCSS with nested qlineargradient(rgba())')
