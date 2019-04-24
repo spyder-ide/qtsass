@@ -17,6 +17,7 @@ from io import open
 # Third party imports
 from setuptools import find_packages, setup
 
+
 HERE = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -45,13 +46,14 @@ setup(
     version=get_version(),
     description='Compile SCSS files to valid Qt stylesheets.',
     long_description=get_description(),
+    long_description_content_type='text/markdown',
     author='Yann Lanthony',
     author_email='https://github.com/yann-lty',
     maintainer='Dan Bradham',
     maintainer_email='danielbradham@gmail.com',
     url='https://github.com/spyder-ide/qtsass',
     license='MIT',
-    packages=find_packages(),
+    packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     entry_points={
         'console_scripts': [
             'qtsass = qtsass.cli:main'
@@ -60,15 +62,18 @@ setup(
     classifiers=(
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
+        'Topic :: Software Development :: Build Tools',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ),
     install_requires=[
         'libsass',
         'watchdog'
-    ]
+    ],
+    keywords='qt sass qtsass scss css stylesheets',
 )
