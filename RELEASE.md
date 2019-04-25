@@ -18,7 +18,7 @@
 * Commit changes
 
       git add .
-      git commit -m "Set release version"
+      git commit -m "Release X.X.X"
 
 * Create distributions
 
@@ -30,14 +30,14 @@
 
 * Add release tag
 
-      git tag -a vX.X.X -m 'Release version'
+      git tag -a vX.X.X -m "Release X.X.X"
 
 * Update `__init__.py` (add 'dev0' and increment minor)
 
 * Commint changes
 
       git add .
-      git commit -m "Restore dev version"
+      git commit -m "Back to work"
 
 * Push changes
     
