@@ -120,7 +120,7 @@ qtsass ./static/scss -o ./static/css -w
 
 ## API methods
 
-### compile(string, **kwargs)
+### `compile(string, **kwargs)`
 
 Conform and Compile QtSASS source code to CSS.
 
@@ -143,7 +143,7 @@ Arguments:
 Returns:
 - Qt compliant CSS string
 
-### compile_filename(input_file, dest_file, **kwargs):
+### `compile_filename(input_file, dest_file, **kwargs)`:
 
 Compile and save QtSASS file as Qt compliant CSS.
 
@@ -159,7 +159,7 @@ Arguments:
 - dest_file: Path to destination Qt compliant CSS file.
 - kwargs: Keyword arguments to pass to sass.compile
 
-### compile_filename(input_file, output_file, **kwargs):
+### `compile_filename(input_file, output_file, **kwargs)`:
 
 Compile and save QtSASS file as Qt compliant CSS.
 
@@ -175,7 +175,7 @@ Arguments:
 - output_file: Path to write Qt compliant CSS.
 - kwargs: Keyword arguments to pass to sass.compile
 
-### compile_dirname(input_dir, output_dir, **kwargs):
+### `compile_dirname(input_dir, output_dir, **kwargs)`:
 
 Compiles QtSASS files in a directory including subdirectories.
 
