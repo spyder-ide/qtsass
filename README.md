@@ -30,7 +30,7 @@ This is how it deals with Qt's specifics and how you should modify your CSS styl
 #### "!" in selectors
 Qt allows to define the style of a widget according to its states, like this:
 
-```
+```css
 QLineEdit:enabled {
 ...
 }
@@ -38,7 +38,7 @@ QLineEdit:enabled {
 
 However, a "not" state is problematic because it introduces an exclamation mark in the selector's name, which is not valid SASS/CSS:
 
-```
+```css
 QLineEdit:!editable {
 ...
 }
@@ -48,8 +48,8 @@ QtSASS allows "!" in selectors' names; the SASS file is preprocessed and any occ
 However, using this feature prevents from having a 100% valid SASS file, so this support of `!` might change in the future.
 This can be replaced by the direct use of the `_qnot_` keyword in your SASS file:
 
-```
-QLineEdit:_qnot_editable { # will generate QLineEdit:!editable {
+```css
+QLineEdit:_qnot_editable { /* will generate QLineEdit:!editable { */
 ...
 }
 ```
@@ -57,13 +57,13 @@ QLineEdit:_qnot_editable { # will generate QLineEdit:!editable {
 #### qlineargradient
 The qlineargradient function also has a non-valid CSS syntax.
 
-```
+```css
 qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.1 blue, stop: 0.8 green)
 ```
 
 To support qlineargradient QtSASS provides a preprocessor and a SASS implementation of the qlineargradient function. The above QSS syntax will be replaced with the following:
 
-```
+```css
 qlineargradient(0, 0, 0, 1, (0.1 blue, 0.8 green))
 ```
 
@@ -79,13 +79,13 @@ qlineargradient(0, 0, 0, 0, $stops)
 #### qrgba
 Qt's rgba:
 
-```
+```css
 rgba(255, 128, 128, 50%)
 ```
 
 is replaced by CSS rgba:
 
-```
+```css
 rgba(255, 128, 128, 0.5)
 ```
 
@@ -114,7 +114,7 @@ qtsass ./static/scss -o ./static/css
 
 You can also use watch mode to watch the entire directory for changes.
 
-```
+```bash
 qtsass ./static/scss -o ./static/css -w
 ```
 
@@ -130,7 +130,7 @@ qtsass's default keyword arguments and passed to sass.compile.
 
 Examples:
 
-```
+```bash
 >>> import qtsass
 >>> qtsass.compile("QWidget {background: rgb(0, 0, 0);}")
 QWidget {background:black;}
@@ -149,7 +149,7 @@ Compile and save QtSASS file as Qt compliant CSS.
 
 Examples:
 
-```
+```bash
 >>> import qtsass
 >>> qtsass.compile_filename('dummy.scss', 'dummy.css') 
 ```
@@ -165,7 +165,7 @@ Compile and save QtSASS file as Qt compliant CSS.
 
 Examples:
 
-```
+```bash
 >>> import qtsass
 >>> qtsass.compile_filename('dummy.scss', 'dummy.css') 
 ```
@@ -179,7 +179,7 @@ Arguments:
 
 Compiles QtSASS files in a directory including subdirectories.
 
-```
+```bash
 >>> import qtsass
 >>> qtsass.compile_dirname("./scss", "./css")
 ```
