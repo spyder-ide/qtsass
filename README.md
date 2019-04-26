@@ -9,6 +9,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spyder-ide/qtsass/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spyder-ide/qtsass/?branch=master)
 
 *Copyright © 2015 Yann Lanthony*
+
 *Copyright © 2017–2018 Spyder Project Contributors*
 
 
@@ -28,20 +29,25 @@ This is how it deals with Qt's specifics and how you should modify your CSS styl
 
 #### "!" in selectors
 Qt allows to define the style of a widget according to its states, like this:
+
 ```
 QLineEdit:enabled {
 ...
 }
 ```
+
 However, a "not" state is problematic because it introduces an exclamation mark in the selector's name, which is not valid SASS/CSS:
+
 ```
 QLineEdit:!editable {
 ...
 }
 ```
+
 QtSASS allows "!" in selectors' names; the SASS file is preprocessed and any occurence of `:!` is replaced by `:_qnot_` (for "Qt not").
 However, using this feature prevents from having a 100% valid SASS file, so this support of `!` might change in the future.
 This can be replaced by the direct use of the `_qnot_` keyword in your SASS file:
+
 ```
 QLineEdit:_qnot_editable { # will generate QLineEdit:!editable {
 ...
@@ -50,14 +56,19 @@ QLineEdit:_qnot_editable { # will generate QLineEdit:!editable {
 
 #### qlineargradient
 The qlineargradient function also has a non-valid CSS syntax.
+
 ```
 qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.1 blue, stop: 0.8 green)
 ```
+
 To support qlineargradient QtSASS provides a preprocessor and a SASS implementation of the qlineargradient function. The above QSS syntax will be replaced with the following:
+
 ```
 qlineargradient(0, 0, 0, 1, (0.1 blue, 0.8 green))
 ```
+
 You may also use this syntax directly in your QtSASS.
+
 ```
 qlineargradient(0, 0, 0, 1, (0.1 blue, 0.8 green))
 # the stops parameter is a list, so you can also use variables:
@@ -67,10 +78,13 @@ qlineargradient(0, 0, 0, 0, $stops)
 
 #### qrgba
 Qt's rgba:
+
 ```
 rgba(255, 128, 128, 50%)
 ```
+
 is replaced by CSS rgba:
+
 ```
 rgba(255, 128, 128, 0.5)
 ```
@@ -79,27 +93,35 @@ rgba(255, 128, 128, 0.5)
 ## Executable usage
 
 To compile your SASS stylesheet to a Qt compliant CSS file:
-```
+
+```bash
 # If -o is omitted, output will be printed to console
 qtsass style.scss -o style.css
 ```
+
 To use the watch mode and get your stylesheet auto recompiled on each file save:
-```
+
+```bash
 # If -o is omitted, output will be print to console
 qtsass style.scss -o style.css -w
 ```
+
 To compile a directory containing SASS stylesheets to Qt compliant CSS files:
-```
+
+```bash
 qtsass ./static/scss -o ./static/css
 ```
+
 You can also use watch mode to watch the entire directory for changes.
+
 ```
 qtsass ./static/scss -o ./static/css -w
 ```
 
-## Api methods
+## API methods
 
-### compile(string, **kwargs)
+### `compile(string, **kwargs)`
+
 Conform and Compile QtSASS source code to CSS.
 
 This function conforms QtSASS to valid SCSS before passing it to
@@ -107,6 +129,7 @@ sass.compile. Any keyword arguments you provide will be combined with
 qtsass's default keyword arguments and passed to sass.compile.
 
 Examples:
+
 ```
 >>> import qtsass
 >>> qtsass.compile("QWidget {background: rgb(0, 0, 0);}")
@@ -120,10 +143,12 @@ Arguments:
 Returns:
 - Qt compliant CSS string
 
-### compile_filename(input_file, dest_file, **kwargs):
+### `compile_filename(input_file, dest_file, **kwargs)`:
+
 Compile and save QtSASS file as Qt compliant CSS.
 
 Examples:
+
 ```
 >>> import qtsass
 >>> qtsass.compile_filename('dummy.scss', 'dummy.css') 
@@ -134,10 +159,12 @@ Arguments:
 - dest_file: Path to destination Qt compliant CSS file.
 - kwargs: Keyword arguments to pass to sass.compile
 
-### compile_filename(input_file, output_file, **kwargs):
+### `compile_filename(input_file, output_file, **kwargs)`:
+
 Compile and save QtSASS file as Qt compliant CSS.
 
 Examples:
+
 ```
 >>> import qtsass
 >>> qtsass.compile_filename('dummy.scss', 'dummy.css') 
@@ -148,7 +175,8 @@ Arguments:
 - output_file: Path to write Qt compliant CSS.
 - kwargs: Keyword arguments to pass to sass.compile
 
-### compile_dirname(input_dir, output_dir, **kwargs):
+### `compile_dirname(input_dir, output_dir, **kwargs)`:
+
 Compiles QtSASS files in a directory including subdirectories.
 
 ```
@@ -182,15 +210,15 @@ Returns:
 Everyone is welcome to contribute!
 
 
-## Backers
-
-Support us with a monthly donation and help us continue our activities.
-
-[![Backers](https://opencollective.com/spyder/backers.svg)](https://opencollective.com/spyder#support)
-
-
 ## Sponsors
 
-Become a sponsor to get your logo on our README on Github.
+Spyder and its subprojects are funded thanks to the generous support of
+
+[![Quansight](https://static.wixstatic.com/media/095d2c_2508c560e87d436ea00357abc404cf1d~mv2.png/v1/crop/x_0,y_9,w_915,h_329/fill/w_380,h_128,al_c,usm_0.66_1.00_0.01/095d2c_2508c560e87d436ea00357abc404cf1d~mv2.png)](https://www.quansight.com/)[![Numfocus](https://i2.wp.com/numfocus.org/wp-content/uploads/2017/07/NumFocus_LRG.png?fit=320%2C148&ssl=1)](https://numfocus.org/)
+
+
+and the donations we have received from our users around the world through [Open Collective](https://opencollective.com/spyder/):
 
 [![Sponsors](https://opencollective.com/spyder/sponsors.svg)](https://opencollective.com/spyder#support)
+
+Please consider becoming a sponsor!
