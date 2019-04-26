@@ -121,6 +121,7 @@ qtsass ./static/scss -o ./static/css -w
 ## API methods
 
 ### compile(string, **kwargs)
+
 Conform and Compile QtSASS source code to CSS.
 
 This function conforms QtSASS to valid SCSS before passing it to
@@ -143,6 +144,7 @@ Returns:
 - Qt compliant CSS string
 
 ### compile_filename(input_file, dest_file, **kwargs):
+
 Compile and save QtSASS file as Qt compliant CSS.
 
 Examples:
@@ -158,6 +160,7 @@ Arguments:
 - kwargs: Keyword arguments to pass to sass.compile
 
 ### compile_filename(input_file, output_file, **kwargs):
+
 Compile and save QtSASS file as Qt compliant CSS.
 
 Examples:
@@ -173,6 +176,7 @@ Arguments:
 - kwargs: Keyword arguments to pass to sass.compile
 
 ### compile_dirname(input_dir, output_dir, **kwargs):
+
 Compiles QtSASS files in a directory including subdirectories.
 
 ```
