@@ -14,5 +14,5 @@ from __future__ import absolute_import
 from qtsass.api import compile, compile_filename, compile_dirname, watch
 
 
-VERSION_INFO = (0, 1, 1)
+VERSION_INFO = (0, 1, 2, 'dev0')
 __version__ = '.'.join(map(str, VERSION_INFO))
