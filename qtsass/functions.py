@@ -8,9 +8,13 @@
 # -----------------------------------------------------------------------------
 """Libsass functions."""
 
+# yapf: disable
+
 # Third party imports
 import sass
 
+
+# yapf: enable
 
 def rgba(r, g, b, a):
     result = 'rgba({}, {}, {}, {}%)'

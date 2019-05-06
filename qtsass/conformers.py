@@ -8,10 +8,15 @@
 # -----------------------------------------------------------------------------
 """Conform qss to compliant scss and css to valid qss."""
 
-# Standard library imports
+# yapf: disable
+
 from __future__ import absolute_import, print_function
+
+# Standard library imports
 import re
 
+
+# yapf: enable
 
 class Conformer(object):
     """Base class for all text transformations."""

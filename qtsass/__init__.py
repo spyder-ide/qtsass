@@ -7,12 +7,16 @@
 # (See LICENSE.txt for details)
 # -----------------------------------------------------------------------------
 
-# Standard library imports
+# yapf: disable
+
 from __future__ import absolute_import
 
 # Local imports
-from qtsass.api import compile, compile_filename, compile_dirname, watch
+from qtsass.api import compile, compile_dirname, compile_filename, watch
 
 
+# yapf: enable
+
+# Constants
 VERSION_INFO = (0, 1, 2, 'dev0')
 __version__ = '.'.join(map(str, VERSION_INFO))

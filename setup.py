@@ -10,9 +10,9 @@
 """Setup script for qtsass."""
 
 # Standard library imports
+from io import open
 import ast
 import os
-from io import open
 
 # Third party imports
 from setuptools import find_packages, setup

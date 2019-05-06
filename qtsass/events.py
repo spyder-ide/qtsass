@@ -8,9 +8,13 @@
 # -----------------------------------------------------------------------------
 """Source files event handler."""
 
+# yapf: disable
+
 # Third party imports
 from watchdog.events import FileSystemEventHandler
 
+
+# yapf: enable
 
 class SourceEventHandler(FileSystemEventHandler):
 
