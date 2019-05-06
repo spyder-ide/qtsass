@@ -30,11 +30,12 @@ def norm_path(*parts):
 def qss_importer(*include_paths):
     """
     Return function which conforms imported qss files to valid scss.
-    
+
     This fucntion is to be used as an importer for sass.compile.
 
-    :param include_paths: Directorys containing scss, css, and sass files
+    :param include_paths: Directorys containing scss, css, and sass files.
     """
+    include_paths
 
     def find_file(import_file):
         # Create partial import filename

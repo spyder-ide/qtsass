@@ -1,0 +1,6 @@
+isort
+pycodestyle
+pydocstyle
+pytest
+pytest-cov
+yapf
