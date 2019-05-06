@@ -33,7 +33,6 @@ _log = logging.getLogger(__name__)
 
 def create_parser():
     """Create qtsass's cli parser."""
-
     parser = argparse.ArgumentParser(
         prog='QtSASS',
         description='Compile a Qt compliant CSS file from a SASS stylesheet.',
@@ -55,8 +54,7 @@ def create_parser():
 
 
 def main():
-    """qtsass's cli entry point."""
-
+    """CLI entry point."""
     args = create_parser().parse_args()
     file_mode = os.path.isfile(args.input)
     dir_mode = os.path.isdir(args.input)

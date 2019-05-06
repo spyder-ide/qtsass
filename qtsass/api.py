@@ -13,7 +13,8 @@
 from __future__ import absolute_import, print_function
 
 # Standard library imports
-from collections import Mapping, Sequence
+from __future__ import absolute_import, print_function
+from collections import Sequence, Mapping
 import logging
 import os
 
@@ -27,14 +28,16 @@ from qtsass.events import SourceEventHandler
 from qtsass.functions import qlineargradient, rgba
 from qtsass.importers import qss_importer
 
-
 # yapf: enable
 
-logging.basicConfig(level=logging.DEBUG)
-_log = logging.getLogger(__name__)
 
+# Constants
 DEFAULT_CUSTOM_FUNCTIONS = {'qlineargradient': qlineargradient, 'rgba': rgba}
 DEFAULT_SOURCE_COMMENTS = False
+
+# Logger setup
+logging.basicConfig(level=logging.DEBUG)
+_log = logging.getLogger(__name__)
 
 
 def compile(string, **kwargs):
@@ -55,7 +58,6 @@ def compile(string, **kwargs):
     :param kwargs: Keyword arguments to pass to sass.compile
     :returns: CSS string
     """
-
     kwargs.setdefault('source_comments', DEFAULT_SOURCE_COMMENTS)
     kwargs.setdefault('custom_functions', [])
     kwargs.setdefault('importers', [])
@@ -114,7 +116,6 @@ def compile_filename(input_file, output_file, **kwargs):
     :param output_file: Path to write Qt compliant CSS.
     :param kwargs: Keyword arguments to pass to sass.compile
     """
-
     input_root = os.path.abspath(os.path.dirname(input_file))
     kwargs.setdefault('include_paths', [input_root])
 
@@ -141,7 +142,6 @@ def compile_dirname(input_dir, output_dir, **kwargs):
     :param output_dir: Directory to write compiled Qt compliant CSS files to.
     :param kwargs: Keyword arguments to pass to sass.compile
     """
-
     kwargs.setdefault('include_paths', [input_dir])
 
     def is_valid(file):
@@ -177,7 +177,6 @@ def watch(source, destination, compiler=None, recursive=True):
     :param recursive: If True, watch subdirectories (default: True).
     :returns: watchdog.Observer
     """
-
     if os.path.isfile(source):
         watch_dir = os.path.dirname(source)
         compiler = compiler or compile_filename

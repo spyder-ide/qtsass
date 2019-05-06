@@ -6,6 +6,16 @@
 # Licensed under the terms of the MIT License
 # (See LICENSE.txt for details)
 # -----------------------------------------------------------------------------
+"""
+The SASS language brings countless amazing features to CSS.
+
+Besides being used in web development, CSS is also the way to stylize Qt-based
+desktop applications. However, Qt's CSS has a few variations that prevent the
+direct use of SASS compiler.
+
+The purpose of qtsass is to fill the gap between SASS and Qt-CSS by handling
+those variations.
+"""
 
 # yapf: disable
 

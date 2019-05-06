@@ -23,12 +23,10 @@ class Conformer(object):
 
     def to_scss(self, qss):
         """Transform some qss to valid scss."""
-
         return NotImplemented
 
     def to_qss(self, css):
         """Transform some css to valid qss."""
-
         return NotImplemented
 
 
@@ -36,13 +34,11 @@ class NotConformer(Conformer):
     """Conform QSS "!" in selectors."""
 
     def to_scss(self, qss):
-        """Replaces "!" in selectors with "_qnot_"."""
-
+        """Replace "!" in selectors with "_qnot_"."""
         return qss.replace(':!', ':_qnot_')
 
     def to_qss(self, css):
-        """Replaces "_qnot_" in selectors with "!"."""
-
+        """Replace "_qnot_" in selectors with "!"."""
         return css.replace(':_qnot_', ':!')
 
 
@@ -59,8 +55,7 @@ class QLinearGradientConformer(Conformer):
 
     def _conform_group_to_scss(self, group):
         """
-        Takes a qss str containing xy coords or stops and returns a str
-        containing just the values.
+        Take a qss str with xy coords/stops and return the values.
 
         'x1: 0, y1: 0, x2: 0, y2: 0' => '0, 0, 0, 0'
         'stop: 0 red, stop: 1 blue' => '0 red, 1 blue'
@@ -76,13 +71,12 @@ class QLinearGradientConformer(Conformer):
         """
         Conform qss qlineargradient to scss qlineargradient form.
 
-        Normalizes all whitespace including the removal of newline chars.
+        Normalize all whitespace including the removal of newline chars.
 
         qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0, stop: 0 red, stop: 1 blue)
         =>
         qlineargradient(0, 0, 0, 0, (0 red, 1 blue))
         """
-
         conformed = qss
 
         for coords, stops in self.qss_pattern.findall(qss):
@@ -99,8 +93,7 @@ class QLinearGradientConformer(Conformer):
         return conformed
 
     def to_qss(self, css):
-        """Handled by qlineargradient function passed to sass.compile"""
-
+        """Transform to qss from css."""
         return css
 
 
@@ -117,7 +110,6 @@ def scss_conform(input_str):
     :param input_str: QSS string
     :returns: Valid SCSS string
     """
-
     conformed = input_str
     for conformer in conformers:
         conformed = conformer.to_scss(conformed)
@@ -135,7 +127,6 @@ def qt_conform(input_str):
     :param input_str: CSS string
     :returns: Valid QSS string
     """
-
     conformed = input_str
     for conformer in conformers[::-1]:
         conformed = conformer.to_qss(conformed)
