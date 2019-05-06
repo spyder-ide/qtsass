@@ -13,6 +13,7 @@ import sass
 
 
 def rgba(r, g, b, a):
+    """Convert r,g,b,a values to standard format."""
     result = 'rgba({}, {}, {}, {}%)'
     if isinstance(r, sass.SassNumber):
         return result.format(
@@ -27,7 +28,7 @@ def rgba(r, g, b, a):
 
 def rgba_from_color(color):
     """
-    Conform rgba
+    Conform rgba.
 
     :type color: sass.SassColor
     """
@@ -40,7 +41,7 @@ def rgba_from_color(color):
 
 def qlineargradient(x1, y1, x2, y2, stops):
     """
-    Implementation of qss qlineargradient function for scss.
+    Implement qss qlineargradient function for scss.
 
     :type x1: sass.SassNumber
     :type y1: sass.SassNumber
@@ -49,7 +50,6 @@ def qlineargradient(x1, y1, x2, y2, stops):
     :type stops: sass.SassList
     :return:
     """
-
     stops_str = []
     for stop in stops[0]:
         pos, color = stop[0]

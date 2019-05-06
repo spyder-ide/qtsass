@@ -43,7 +43,6 @@ class NotConformer(Conformer):
 
 class QLinearGradientConformer(Conformer):
     """Conform QSS qlineargradient function."""
-
     qss_pattern = re.compile(
         'qlineargradient\('
         '((?:(?:\s+)?(?:x1|y1|x2|y2):(?:\s+)?[0-9A-Za-z$_-]+,?)+)'  # coords
@@ -77,7 +76,6 @@ class QLinearGradientConformer(Conformer):
         =>
         qlineargradient(0, 0, 0, 0, (0 red, 1 blue))
         """
-
         conformed = qss
 
         for coords, stops in self.qss_pattern.findall(qss):
@@ -112,7 +110,6 @@ def scss_conform(input_str):
     :param input_str: QSS string
     :returns: Valid SCSS string
     """
-
     conformed = input_str
     for conformer in conformers:
         conformed = conformer.to_scss(conformed)
@@ -130,7 +127,6 @@ def qt_conform(input_str):
     :param input_str: CSS string
     :returns: Valid QSS string
     """
-
     conformed = input_str
     for conformer in conformers[::-1]:
         conformed = conformer.to_qss(conformed)
