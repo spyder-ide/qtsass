@@ -18,6 +18,7 @@ import re
 
 # yapf: enable
 
+
 class Conformer(object):
     """Base class for all text transformations."""
 
@@ -50,7 +51,7 @@ class QLinearGradientConformer(Conformer):
         r'((?:(?:\s+)?(?:x1|y1|x2|y2):(?:\s+)?[0-9A-Za-z$_-]+,?)+)'  # coords
         r'((?:(?:\s+)?stop:.*,?)+(?:\s+)?)?'  # stops
         r'\)',
-        re.MULTILINE
+        re.MULTILINE,
     )
 
     def _conform_group_to_scss(self, group):
@@ -80,7 +81,6 @@ class QLinearGradientConformer(Conformer):
         conformed = qss
 
         for coords, stops in self.qss_pattern.findall(qss):
-
             new_coords = self._conform_group_to_scss(coords)
             conformed = conformed.replace(coords, new_coords, 1)
 
