@@ -8,10 +8,15 @@
 # -----------------------------------------------------------------------------
 """Conform qss to compliant scss and css to valid qss."""
 
-# Standard library imports
+# yapf: disable
+
 from __future__ import absolute_import, print_function
+
+# Standard library imports
 import re
 
+
+# yapf: enable
 
 class Conformer(object):
     """Base class for all text transformations."""
@@ -44,10 +49,10 @@ class NotConformer(Conformer):
 class QLinearGradientConformer(Conformer):
     """Conform QSS qlineargradient function."""
     qss_pattern = re.compile(
-        'qlineargradient\('
-        '((?:(?:\s+)?(?:x1|y1|x2|y2):(?:\s+)?[0-9A-Za-z$_-]+,?)+)'  # coords
-        '((?:(?:\s+)?stop:.*,?)+(?:\s+)?)?'  # stops
-        '\)',
+        r'qlineargradient\('
+        r'((?:(?:\s+)?(?:x1|y1|x2|y2):(?:\s+)?[0-9A-Za-z$_-]+,?)+)'  # coords
+        r'((?:(?:\s+)?stop:.*,?)+(?:\s+)?)?'  # stops
+        r'\)',
         re.MULTILINE
     )
 

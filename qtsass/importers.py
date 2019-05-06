@@ -8,13 +8,18 @@
 # -----------------------------------------------------------------------------
 """Libsass importers."""
 
-# Standard library imports
+# yapf: disable
+
 from __future__ import absolute_import
+
+# Standard library imports
 import os
 
 # Local imports
 from qtsass.conformers import scss_conform
 
+
+# yapf: enable
 
 def norm_path(*parts):
     return os.path.normpath(os.path.join(*parts))

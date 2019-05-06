@@ -8,6 +8,10 @@
 # -----------------------------------------------------------------------------
 """qtsass - Compile SCSS files to valid Qt stylesheets."""
 
+# yapf: disable
+
+from __future__ import absolute_import, print_function
+
 # Standard library imports
 from __future__ import absolute_import, print_function
 from collections import Sequence, Mapping
@@ -15,14 +19,17 @@ import logging
 import os
 
 # Third party imports
-import sass
 from watchdog.observers import Observer
+import sass
 
 # Local imports
-from qtsass.conformers import scss_conform, qt_conform
+from qtsass.conformers import qt_conform, scss_conform
+from qtsass.events import SourceEventHandler
 from qtsass.functions import qlineargradient, rgba
 from qtsass.importers import qss_importer
-from qtsass.events import SourceEventHandler
+
+# yapf: enable
+
 
 # Constants
 DEFAULT_CUSTOM_FUNCTIONS = {'qlineargradient': qlineargradient, 'rgba': rgba}

@@ -8,8 +8,9 @@
 # -----------------------------------------------------------------------------
 """Test qtsass api."""
 
-# Standard library imports
 from __future__ import absolute_import
+
+# Standard library imports
 from os.path import exists
 
 # Third party imports
@@ -17,8 +18,9 @@ import pytest
 import sass
 
 # Local imports
-from . import PROJECT_DIR, EXAMPLES_DIR, example
 import qtsass
+
+from . import EXAMPLES_DIR, PROJECT_DIR, example
 
 
 COLORS_STR = """

@@ -8,14 +8,18 @@
 # -----------------------------------------------------------------------------
 """Test qtsass conformers."""
 
-# Standard library imports
 from __future__ import absolute_import
-import unittest
+
+# Standard library imports
 from textwrap import dedent
+import unittest
+
+# Third party imports
 import sass
 
 # Local imports
 from qtsass.api import compile
+
 
 class BaseCompileTest(unittest.TestCase):
     def compile_scss(self, str):

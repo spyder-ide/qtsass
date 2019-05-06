@@ -8,9 +8,13 @@
 # -----------------------------------------------------------------------------
 """Libsass functions."""
 
+# yapf: disable
+
 # Third party imports
 import sass
 
+
+# yapf: enable
 
 def rgba(r, g, b, a):
     """Convert r,g,b,a values to standard format."""
@@ -53,7 +57,11 @@ def qlineargradient(x1, y1, x2, y2, stops):
     stops_str = []
     for stop in stops[0]:
         pos, color = stop[0]
-        stops_str.append('stop: {} {}'.format(pos.value, rgba_from_color(color)))
+        stops_str.append('stop: {} {}'.format(
+            pos.value,
+            rgba_from_color(color),
+            )
+        )
 
     return 'qlineargradient(x1: {}, y1: {}, x2: {}, y2: {}, {})'.format(
         x1.value,

@@ -8,10 +8,11 @@
 # -----------------------------------------------------------------------------
 """Test qtsass conformers."""
 
-# Standard library imports
 from __future__ import absolute_import
-import unittest
+
+# Standard library imports
 from textwrap import dedent
+import unittest
 
 # Local imports
 from qtsass.conformers import NotConformer, QLinearGradientConformer
