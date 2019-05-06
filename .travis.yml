@@ -6,9 +6,10 @@ python:
 
 install:
   - "pip install -r requirements.txt"
-  - "pip install -U codecov pytest pytest-cov"
+  - "pip install -r requirements-dev.txt"
 
 script:
+  - "python run_checks_and_format.py"
   - "pytest tests/ --cov=qtsass"
 
 after_success:
