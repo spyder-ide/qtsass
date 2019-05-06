@@ -22,19 +22,19 @@ from qtsass.conformers import scss_conform
 # yapf: enable
 
 def norm_path(*parts):
+    """Normalize path."""
     return os.path.normpath(os.path.join(*parts))
 
 
 def qss_importer(*include_paths):
     """
-    Returns a function which conforms imported qss files to valid scss to be
-    used as an importer for sass.compile.
+    Return function which conforms imported qss files to valid scss.
+    
+    This fucntion is to be used as an importer for sass.compile.
 
     :param include_paths: Directorys containing scss, css, and sass files
     """
-
     def find_file(import_file):
-
         # Create partial import filename
         dirname, basename = os.path.split(import_file)
         if dirname:
@@ -61,7 +61,7 @@ def qss_importer(*include_paths):
         return None
 
     def import_and_conform_file(import_file):
-
+        """Return base file and conformed scss file."""
         real_import_file = find_file(import_file)
         with open(real_import_file, 'r') as f:
             import_str = f.read()
