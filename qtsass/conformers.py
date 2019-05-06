@@ -45,10 +45,10 @@ class QLinearGradientConformer(Conformer):
     """Conform QSS qlineargradient function."""
 
     qss_pattern = re.compile(
-        'qlineargradient\('
-        '((?:(?:\s+)?(?:x1|y1|x2|y2):(?:\s+)?[0-9A-Za-z$_-]+,?)+)'  # coords
-        '((?:(?:\s+)?stop:.*,?)+(?:\s+)?)?'  # stops
-        '\)',
+        r'qlineargradient\('
+        r'((?:(?:\s+)?(?:x1|y1|x2|y2):(?:\s+)?[0-9A-Za-z$_-]+,?)+)'  # coords
+        r'((?:(?:\s+)?stop:.*,?)+(?:\s+)?)?'  # stops
+        r'\)',
         re.MULTILINE
     )
 
