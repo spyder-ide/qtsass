@@ -8,9 +8,9 @@
 # -----------------------------------------------------------------------------
 
 # Standard library imports
+from os.path import dirname, join, normpath
 import os
 import time
-from os.path import normpath, join, dirname
 
 
 PROJECT_DIR = normpath(dirname(dirname(__file__)))
@@ -38,5 +38,3 @@ def await_condition(condition, timeout=2000):
             return True
         time.sleep(0.001)
     return False
-
-

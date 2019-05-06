@@ -8,19 +8,20 @@
 # -----------------------------------------------------------------------------
 """Test qtsass cli."""
 
-# Standard library imports
 from __future__ import absolute_import
+
+# Standard library imports
+from collections import namedtuple
+from os.path import basename, exists
+from subprocess import PIPE, Popen
+from textwrap import dedent
 import os
-import time
 import signal
 import sys
-from os.path import exists, basename
-from textwrap import dedent
-from subprocess import Popen, PIPE
-from collections import namedtuple
+import time
 
 #Local imports
-from . import PROJECT_DIR, example, touch, await_condition
+from . import PROJECT_DIR, await_condition, example, touch
 
 
 Result = namedtuple('Result', "code stdout stderr")

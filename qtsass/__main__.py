@@ -9,12 +9,15 @@
 # -----------------------------------------------------------------------------
 """qtsass command line interface."""
 
-# Standard library imports
+# yapf: disable
+
 from __future__ import absolute_import
 
 # Local imports
 from qtsass import cli
 
+
+# yapf: enable
 
 if __name__ == '__main__':
     cli.main()

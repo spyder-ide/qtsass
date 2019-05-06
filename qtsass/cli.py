@@ -9,18 +9,23 @@
 # -----------------------------------------------------------------------------
 """qtsass command line interface."""
 
-# Standard library imports
+# yapf: disable
+
 from __future__ import absolute_import, print_function
+
+# Standard library imports
 import argparse
+import logging
 import os
+import signal
 import sys
 import time
-import logging
-import signal
 
 # Local imports
-from qtsass.api import compile, compile_filename, compile_dirname, watch
+from qtsass.api import compile, compile_dirname, compile_filename, watch
 
+
+# yapf: enable
 
 logging.basicConfig(level=logging.DEBUG)
 _log = logging.getLogger(__name__)
