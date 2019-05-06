@@ -13,8 +13,7 @@
 from __future__ import absolute_import, print_function
 
 # Standard library imports
-from __future__ import absolute_import, print_function
-from collections import Sequence, Mapping
+from collections import Mapping, Sequence
 import logging
 import os
 
@@ -28,8 +27,8 @@ from qtsass.events import SourceEventHandler
 from qtsass.functions import qlineargradient, rgba
 from qtsass.importers import qss_importer
 
-# yapf: enable
 
+# yapf: enable
 
 # Constants
 DEFAULT_CUSTOM_FUNCTIONS = {'qlineargradient': qlineargradient, 'rgba': rgba}
@@ -65,29 +64,23 @@ def compile(string, **kwargs):
 
     # Add QtSass importers
     if isinstance(kwargs['importers'], Sequence):
-        kwargs['importers'] = (
-            list(kwargs['importers']) +
-            [(0, qss_importer(*kwargs['include_paths']))]
-        )
+        kwargs['importers'] = (list(kwargs['importers']) +
+                               [(0, qss_importer(*kwargs['include_paths']))])
     else:
-        raise ValueError(
-            'Expected Sequence for importers '
-            'got {}'.format(type(kwargs['importers']))
-        )
+        raise ValueError('Expected Sequence for importers '
+                         'got {}'.format(type(kwargs['importers'])))
 
     # Add QtSass custom_functions
     if isinstance(kwargs['custom_functions'], Sequence):
         kwargs['custom_functions'] = dict(
             DEFAULT_CUSTOM_FUNCTIONS,
-            **{fn.__name__: fn for fn in kwargs['custom_functions']}
-        )
+            **{fn.__name__: fn
+               for fn in kwargs['custom_functions']})
     elif isinstance(kwargs['custom_functions'], Mapping):
         kwargs['custom_functions'].update(DEFAULT_CUSTOM_FUNCTIONS)
     else:
-        raise ValueError(
-            'Expected Sequence or Mapping for custom_functions '
-            'got {}'.format(type(kwargs['custom_functions']))
-        )
+        raise ValueError('Expected Sequence or Mapping for custom_functions '
+                         'got {}'.format(type(kwargs['custom_functions'])))
 
     # Conform QtSass source code
     try:

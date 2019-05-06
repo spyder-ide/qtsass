@@ -16,6 +16,7 @@ from watchdog.events import FileSystemEventHandler
 
 # yapf: enable
 
+
 class SourceEventHandler(FileSystemEventHandler):
     """Source event hanlder."""
 

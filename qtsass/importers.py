@@ -21,6 +21,7 @@ from qtsass.conformers import scss_conform
 
 # yapf: enable
 
+
 def norm_path(*parts):
     """Normalize path."""
     return os.path.normpath(os.path.join(*parts))
@@ -34,6 +35,7 @@ def qss_importer(*include_paths):
 
     :param include_paths: Directorys containing scss, css, and sass files
     """
+
     def find_file(import_file):
         # Create partial import filename
         dirname, basename = os.path.split(import_file)

@@ -16,16 +16,13 @@ import sass
 
 # yapf: enable
 
+
 def rgba(r, g, b, a):
     """Convert r,g,b,a values to standard format."""
     result = 'rgba({}, {}, {}, {}%)'
     if isinstance(r, sass.SassNumber):
         return result.format(
-            int(r.value),
-            int(g.value),
-            int(b.value),
-            int(a.value * 100)
-        )
+            int(r.value), int(g.value), int(b.value), int(a.value * 100))
     elif isinstance(r, float):
         return result.format(int(r), int(g), int(b), int(a * 100))
 
@@ -60,13 +57,7 @@ def qlineargradient(x1, y1, x2, y2, stops):
         stops_str.append('stop: {} {}'.format(
             pos.value,
             rgba_from_color(color),
-            )
-        )
-
-    return 'qlineargradient(x1: {}, y1: {}, x2: {}, y2: {}, {})'.format(
-        x1.value,
-        y1.value,
-        x2.value,
-        y2.value,
-        ', '.join(stops_str)
-    )
+        ))
+    template = 'qlineargradient(x1: {}, y1: {}, x2: {}, y2: {}, {})'
+    return template.format(x1.value, y1.value, x2.value, y2.value,
+                           ', '.join(stops_str))

@@ -37,18 +37,22 @@ def create_parser():
         prog='QtSASS',
         description='Compile a Qt compliant CSS file from a SASS stylesheet.',
     )
-    parser.add_argument('input', type=str, help='The SASS stylesheet file.')
+    parser.add_argument(
+        'input',
+        type=str,
+        help='The SASS stylesheet file.',
+    )
     parser.add_argument(
         '-o',
         '--output',
         type=str,
-        help='The path of the generated Qt compliant CSS file.'
+        help='The path of the generated Qt compliant CSS file.',
     )
     parser.add_argument(
         '-w',
         '--watch',
         action='store_true',
-        help='If set, recompile when the source file changes.'
+        help='If set, recompile when the source file changes.',
     )
     return parser
 
@@ -60,13 +64,12 @@ def main():
     dir_mode = os.path.isdir(args.input)
 
     if file_mode and not args.output:
-
         with open(args.input, 'r') as f:
             string = f.read()
 
         css = compile(
             string,
-            include_paths=os.path.abspath(os.path.dirname(args.input))
+            include_paths=os.path.abspath(os.path.dirname(args.input)),
         )
         print(css)
         sys.exit(0)
