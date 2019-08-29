@@ -108,6 +108,7 @@ def compile_filename(input_file, output_file, **kwargs):
     :param input_file: Path to QtSass file.
     :param output_file: Path to write Qt compliant CSS.
     :param kwargs: Keyword arguments to pass to sass.compile
+    :returns: CSS string
     """
     input_root = os.path.abspath(os.path.dirname(input_file))
     kwargs.setdefault('include_paths', [input_root])
@@ -121,6 +122,7 @@ def compile_filename(input_file, output_file, **kwargs):
     with open(output_file, 'w') as css_file:
         css_file.write(css)
         _log.info('Created CSS file {}'.format(os.path.normpath(output_file)))
+    return css
 
 
 def compile_dirname(input_dir, output_dir, **kwargs):
