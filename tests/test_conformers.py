@@ -75,8 +75,8 @@ class TestQLinearGradientConformer(unittest.TestCase):
     )
 
     css_rgba_str = (
-        'qlineargradient(0, 0, 0, 0,'
-        '   (0 rgba(0, 1, 2, 0.3), 0.99 rgba(7, 8, 9, 1)))'
+        'qlineargradient(0, 0, 0, 0, '
+        '(0 rgba(0, 1, 2, 30%), 0.99 rgba(7, 8, 9, 100%)))'
     )
     qss_rgba_str = (
         'qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0, '
@@ -121,8 +121,7 @@ class TestQLinearGradientConformer(unittest.TestCase):
         self.assertEqual(c.to_scss(self.qss_vars_str), self.css_vars_str)
 
     def test_conform_rgba_str(self):
-        """QLinearGradientConformer qss with vars to scss."""
+        """QLinearGradientConformer qss with rgba to scss."""
 
         c = QLinearGradientConformer()
-        #self.assertEqual(c.to_scss(self.qss_rgba_str), self.css_rgba_str)
-        print('TODO: QSS to SCSS with nested qlineargradient(rgba())')
+        self.assertEqual(c.to_scss(self.qss_rgba_str), self.css_rgba_str)

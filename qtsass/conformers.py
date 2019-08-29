@@ -62,9 +62,21 @@ class QLinearGradientConformer(Conformer):
         'stop: 0 red, stop: 1 blue' => '0 red, 1 blue'
         """
         new_group = []
-        for part in group.strip().split(','):
+        split = [""]
+        bracket_level = 0
+        for char in group:
+            if not bracket_level and char == ",":
+                split.append("")
+                continue
+            elif char == "(":
+                bracket_level += 1
+            elif char == ")":
+                bracket_level -= 1
+            split[-1] += char
+
+        for part in split:
             if part:
-                _, value = part.split(':')
+                _, value = part.split(':', 1)
                 new_group.append(value.strip())
         return ', '.join(new_group)
 
