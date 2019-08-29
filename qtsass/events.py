@@ -8,25 +8,23 @@
 # -----------------------------------------------------------------------------
 """Source files event handler."""
 
-# yapf: disable
+try:
+    # yapf: disable
 
-# Third party imports
-from watchdog.events import FileSystemEventHandler
+    # Third party imports
+    from watchdog.events import FileSystemEventHandler
 
+    # yapf: enable
+    class SourceEventHandler(FileSystemEventHandler):
 
-# yapf: enable
+        def __init__(self, source, destination, compiler):
+            super(SourceEventHandler, self).__init__()
+            self._source = source
+            self._destination = destination
+            self._compiler = compiler
 
+        def on_modified(self, _event):
+            self._compiler(self._source, self._destination)
 
-class SourceEventHandler(FileSystemEventHandler):
-    """Source event hanlder."""
-
-    def __init__(self, source, destination, compiler):
-        """Source event hanlder."""
-        super(SourceEventHandler, self).__init__()
-        self._source = source
-        self._destination = destination
-        self._compiler = compiler
-
-    def on_modified(self, event):
-        """Override watchdog method to handle on file modification events."""
-        self._compiler(self._source, self._destination)
+except ImportError:
+    SourceEventHandler = None

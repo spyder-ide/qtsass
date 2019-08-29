@@ -18,7 +18,10 @@ import logging
 import os
 
 # Third party imports
-from watchdog.observers import Observer
+try:
+    from watchdog.observers import Observer
+except ImportError:
+    Observer = None
 import sass
 
 # Local imports
@@ -172,6 +175,11 @@ def watch(source, destination, compiler=None, recursive=True):
     :param recursive: If True, watch subdirectories (default: True).
     :returns: watchdog.Observer
     """
+    if Observer is None:
+        raise RuntimeError(
+            'Unable to use Observer class from watchdog.observers!\n'
+            'You need to install watchdog first!')
+
     if os.path.isfile(source):
         watch_dir = os.path.dirname(source)
         compiler = compiler or compile_filename
