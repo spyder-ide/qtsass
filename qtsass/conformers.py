@@ -58,7 +58,8 @@ class QLinearGradientConformer(Conformer):
 
     def _conform_coords_to_scss(self, group):
         """
-        Take a qss str with xy coords and returns the values.:
+        Take a qss str with xy coords and returns the values.
+
           'x1: 0, y1: 0, x2: 0, y2: 0' => '0, 0, 0, 0'
           'y1: 1' => '0, 1, 0, 0'
         """
@@ -77,8 +78,9 @@ class QLinearGradientConformer(Conformer):
 
     def _conform_stops_to_scss(self, group):
         """
-        Take a qss str with stops and returns the values.:
-        'stop: 0 red, stop: 1 blue' => '0 red, 1 blue'
+        Take a qss str with stops and returns the values.
+
+          'stop: 0 red, stop: 1 blue' => '0 red, 1 blue'
         """
         new_group = []
         split = [""]
