@@ -13,13 +13,14 @@
 
 # Standard library imports
 from subprocess import PIPE, Popen
+import os
 import sys
 
 
 # yapf: enable
 
 # Constants
-PY3= sys.version[0] == '3'
+PY3 = sys.version[0] == '3'
 COMMANDS = [
     ['pydocstyle', 'qtsass'],
     ['pycodestyle', 'qtsass'],
@@ -30,7 +31,12 @@ COMMANDS = [
 
 def run_process(cmd_list):
     """Run popen process."""
-    p = Popen(cmd_list, stdout=PIPE, stderr=PIPE)
+
+    try:
+        p = Popen(cmd_list, stdout=PIPE, stderr=PIPE)
+    except WindowsError:
+        raise WindowsError('Could not call command list: "%s"' % cmd_list)
+
     out, err = p.communicate()
     if PY3:
         out = out.decode()
@@ -40,13 +46,22 @@ def run_process(cmd_list):
 
 def repo_changes():
     """Check if repo files changed."""
-    out, err = run_process(['git', 'status', '--short'])
+    out, _err = run_process(['git', 'status', '--short'])
     out_lines = [l for l in out.split('\n') if l.strip()]
     return out_lines
 
 
 def run():
     """Run linters and formatters."""
+
+    # make sure scripts are available in environment paths
+    if sys.platform == 'win32':
+        scripts_dir = os.path.join(os.path.dirname(sys.executable), 'Scripts')
+        if scripts_dir not in os.environ['PATH']:
+            paths = os.environ['PATH'].split(';')
+            paths.append(scripts_dir)
+            os.environ['PATH'] = ';'.join(paths)
+
     for cmd_list in COMMANDS:
         cmd_str = ' '.join(cmd_list)
         print('\nRunning: ' + cmd_str)
