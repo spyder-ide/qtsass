@@ -45,7 +45,7 @@ class TestNotConformer(unittest.TestCase):
 
 class TestQLinearGradientConformer(unittest.TestCase):
 
-    css_vars_str = 'qlineargradient($x1, $x2, $y1, $y2, (0 $red, 1 $blue))'
+    css_vars_str = 'qlineargradient($x1, $y1, $x2, $y2, (0 $red, 1 $blue))'
     qss_vars_str = (
         'qlineargradient(x1:$x1, x2:$x2, y1:$y1, y2:$y2'
         'stop: 0 $red, stop: 1 $blue)'
@@ -81,6 +81,14 @@ class TestQLinearGradientConformer(unittest.TestCase):
     qss_rgba_str = (
         'qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0, '
         'stop: 0 rgba(0, 1, 2, 30%), stop: 0.99 rgba(7, 8, 9, 100%))'
+    )
+
+    css_incomplete_coords_str = (
+        'qlineargradient(0, 1, 0, 0, (0 red, 1 blue))'
+    )
+
+    qss_incomplete_coords_str = (
+        'qlineargradient(y1:1, stop:0 red, stop: 1 blue)'
     )
 
     def test_does_not_affect_css_form(self):
@@ -125,3 +133,14 @@ class TestQLinearGradientConformer(unittest.TestCase):
 
         c = QLinearGradientConformer()
         self.assertEqual(c.to_scss(self.qss_rgba_str), self.css_rgba_str)
+
+    def test_incomplete_coords(self):
+        """QLinearGradientConformer qss with not all 4 coordinates given."""
+
+        c = QLinearGradientConformer()
+        self.assertEqual(c.to_scss(self.qss_incomplete_coords_str),
+                         self.css_incomplete_coords_str)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

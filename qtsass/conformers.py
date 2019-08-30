@@ -18,6 +18,8 @@ import re
 
 # yapf: enable
 
+_DEFAULT_COORDS = ('x1', 'y1', 'x2', 'y2')
+
 
 class Conformer(object):
     """Base class for all text transformations."""
@@ -54,11 +56,28 @@ class QLinearGradientConformer(Conformer):
         re.MULTILINE,
     )
 
-    def _conform_group_to_scss(self, group):
+    def _conform_coords_to_scss(self, group):
         """
-        Take a qss str with xy coords/stops and return the values.
+        Take a qss str with xy coords and returns the values.:
+          'x1: 0, y1: 0, x2: 0, y2: 0' => '0, 0, 0, 0'
+          'y1: 1' => '0, 1, 0, 0'
+        """
+        values = ['0', '0', '0', '0']
+        for key_values in [part.split(':', 1) for part in group.split(',')]:
+            try:
+                key, value = key_values
+                key = key.strip()
+                if key in _DEFAULT_COORDS:
+                    pos = _DEFAULT_COORDS.index(key)
+                    if pos >= 0 and pos <= 3:
+                        values[pos] = value.strip()
+            except ValueError:
+                pass
+        return ', '.join(values)
 
-        'x1: 0, y1: 0, x2: 0, y2: 0' => '0, 0, 0, 0'
+    def _conform_stops_to_scss(self, group):
+        """
+        Take a qss str with stops and returns the values.:
         'stop: 0 red, stop: 1 blue' => '0 red, 1 blue'
         """
         new_group = []
@@ -93,13 +112,13 @@ class QLinearGradientConformer(Conformer):
         conformed = qss
 
         for coords, stops in self.qss_pattern.findall(qss):
-            new_coords = self._conform_group_to_scss(coords)
+            new_coords = self._conform_coords_to_scss(coords)
             conformed = conformed.replace(coords, new_coords, 1)
 
             if not stops:
                 continue
 
-            new_stops = ', ({})'.format(self._conform_group_to_scss(stops))
+            new_stops = ', ({})'.format(self._conform_stops_to_scss(stops))
             conformed = conformed.replace(stops, new_stops, 1)
 
         return conformed
