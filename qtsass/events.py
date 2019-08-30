@@ -8,33 +8,31 @@
 # -----------------------------------------------------------------------------
 """Source files event handler."""
 
-try:
-    # yapf: disable
+# yapf: disable
 
-    # Third party imports
-    from watchdog.events import FileSystemEventHandler
+# Third party imports
+from watchdog.events import FileSystemEventHandler
 
-    # yapf: enable
-    class SourceEventHandler(FileSystemEventHandler):
-        """File event handler to call sass compiler on_modified."""
 
-        def __init__(self, source, destination, compiler):
-            """
-            Create instance of the file event handler.
+# yapf: enable
 
-            :param str source: String path to qss source file.
-            :param str source: String path to compiled target file.
-            :param function compiler: Function object to call when
-                source was modified.
-            """
-            super(SourceEventHandler, self).__init__()
-            self._source = source
-            self._destination = destination
-            self._compiler = compiler
 
-        def on_modified(self, _event):
-            """Call sass compiler function object."""
-            self._compiler(self._source, self._destination)
+class SourceEventHandler(FileSystemEventHandler):
+    """File event handler to call sass compiler on_modified."""
+    def __init__(self, source, destination, compiler):
+        """
+        Create instance of the file event handler.
 
-except ImportError:
-    SourceEventHandler = None
+        :param str source: String path to qss source file.
+        :param str source: String path to compiled target file.
+        :param function compiler: Function object to call when
+            source was modified.
+        """
+        super(SourceEventHandler, self).__init__()
+        self._source = source
+        self._destination = destination
+        self._compiler = compiler
+
+    def on_modified(self, _event):
+        """Call sass compiler function."""
+        self._compiler(self._source, self._destination)
