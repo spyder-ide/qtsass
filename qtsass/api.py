@@ -18,10 +18,6 @@ import logging
 import os
 
 # Third party imports
-try:
-    from watchdog.observers import Observer
-except ImportError:
-    Observer = None
 import sass
 
 # Local imports
@@ -29,6 +25,12 @@ from qtsass.conformers import qt_conform, scss_conform
 from qtsass.events import SourceEventHandler
 from qtsass.functions import qlineargradient, rgba
 from qtsass.importers import qss_importer
+
+
+try:
+    from watchdog.observers import Observer
+except ImportError:
+    Observer = None
 
 
 # yapf: enable

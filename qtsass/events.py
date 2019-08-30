@@ -17,7 +17,6 @@ try:
     # yapf: enable
     class SourceEventHandler(FileSystemEventHandler):
         """File event handler to call sass compiler on_modified."""
-
         def __init__(self, source, destination, compiler):
             """
             Create instance of the file event handler.

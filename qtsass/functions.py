@@ -22,8 +22,8 @@ def rgba(r, g, b, a):
     result = 'rgba({}, {}, {}, {}%)'
     if isinstance(r, sass.SassNumber):
         alpha = a.value if a.unit == '%' else a.value * 100
-        return result.format(
-            int(r.value), int(g.value), int(b.value), int(alpha))
+        return result.format(int(r.value), int(g.value), int(b.value),
+                             int(alpha))
     elif isinstance(r, float):
         return result.format(int(r), int(g), int(b), int(a * 100))
 
