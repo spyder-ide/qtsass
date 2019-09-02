@@ -91,6 +91,14 @@ class TestQLinearGradientConformer(unittest.TestCase):
         'qlineargradient(y1:1, stop:0 red, stop: 1 blue)'
     )
 
+    css_float_coords_str = (
+        'qlineargradient(0, 0.75, 0, 0, (0 green, 1 pink))'
+    )
+
+    qss_float_coords_str = (
+        'qlineargradient(y1:0.75, stop:0 green, stop: 1 pink)'
+    )
+
     def test_does_not_affect_css_form(self):
         """QLinearGradientConformer no affect on css qlineargradient func."""
 
@@ -140,6 +148,11 @@ class TestQLinearGradientConformer(unittest.TestCase):
         c = QLinearGradientConformer()
         self.assertEqual(c.to_scss(self.qss_incomplete_coords_str),
                          self.css_incomplete_coords_str)
+
+    def test_float_coords(self):
+        c = QLinearGradientConformer()
+        self.assertEqual(c.to_scss(self.qss_float_coords_str),
+                         self.css_float_coords_str)
 
 
 if __name__ == "__main__":
