@@ -18,10 +18,24 @@ import sass
 
 
 def rgba(r, g, b, a):
-    """Convert r,g,b,a values to standard format."""
+    """Convert r,g,b,a values to standard format.
+
+    Where `a` is alpha! In CSS alpha can be given as:
+     * float from 0.0 (fully transparent) to 1.0 (opaque)
+    In Qt or qss that is:
+     * int from 0 (fully transparent) to 255 (opaque)
+    A percentage value 0% (fully transparent) to 100% (opaque) works
+    in BOTH systems the same way!
+    """
     result = 'rgba({}, {}, {}, {}%)'
     if isinstance(r, sass.SassNumber):
-        alpha = a.value if a.unit == '%' else a.value * 100
+        if a.unit == '%':
+            alpha = a.value
+        elif a.value > 1.0:
+            # A value from 0 to 255 is coming in, convert to %
+            alpha = a.value / 2.55
+        else:
+            alpha = a.value * 100
         return result.format(int(r.value), int(g.value), int(b.value),
                              int(alpha))
     elif isinstance(r, float):
