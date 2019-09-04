@@ -34,8 +34,8 @@ def run_process(cmd_list):
 
     try:
         p = Popen(cmd_list, stdout=PIPE, stderr=PIPE)
-    except WindowsError:
-        raise WindowsError('Could not call command list: "%s"' % cmd_list)
+    except OSError:
+        raise OSError('Could not call command list: "%s"' % cmd_list)
 
     out, err = p.communicate()
     if PY3:
