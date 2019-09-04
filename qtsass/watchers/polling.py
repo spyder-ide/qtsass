@@ -6,7 +6,7 @@
 # Licensed under the terms of the MIT License
 # (See LICENSE.txt for details)
 # -----------------------------------------------------------------------------
-"""Contains the Qt implementation of the Watcher api."""
+"""Contains the fallback implementation of the Watcher api."""
 
 # yapf: disable
 
@@ -107,11 +107,11 @@ class PollingWatcher(Watcher):
         snapshot = {}
         base_depth = len(norm_path(self._watch_dir).split('/'))
 
-        for root, _, files in os.walk(self._watch_dir):
+        for root, subdirs, files in os.walk(self._watch_dir):
 
             path = norm_path(root)
-            if len(path.split('/')) - base_depth > self._snapshot_depth:
-                break
+            if len(path.split('/')) - base_depth == self._snapshot_depth:
+                subdirs[:] = []
 
             snapshot[path] = os.path.getmtime(path)
             for f in files:
