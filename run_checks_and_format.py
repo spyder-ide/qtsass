@@ -54,14 +54,6 @@ def repo_changes():
 def run():
     """Run linters and formatters."""
 
-    # make sure scripts are available in environment paths
-    if sys.platform == 'win32':
-        scripts_dir = os.path.join(os.path.dirname(sys.executable), 'Scripts')
-        if scripts_dir not in os.environ['PATH']:
-            paths = os.environ['PATH'].split(';')
-            paths.append(scripts_dir)
-            os.environ['PATH'] = ';'.join(paths)
-
     for cmd_list in COMMANDS:
         cmd_str = ' '.join(cmd_list)
         print('\nRunning: ' + cmd_str)
