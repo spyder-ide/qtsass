@@ -17,7 +17,6 @@ from __future__ import absolute_import, print_function
 import argparse
 import logging
 import os
-import signal
 import sys
 import time
 
@@ -90,12 +89,13 @@ def main():
 
     if args.watch:
         _log.info('qtsass is watching {}...'.format(args.input))
-        observer = watch(args.input, args.output)
-        observer.start()
+
+        watcher = watch(args.input, args.output)
+        watcher.start()
         try:
             while True:
                 time.sleep(1)
         except KeyboardInterrupt:
-            observer.stop()
-        observer.join()
+            watcher.stop()
+        watcher.join()
         sys.exit(0)
