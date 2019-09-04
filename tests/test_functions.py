@@ -6,27 +6,24 @@
 # Licensed under the terms of the MIT License
 # (See LICENSE.txt for details)
 # -----------------------------------------------------------------------------
-"""Test qtsass conformers."""
+"""Test qtsass custom functions."""
 
 from __future__ import absolute_import
 
 # Standard library imports
-from textwrap import dedent
 import unittest
-
-# Third party imports
-import sass
 
 # Local imports
 from qtsass.api import compile
 
 
 class BaseCompileTest(unittest.TestCase):
-    def compile_scss(self, str):
+    def compile_scss(self, string):
         # NOTE: revise for better future compatibility
-        wstr = '*{{t: {0};}}'.format(str)
+        wstr = '*{{t: {0};}}'.format(string)
         res = compile(wstr)
         return res.replace('* {\n  t: ', '').replace('; }\n', '')
+
 
 class TestRgbaFunc(BaseCompileTest):
     def test_rgba(self):
@@ -34,6 +31,16 @@ class TestRgbaFunc(BaseCompileTest):
             self.compile_scss('rgba(0, 1, 2, 0.3)'),
             'rgba(0, 1, 2, 30%)'
         )
+
+    def test_rgba_percentage_alpha(self):
+        result = self.compile_scss('rgba(255, 0, 125, 75%)')
+        self.assertEqual(result, 'rgba(255, 0, 125, 75%)')
+
+    def test_rgba_8bit_int_alpha(self):
+        for in_val, out_val in ((0, 0), (128, 50), (255, 100)):
+            result = self.compile_scss('rgba(255, 0, 125, %i)' % in_val)
+            self.assertEqual(result, 'rgba(255, 0, 125, %i%%)' % out_val)
+
 
 class TestQLinearGradientFunc(BaseCompileTest):
     def test_color(self):
@@ -49,3 +56,7 @@ class TestQLinearGradientFunc(BaseCompileTest):
             'qlineargradient(x1: 1.0, y1: 2.0, x2: 3.0, y2: 4.0, '
             'stop: 0.0 rgba(255, 0, 0, 100%), stop: 0.2 rgba(5, 6, 7, 80%))'
         )
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

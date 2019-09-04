@@ -13,13 +13,14 @@
 
 # Standard library imports
 from subprocess import PIPE, Popen
+import os
 import sys
 
 
 # yapf: enable
 
 # Constants
-PY3= sys.version[0] == '3'
+PY3 = sys.version[0] == '3'
 COMMANDS = [
     ['pydocstyle', 'qtsass'],
     ['pycodestyle', 'qtsass'],
@@ -30,7 +31,12 @@ COMMANDS = [
 
 def run_process(cmd_list):
     """Run popen process."""
-    p = Popen(cmd_list, stdout=PIPE, stderr=PIPE)
+
+    try:
+        p = Popen(cmd_list, stdout=PIPE, stderr=PIPE)
+    except OSError:
+        raise OSError('Could not call command list: "%s"' % cmd_list)
+
     out, err = p.communicate()
     if PY3:
         out = out.decode()
@@ -40,13 +46,14 @@ def run_process(cmd_list):
 
 def repo_changes():
     """Check if repo files changed."""
-    out, err = run_process(['git', 'status', '--short'])
+    out, _err = run_process(['git', 'status', '--short'])
     out_lines = [l for l in out.split('\n') if l.strip()]
     return out_lines
 
 
 def run():
     """Run linters and formatters."""
+
     for cmd_list in COMMANDS:
         cmd_str = ' '.join(cmd_list)
         print('\nRunning: ' + cmd_str)

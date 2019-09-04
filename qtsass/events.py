@@ -18,15 +18,21 @@ from watchdog.events import FileSystemEventHandler
 
 
 class SourceEventHandler(FileSystemEventHandler):
-    """Source event hanlder."""
-
+    """File event handler to call sass compiler on_modified."""
     def __init__(self, source, destination, compiler):
-        """Source event hanlder."""
+        """
+        Create instance of the file event handler.
+
+        :param str source: String path to qss source file.
+        :param str source: String path to compiled target file.
+        :param function compiler: Function object to call when
+            source was modified.
+        """
         super(SourceEventHandler, self).__init__()
         self._source = source
         self._destination = destination
         self._compiler = compiler
 
-    def on_modified(self, event):
-        """Override watchdog method to handle on file modification events."""
+    def on_modified(self, _event):
+        """Call sass compiler function."""
         self._compiler(self._source, self._destination)

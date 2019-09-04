@@ -108,6 +108,7 @@ def compile_filename(input_file, output_file, **kwargs):
     :param input_file: Path to QtSass file.
     :param output_file: Path to write Qt compliant CSS.
     :param kwargs: Keyword arguments to pass to sass.compile
+    :returns: CSS string
     """
     input_root = os.path.abspath(os.path.dirname(input_file))
     kwargs.setdefault('include_paths', [input_root])
@@ -121,6 +122,7 @@ def compile_filename(input_file, output_file, **kwargs):
     with open(output_file, 'w') as css_file:
         css_file.write(css)
         _log.info('Created CSS file {}'.format(os.path.normpath(output_file)))
+    return css
 
 
 def compile_dirname(input_dir, output_dir, **kwargs):
@@ -137,18 +139,18 @@ def compile_dirname(input_dir, output_dir, **kwargs):
     """
     kwargs.setdefault('include_paths', [input_dir])
 
-    def is_valid(file):
-        return not file.startswith('_') and file.endswith('.scss')
+    def is_valid(file_name):
+        return not file_name.startswith('_') and file_name.endswith('.scss')
 
-    for root, subdirs, files in os.walk(input_dir):
+    for root, _, files in os.walk(input_dir):
         relative_root = os.path.relpath(root, input_dir)
         output_root = os.path.join(output_dir, relative_root)
         fkwargs = dict(kwargs)
         fkwargs['include_paths'] = fkwargs['include_paths'] + [root]
 
-        for file in [f for f in files if is_valid(f)]:
-            scss_path = os.path.join(root, file)
-            css_file = os.path.splitext(file)[0] + '.css'
+        for file_name in [f for f in files if is_valid(f)]:
+            scss_path = os.path.join(root, file_name)
+            css_file = os.path.splitext(file_name)[0] + '.css'
             css_path = os.path.join(output_root, css_file)
 
             if not os.path.isdir(output_root):
