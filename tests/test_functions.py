@@ -37,8 +37,9 @@ class TestRgbaFunc(BaseCompileTest):
         self.assertEqual(result, 'rgba(255, 0, 125, 75%)')
 
     def test_rgba_8bit_int_alpha(self):
-        result = self.compile_scss('rgba(255, 0, 125, 128)')
-        self.assertEqual(result, 'rgba(255, 0, 125, 50%)')
+        for in_val, out_val in ((0, 0), (128, 50), (255, 100)):
+            result = self.compile_scss('rgba(255, 0, 125, %i)' % in_val)
+            self.assertEqual(result, 'rgba(255, 0, 125, %i%%)' % out_val)
 
 
 class TestQLinearGradientFunc(BaseCompileTest):
