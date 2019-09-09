@@ -14,23 +14,27 @@ from __future__ import absolute_import, print_function
 
 # Standard library imports
 import atexit
-import os
-import time
 import threading
 
 # Local imports
+from qtsass.watchers import snapshots
 from qtsass.watchers.api import Watcher
-from qtsass.importers import norm_path
+
+
+# yapf: enable
 
 
 class PollingThread(threading.Thread):
-    """A daemon thread that continually fires a callback at the specified
-    interval."""
+    """A thread that fires a callback at an interval."""
 
     def __init__(self, callback, interval):
+        """Initialize the thread.
+
+        :param callback: Callback function to repeat.
+        :param interval: Number of seconds to sleep between calls.
+        """
         super(PollingThread, self).__init__()
         self.daemon = True
-
         self.callback = callback
         self.interval = interval
         self._shutdown = threading.Event()
@@ -40,17 +44,21 @@ class PollingThread(threading.Thread):
 
     @property
     def started(self):
+        """Check if the thread has started."""
         return self._started.is_set()
 
     @property
     def stopped(self):
+        """Check if the thread has stopped."""
         return self._stopped.is_set()
 
     @property
     def shutdown(self):
+        """Check if the thread has shutdown."""
         return self._shutdown.is_set()
 
     def stop(self):
+        """Set the shutdown event for this thread and wait for it to stop."""
         if not self.started and not self.shutdown:
             return
 
@@ -58,6 +66,7 @@ class PollingThread(threading.Thread):
         self._stopped.wait()
 
     def run(self):
+        """Threads main loop."""
         try:
             self._started.set()
 
@@ -82,66 +91,36 @@ class PollingWatcher(Watcher):
     """
 
     def setup(self):
+        """Set up the PollingWatcher.
+
+        A PollingThread is created but not started.
+        """
         self._snapshot_depth = 2
-        self._snapshot = self._take_snapshot()
-        self._callbacks = set()
-        self._stop = False
-        self._thread = PollingThread(self._check_snapshot, interval=1)
-
-    def connect(self, fn):
-        self._callbacks.add(fn)
-
-    def disconnect(self, fn):
-        self._callbacks.discard(fn)
+        self._snapshot = snapshots.take(self._watch_dir, self._snapshot_depth)
+        self._thread = PollingThread(self.run, interval=1)
 
     def start(self):
+        """Start the PollingThread."""
         self._thread.start()
 
     def stop(self):
+        """Stop the PollingThread."""
         self._thread.stop()
 
     def join(self):
+        """Wait for the PollingThread to finish.
+
+        You should always call stop before join.
+        """
         self._thread.join()
 
-    def _take_snapshot(self):
-        snapshot = {}
-        base_depth = len(norm_path(self._watch_dir).split('/'))
+    def run(self):
+        """Takes a new snapshot and calls on_change when a change is detected.
 
-        for root, subdirs, files in os.walk(self._watch_dir):
-
-            path = norm_path(root)
-            if len(path.split('/')) - base_depth == self._snapshot_depth:
-                subdirs[:] = []
-
-            snapshot[path] = os.path.getmtime(path)
-            for f in files:
-                path = norm_path(root, f)
-                snapshot[path] = os.path.getmtime(path)
-
-        return snapshot
-
-    def _diff_snapshots(self, prev_snapshot, next_snapshot):
-        changes = {}
-        for path in set(prev_snapshot.keys()) | set(next_snapshot.keys()):
-            if path in prev_snapshot and path not in next_snapshot:
-                changes[path] = 'Deleted'
-            elif path not in prev_snapshot and path in next_snapshot:
-                changes[path] = 'Created'
-            else:
-                prev_mtime = prev_snapshot[path]
-                next_mtime = next_snapshot[path]
-                if next_mtime > prev_mtime:
-                    changes[path] = 'Changed'
-        return changes
-
-    def _check_snapshot(self):
-        next_snapshot = self._take_snapshot()
-        changes = self._diff_snapshots(self._snapshot, next_snapshot)
+        Called repeatedly by the PollingThread.
+        """
+        next_snapshot = snapshots.take(self._watch_dir, self._snapshot_depth)
+        changes = snapshots.diff(self._snapshot, next_snapshot)
         if changes:
             self._snapshot = next_snapshot
-            self._dispatch()
-
-    def _dispatch(self):
-        css = self.compile()
-        for callback in self._callbacks:
-            callback(css)
+            self.on_change()
