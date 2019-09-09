@@ -16,7 +16,6 @@ import logging
 
 # yapf: enable
 
-
 _log = logging.getLogger(__name__)
 
 
@@ -86,13 +85,13 @@ class Watcher(object):
         self.dispatch(css)
 
     def dispatch(self, css):
-        """Dispatch css to connected callbacks"""
+        """Dispatch css to connected callbacks."""
         self._log.debug('Dispatching callbacks...')
         for callback in self._callbacks:
             callback(css)
 
     def on_change(self):
-        """Called when a change is detected.
+        """Call when a change is detected.
 
         Subclasses must call this method when they detect a change. Subclasses
         may also override this method in order to manually compile and dispatch

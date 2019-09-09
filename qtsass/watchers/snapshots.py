@@ -24,7 +24,6 @@ from qtsass.importers import norm_path
 
 def take(dir_or_file, depth=3):
     """Return a dict mapping files and folders to their mtimes."""
-
     if os.path.isfile(dir_or_file):
         path = norm_path(dir_or_file)
         return {path: os.path.getmtime(path)}
@@ -51,7 +50,6 @@ def take(dir_or_file, depth=3):
 
 def diff(prev_snapshot, next_snapshot):
     """Return a dict containing changes between two snapshots."""
-
     changes = {}
     for path in set(prev_snapshot.keys()) | set(next_snapshot.keys()):
         if path in prev_snapshot and path not in next_snapshot:

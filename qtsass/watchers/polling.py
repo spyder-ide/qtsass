@@ -115,7 +115,7 @@ class PollingWatcher(Watcher):
         self._thread.join()
 
     def run(self):
-        """Takes a new snapshot and calls on_change when a change is detected.
+        """Take a new snapshot and call on_change when a change is detected.
 
         Called repeatedly by the PollingThread.
         """

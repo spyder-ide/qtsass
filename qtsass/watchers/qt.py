@@ -70,20 +70,20 @@ class QtWatcher(PollingWatcher):
     _qt_binding = QT_BINDING
 
     def setup(self):
-        """Setup QtWatcher"""
+        """Setup QtWatcher."""
         super(QtWatcher, self).setup()
         self._qtdispatcher = None
 
     @property
     def qtdispatcher(self):
-        """Get the QtDispatcher"""
+        """Get the QtDispatcher."""
         if self._qtdispatcher is None:
             self._qtdispatcher = QtDispatcher()
             self._qtdispatcher.signal.connect(self.compile_and_dispatch)
         return self._qtdispatcher
 
     def on_change(self):
-        """Called when a change is detected in _check_snapshot."""
+        """Call when a change is detected."""
         self._log.debug('Change detected...')
 
         # If a QApplication event loop has not been started
