@@ -117,6 +117,10 @@ def compile_filename(input_file, output_file, **kwargs):
     _log.debug('Compiling {}...'.format(os.path.normpath(input_file)))
     css = compile(string, **kwargs)
 
+    output_root = os.path.abspath(os.path.dirname(output_file))
+    if not os.path.isdir(output_root):
+        os.makedirs(output_root)
+
     with open(output_file, 'w') as css_file:
         css_file.write(css)
         _log.info('Created CSS file {}'.format(os.path.normpath(output_file)))
