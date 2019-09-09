@@ -186,5 +186,5 @@ def watch(source, destination, compiler=None, Watcher=None):
     if Watcher is None:
         from qtsass.watchers import Watcher
 
-    watcher = Watcher(watch_dir, source, destination, compiler)
+    watcher = Watcher(watch_dir, compiler, (source, destination))
     return watcher
