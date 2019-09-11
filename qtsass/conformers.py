@@ -23,6 +23,7 @@ _DEFAULT_COORDS = ('x1', 'y1', 'x2', 'y2')
 
 class Conformer(object):
     """Base class for all text transformations."""
+
     def to_scss(self, qss):
         """Transform some qss to valid scss."""
         return NotImplemented
@@ -34,6 +35,7 @@ class Conformer(object):
 
 class NotConformer(Conformer):
     """Conform QSS "!" in selectors."""
+
     def to_scss(self, qss):
         """Replace "!" in selectors with "_qnot_"."""
         return qss.replace(':!', ':_qnot_')

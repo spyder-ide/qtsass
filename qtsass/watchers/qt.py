@@ -70,7 +70,7 @@ class QtWatcher(PollingWatcher):
     _qt_binding = QT_BINDING
 
     def setup(self):
-        """Setup QtWatcher."""
+        """Set up QtWatcher."""
         super(QtWatcher, self).setup()
         self._qtdispatcher = None
 
