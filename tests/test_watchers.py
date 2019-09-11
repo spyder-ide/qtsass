@@ -45,12 +45,12 @@ def test_watchers(Watcher, tmpdir):
     if not Watcher:
         return
 
-    watch_dir = tmpdir.join('src')
+    watch_dir = tmpdir.join('src').strpath
     os.makedirs(watch_dir)
     shutil.copy2(example('dummy.scss'), watch_dir)
-    input = tmpdir.join('src/dummy.scss')
-    output = tmpdir.join('build/dummy.css')
-    output_exists = lambda: exists(output.strpath)
+    input = tmpdir.join('src/dummy.scss').strpath
+    output = tmpdir.join('build/dummy.css').strpath
+    output_exists = lambda: exists(output)
 
     c = CallCounter()
     w = Watcher(
@@ -61,7 +61,7 @@ def test_watchers(Watcher, tmpdir):
     w.connect(c)
 
     # Output should not yet exist
-    assert not exists(output.strpath)
+    assert not exists(output)
 
     w.start()
 
@@ -108,12 +108,12 @@ def test_qtwatcher(tmpdir):
     if not qt_app:
         qt_app = QApplication([])
 
-    watch_dir = tmpdir.join('src')
+    watch_dir = tmpdir.join('src').strpath
     os.makedirs(watch_dir)
     shutil.copy2(example('dummy.scss'), watch_dir)
-    input = tmpdir.join('src/dummy.scss')
-    output = tmpdir.join('build/dummy.css')
-    output_exists = lambda: exists(output.strpath)
+    input = tmpdir.join('src/dummy.scss').strpath
+    output = tmpdir.join('build/dummy.css').strpath
+    output_exists = lambda: exists(output)
 
     c = CallCounter()
     w = QtWatcher(

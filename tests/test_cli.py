@@ -13,8 +13,7 @@ from __future__ import absolute_import
 # Standard library imports
 from collections import namedtuple
 from os.path import basename, exists
-from subprocess import PIPE, Popen, TimeoutExpired
-from textwrap import indent
+from subprocess import PIPE, Popen
 import time
 
 #Local imports
@@ -23,6 +22,12 @@ from . import PROJECT_DIR, await_condition, example, touch
 
 SLEEP_INTERVAL = 1
 Result = namedtuple('Result', "code stdout stderr")
+
+
+def indent(text, prefix='    '):
+    """Like textwrap.indent"""
+
+    return ''.join([prefix + line for line in text.splitlines(True)])
 
 
 def invoke(args):
@@ -50,11 +55,8 @@ def invoke_with_result(args):
 def kill(proc, timeout=1):
     """Kill a subprocess and return a Result obj"""
 
-    try:
-        out, err = proc.communicate(timeout=timeout)
-    except TimeoutExpired:
-        proc.kill()
-        out, err = proc.communicate()
+    proc.kill()
+    out, err = proc.communicate()
     out = out.decode('ascii', errors="ignore")
     err = err.decode('ascii', errors="ignore")
     return Result(proc.returncode, out, err)

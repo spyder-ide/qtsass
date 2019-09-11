@@ -26,8 +26,8 @@ def example(*paths):
 def touch(file):
     """Touch a file."""
 
-    with open(file, 'a'):
-        os.utime(file, None)
+    with open(str(file), 'a'):
+        os.utime(str(file), None)
 
 
 def await_condition(condition, timeout=20, qt_app=None):
