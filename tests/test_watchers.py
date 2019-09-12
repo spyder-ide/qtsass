@@ -22,6 +22,7 @@ import pytest
 # Local imports
 #Local imports
 from qtsass import compile_filename
+from qtsass.watchers.api import retry
 from qtsass.watchers import PollingWatcher, QtWatcher
 
 from . import EXAMPLES_DIR, await_condition, example, touch
@@ -136,3 +137,29 @@ def test_qtwatcher(tmpdir):
     # Stop watcher
     w.stop()
     w.join()
+
+
+def test_retry():
+    """Test retry decorator"""
+
+    @retry(5, interval=0)
+    def succeeds_after(n, counter):
+        counter()
+        if n <= counter.count:
+            return True
+        raise ValueError
+
+    # Succeed when attempts < retries
+    assert succeeds_after(4, CallCounter())
+
+    # Fails when retries < attemps
+    with pytest.raises(ValueError):
+        assert succeeds_after(6, CallCounter())
+
+    @retry(5, interval=0)
+    def fails():
+        raise ValueError
+
+    # Most obvious case
+    with pytest.raises(ValueError):
+        fails()

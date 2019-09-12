@@ -13,12 +13,38 @@
 from __future__ import absolute_import
 
 # Standard library imports
+import functools
 import logging
+import time
 
 
 # yapf: enable
 
 _log = logging.getLogger(__name__)
+
+
+def retry(n, interval=0.1):
+    """Retry a function or method n times before raising an exception.
+
+    :param n: Number of times to retry
+    :param interval: Time to sleep before attempts
+    """
+    def decorate(fn):
+        @functools.wraps(fn)
+        def attempt(*args, **kwargs):
+            attempts = 0
+            while True:
+                try:
+                    return fn(*args, **kwargs)
+                except Exception:
+                    attempts += 1
+                    if n <= attempts:
+                        raise
+                    time.sleep(interval)
+
+        return attempt
+
+    return decorate
 
 
 class Watcher(object):
@@ -64,6 +90,7 @@ class Watcher(object):
         """Wait for this Watcher to finish."""
         return NotImplemented
 
+    @retry(5)
     def compile(self):
         """Call the Watcher's compiler."""
         self._log.debug(
