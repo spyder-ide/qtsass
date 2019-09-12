@@ -14,7 +14,7 @@ install:
 
 script:
   - "python run_checks_and_format.py"
-  - "xvfb-run pytest tests/ --cov=qtsass"
+  - "xvfb-run -a pytest tests/ --cov=qtsass"
 
 after_success:
   - "codecov"
