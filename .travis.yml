@@ -1,3 +1,7 @@
+dist: xenial
+services:
+  - xvfb
+
 language: python
 python:
   - "2.7"
@@ -10,7 +14,7 @@ install:
 
 script:
   - "python run_checks_and_format.py"
-  - "pytest tests/ --cov=qtsass"
+  - "xvfb-run pytest tests/ --cov=qtsass"
 
 after_success:
   - "codecov"
