@@ -37,7 +37,11 @@ def rgba(r, g, b, a):
         else:
             alpha = a.value * 100
         return result.format(
-            int(r.value), int(g.value), int(b.value), int(alpha))
+            int(r.value),
+            int(g.value),
+            int(b.value),
+            int(alpha),
+        )
     elif isinstance(r, float):
         return result.format(int(r), int(g), int(b), int(a * 100))
 

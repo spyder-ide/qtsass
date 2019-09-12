@@ -22,8 +22,8 @@ import pytest
 # Local imports
 #Local imports
 from qtsass import compile_filename
-from qtsass.watchers.api import retry
 from qtsass.watchers import PollingWatcher, QtWatcher
+from qtsass.watchers.api import retry
 
 from . import EXAMPLES_DIR, await_condition, example, touch
 
