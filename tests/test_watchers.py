@@ -11,19 +11,20 @@
 from __future__ import absolute_import
 
 # Standard library imports
-import time
+from os.path import dirname, exists
 import os
 import shutil
-from os.path import dirname, exists
+import time
 
 # Third party imports
 import pytest
 
+# Local imports
 #Local imports
 from qtsass import compile_filename
 from qtsass.watchers import PollingWatcher, QtWatcher
 
-from . import EXAMPLES_DIR, example, touch, await_condition
+from . import EXAMPLES_DIR, await_condition, example, touch
 
 
 class CallCounter(object):
