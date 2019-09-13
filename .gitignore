@@ -265,3 +265,6 @@ crashlytics-build.properties
 
 # pytest
 .pytest_cache
+
+# Project virtualenv
+venv/

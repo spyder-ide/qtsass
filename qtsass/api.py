@@ -18,12 +18,10 @@ import logging
 import os
 
 # Third party imports
-from watchdog.observers import Observer
 import sass
 
 # Local imports
 from qtsass.conformers import qt_conform, scss_conform
-from qtsass.events import SourceEventHandler
 from qtsass.functions import qlineargradient, rgba
 from qtsass.importers import qss_importer
 
@@ -119,6 +117,10 @@ def compile_filename(input_file, output_file, **kwargs):
     _log.debug('Compiling {}...'.format(os.path.normpath(input_file)))
     css = compile(string, **kwargs)
 
+    output_root = os.path.abspath(os.path.dirname(output_file))
+    if not os.path.isdir(output_root):
+        os.makedirs(output_root)
+
     with open(output_file, 'w') as css_file:
         css_file.write(css)
         _log.info('Created CSS file {}'.format(os.path.normpath(output_file)))
@@ -159,7 +161,7 @@ def compile_dirname(input_dir, output_dir, **kwargs):
             compile_filename(scss_path, css_path, **fkwargs)
 
 
-def watch(source, destination, compiler=None, recursive=True):
+def watch(source, destination, compiler=None, Watcher=None):
     """
     Watches a source file or directory, compiling QtSass files when modified.
 
@@ -169,8 +171,8 @@ def watch(source, destination, compiler=None, recursive=True):
     :param source: Path to source QtSass file or directory.
     :param destination: Path to output css file or directory.
     :param compiler: Compile function (optional)
-    :param recursive: If True, watch subdirectories (default: True).
-    :returns: watchdog.Observer
+    :param Watcher: Defaults to qtsass.watchers.Watcher (optional)
+    :returns: qtsass.watchers.Watcher instance
     """
     if os.path.isfile(source):
         watch_dir = os.path.dirname(source)
@@ -181,8 +183,8 @@ def watch(source, destination, compiler=None, recursive=True):
     else:
         raise ValueError('source arg must be a dirname or filename...')
 
-    event_handler = SourceEventHandler(source, destination, compiler)
+    if Watcher is None:
+        from qtsass.watchers import Watcher
 
-    observer = Observer()
-    observer.schedule(event_handler, watch_dir, recursive=recursive)
-    return observer
+    watcher = Watcher(watch_dir, compiler, (source, destination))
+    return watcher

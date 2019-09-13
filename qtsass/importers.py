@@ -24,7 +24,7 @@ from qtsass.conformers import scss_conform
 
 def norm_path(*parts):
     """Normalize path."""
-    return os.path.normpath(os.path.join(*parts))
+    return os.path.normpath(os.path.join(*parts)).replace('\\', '/')
 
 
 def qss_importer(*include_paths):

@@ -72,7 +72,6 @@ setup(
     ),
     install_requires=[
         'libsass',
-        'watchdog'
     ],
     keywords='qt sass qtsass scss css stylesheets',
 )

@@ -14,17 +14,20 @@ from __future__ import absolute_import
 from collections import namedtuple
 from os.path import basename, exists
 from subprocess import PIPE, Popen
-from textwrap import dedent
-import os
-import signal
-import sys
 import time
 
 #Local imports
 from . import PROJECT_DIR, await_condition, example, touch
 
 
+SLEEP_INTERVAL = 1
 Result = namedtuple('Result', "code stdout stderr")
+
+
+def indent(text, prefix='    '):
+    """Like textwrap.indent"""
+
+    return ''.join([prefix + line for line in text.splitlines(True)])
 
 
 def invoke(args):
@@ -47,6 +50,32 @@ def invoke_with_result(args):
     out = out.decode('ascii', errors="ignore")
     err = err.decode('ascii', errors="ignore")
     return Result(proc.returncode, out, err)
+
+
+def kill(proc, timeout=1):
+    """Kill a subprocess and return a Result obj"""
+
+    proc.kill()
+    out, err = proc.communicate()
+    out = out.decode('ascii', errors="ignore")
+    err = err.decode('ascii', errors="ignore")
+    return Result(proc.returncode, out, err)
+
+
+def format_result(result):
+    """Format a subprocess Result obj"""
+
+    out = [
+        'Subprocess Report...',
+        'Exit code: %s' % result.code,
+    ]
+    if result.stdout:
+        out.append('stdout:')
+        out.append(indent(result.stdout, '    '))
+    if result.stderr:
+        out.append('stderr:')
+        out.append(indent(result.stderr, '    '))
+    return '\n'.join(out)
 
 
 def test_compile_dummy_to_stdout():
@@ -82,8 +111,11 @@ def test_watch_dummy(tmpdir):
     # Wait for initial compile
     output_exists = lambda: exists(output.strpath)
     if not await_condition(output_exists):
-        proc.terminate()
-        assert False, "Failed to compile dummy.scss"
+        result = kill(proc)
+        report = format_result(result)
+        err = "Failed to compile dummy.scss\n"
+        err += report
+        assert False, report
 
     # Ensure subprocess is still alive
     assert proc.poll() is None
@@ -91,14 +123,17 @@ def test_watch_dummy(tmpdir):
     # Touch input file, triggering a recompile
     created = output.mtime()
     file_modified = lambda: output.mtime() > created
-    time.sleep(0.1)
+    time.sleep(SLEEP_INTERVAL)
     touch(input)
 
     if not await_condition(file_modified):
-        proc.terminate()
-        assert False, 'Output file has not been recompiled...'
+        result = kill(proc)
+        report = format_result(result)
+        err = 'Modifying %s did not trigger recompile.\n' % basename(input)
+        err += report
+        assert False, err
 
-    proc.terminate()
+    kill(proc)
 
 
 def test_compile_complex(tmpdir):
@@ -129,7 +164,11 @@ def test_watch_complex(tmpdir):
     # Wait for initial compile
     files_created = lambda: all([exists(f.strpath) for f in expected_files])
     if not await_condition(files_created):
-        assert False, 'All expected files have not been created...'
+        result = kill(proc)
+        report = format_result(result)
+        err = 'All expected files have not been created...'
+        err += report
+        assert False, err
 
     # Ensure subprocess is still alive
     assert proc.poll() is None
@@ -147,12 +186,19 @@ def test_watch_complex(tmpdir):
         files_modified = lambda: all(
             [f.mtime() > old_mtimes[i] for i, f in enumerate(expected_files)]
         )
-        time.sleep(0.1)
+        time.sleep(SLEEP_INTERVAL)
         touch(input_file)
 
         if not await_condition(files_modified, timeout):
-            proc.terminate()
-            err = 'Modifying %s did not trigger recompile.' % filename
+            result = kill(proc)
+            report = format_result(result)
+            err = 'Modifying %s did not trigger recompile.\n' % filename
+            err += report
+            for i, f in enumerate(expected_files):
+                err += str(f) + '\n'
+                err += str(old_mtimes[i]) + '\n'
+                err += str(f.mtime()) + '\n'
+                err += str(bool(f.mtime() > old_mtimes[i])) + '\n'
             assert False, err
 
         return True
@@ -161,7 +207,7 @@ def test_watch_complex(tmpdir):
     assert touch_and_wait(input_partial)
     assert touch_and_wait(input_nested)
 
-    proc.terminate()
+    kill(proc)
 
 
 def test_invalid_input():

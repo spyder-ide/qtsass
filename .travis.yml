@@ -1,3 +1,11 @@
+dist: xenial
+services:
+  - xvfb
+addons:
+  apt:
+    packages:
+    - libxkbcommon-x11-0
+
 language: python
 python:
   - "2.7"
@@ -8,9 +16,12 @@ install:
   - "pip install -r requirements.txt"
   - "pip install -r requirements-dev.txt"
 
+env:
+  - QT_DEBUG_PLUGINS=1
+
 script:
   - "python run_checks_and_format.py"
-  - "pytest tests/ --cov=qtsass"
+  - "xvfb-run -a pytest -sv tests/ --cov=qtsass"
 
 after_success:
   - "codecov"

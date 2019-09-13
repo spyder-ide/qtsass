@@ -26,15 +26,18 @@ def example(*paths):
 def touch(file):
     """Touch a file."""
 
-    with open(file, 'a') as f:
-        os.utime(file, None)
+    with open(str(file), 'a'):
+        os.utime(str(file), None)
 
 
-def await_condition(condition, timeout=2000):
+def await_condition(condition, timeout=20, qt_app=None):
     """Return True if a condition is met in the given timeout period"""
 
     for _ in range(timeout):
+        if qt_app:
+            # pump event loop while waiting for condition
+            qt_app.processEvents()
         if condition():
             return True
-        time.sleep(0.001)
+        time.sleep(0.1)
     return False
