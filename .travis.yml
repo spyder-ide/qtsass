@@ -12,6 +12,9 @@ install:
   - "pip install -r requirements.txt"
   - "pip install -r requirements-dev.txt"
 
+env:
+  - QT_DEBUG_PLUGINS=1
+
 script:
   - "python run_checks_and_format.py"
   - "xvfb-run -a pytest tests/ --cov=qtsass"
