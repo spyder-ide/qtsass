@@ -18,8 +18,6 @@ import logging
 import time
 
 
-# yapf: enable
-
 _log = logging.getLogger(__name__)
 
 
@@ -45,6 +43,8 @@ def retry(n, interval=0.1):
         return attempt
 
     return decorate
+
+# yapf: enable
 
 
 class Watcher(object):
