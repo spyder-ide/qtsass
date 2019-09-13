@@ -17,7 +17,7 @@ env:
 
 script:
   - "python run_checks_and_format.py"
-  - "xvfb-run -a pytest tests/ --cov=qtsass"
+  - "xvfb-run -a pytest -sv tests/ --cov=qtsass"
 
 after_success:
   - "codecov"
