@@ -1,6 +1,10 @@
 dist: xenial
 services:
   - xvfb
+addons:
+  apt:
+    packages:
+    - libxkbcommon-x11-0
 
 language: python
 python:
