@@ -21,11 +21,25 @@ those variations.
 
 from __future__ import absolute_import
 
+# Standard library imports
+import logging
+
 # Local imports
-from qtsass.api import compile, compile_dirname, compile_filename, watch
+from qtsass.api import (
+    compile,
+    compile_dirname,
+    compile_filename,
+    watch,
+    enable_logging,
+)
 
 
 # yapf: enable
+
+
+# Setup Logging
+logging.getLogger(__name__).addHandler(logging.NullHandler())
+enable_logging()
 
 # Constants
 VERSION_INFO = (0, 1, 2, 'dev0')

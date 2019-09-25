@@ -33,7 +33,6 @@ DEFAULT_CUSTOM_FUNCTIONS = {'qlineargradient': qlineargradient, 'rgba': rgba}
 DEFAULT_SOURCE_COMMENTS = False
 
 # Logger setup
-logging.basicConfig(level=logging.DEBUG)
 _log = logging.getLogger(__name__)
 
 
@@ -87,6 +86,14 @@ def compile(string, **kwargs):
         _log.error('Failed to conform source code')
         raise
 
+    if _log.isEnabledFor(logging.DEBUG):
+        from pprint import pformat
+        log_kwargs = dict(kwargs)
+        log_kwargs['string'] = 'Conformed SCSS<...>'
+        _log.debug('Calling sass.compile with:')
+        _log.debug(pformat(log_kwargs))
+        _log.debug('Conformed scss:\n{}'.format(kwargs['string']))
+
     # Compile QtSass source code
     try:
         return qt_conform(sass.compile(**kwargs))
@@ -114,7 +121,7 @@ def compile_filename(input_file, output_file, **kwargs):
     with open(input_file, 'r') as f:
         string = f.read()
 
-    _log.debug('Compiling {}...'.format(os.path.normpath(input_file)))
+    _log.info('Compiling {}...'.format(os.path.normpath(input_file)))
     css = compile(string, **kwargs)
 
     output_root = os.path.abspath(os.path.dirname(output_file))
@@ -124,6 +131,7 @@ def compile_filename(input_file, output_file, **kwargs):
     with open(output_file, 'w') as css_file:
         css_file.write(css)
         _log.info('Created CSS file {}'.format(os.path.normpath(output_file)))
+
     return css
 
 
@@ -159,6 +167,39 @@ def compile_dirname(input_dir, output_dir, **kwargs):
                 os.makedirs(output_root)
 
             compile_filename(scss_path, css_path, **fkwargs)
+
+
+def enable_logging(level=None, handler=None):
+    """Enable logging for qtsass.
+
+    Sets the qtsass logger's level to:
+        1. the provided logging level
+        2. logging.DEBUG if the QTSASS_DEBUG envvar is a True value
+        3. logging.WARNING
+
+    .. code-block:: python
+        >>> import logging
+        >>> import qtsass
+        >>> handler = logging.StreamHandler()
+        >>> formatter = logging.Formatter('%(level)-8s: %(name)s> %(message)s')
+        >>> handler.setFormatter(formatter)
+        >>> qtsass.enable_logging(level=logging.DEBUG, handler=handler)
+
+    :param level: Optional logging level
+    :param handler: Optional handler to add
+    """
+    if level is None:
+        debug = os.environ.get('QTSASS_DEBUG', False)
+        if debug in ('1', 'true', 'True', 'TRUE', 'on', 'On', 'ON'):
+            level = logging.DEBUG
+        else:
+            level = logging.WARNING
+
+    logger = logging.getLogger('qtsass')
+    logger.setLevel(level)
+    if handler:
+        logger.addHandler(handler)
+    _log.debug('logging level set to {}.'.format(level))
 
 
 def watch(source, destination, compiler=None, Watcher=None):

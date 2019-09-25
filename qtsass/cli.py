@@ -21,12 +21,16 @@ import sys
 import time
 
 # Local imports
-from qtsass.api import compile, compile_dirname, compile_filename, watch
-
+from qtsass.api import (
+    compile,
+    compile_dirname,
+    compile_filename,
+    watch,
+    enable_logging,
+)
 
 # yapf: enable
 
-logging.basicConfig(level=logging.DEBUG)
 _log = logging.getLogger(__name__)
 
 
@@ -53,12 +57,36 @@ def create_parser():
         action='store_true',
         help='If set, recompile when the source file changes.',
     )
+    parser.add_argument(
+        '-d',
+        '--debug',
+        action='store_true',
+        help='Set the logging level to DEBUG.',
+    )
     return parser
 
 
 def main():
     """CLI entry point."""
+
     args = create_parser().parse_args()
+
+    # Setup CLI logging
+    debug = os.environ.get('QTSASS_DEBUG', args.debug)
+    if debug in ('1', 'true', 'True', 'TRUE', 'on', 'On', 'ON', True):
+        level = logging.DEBUG
+    else:
+        level = logging.INFO
+    enable_logging(level)
+
+    # Add a StreamHandler
+    handler = logging.StreamHandler()
+    if level == logging.DEBUG:
+        fmt = '%(levelname)-8s: %(name)s> %(message)s'
+        handler.setFormatter(logging.Formatter(fmt))
+    logging.root.addHandler(handler)
+    logging.root.setLevel(level)
+
     file_mode = os.path.isfile(args.input)
     dir_mode = os.path.isdir(args.input)
 
@@ -74,6 +102,7 @@ def main():
         sys.exit(0)
 
     elif file_mode:
+        _log.debug('compile_filename({}, {})'.format(args.input, args.output))
         compile_filename(args.input, args.output)
 
     elif dir_mode and not args.output:
@@ -81,6 +110,7 @@ def main():
         sys.exit(1)
 
     elif dir_mode:
+        _log.debug('compile_dirname({}, {})'.format(args.input, args.output))
         compile_dirname(args.input, args.output)
 
     else:
