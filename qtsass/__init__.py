@@ -29,13 +29,12 @@ from qtsass.api import (
     compile,
     compile_dirname,
     compile_filename,
-    watch,
     enable_logging,
+    watch,
 )
 
 
 # yapf: enable
-
 
 # Setup Logging
 logging.getLogger(__name__).addHandler(logging.NullHandler())

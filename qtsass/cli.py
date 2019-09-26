@@ -25,9 +25,10 @@ from qtsass.api import (
     compile,
     compile_dirname,
     compile_filename,
-    watch,
     enable_logging,
+    watch,
 )
+
 
 # yapf: enable
 
@@ -68,7 +69,6 @@ def create_parser():
 
 def main():
     """CLI entry point."""
-
     args = create_parser().parse_args()
 
     # Setup CLI logging
