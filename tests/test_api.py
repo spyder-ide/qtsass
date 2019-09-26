@@ -21,6 +21,7 @@ import sass
 # Local imports
 import qtsass
 
+# Local imports
 from . import EXAMPLES_DIR, PROJECT_DIR, example
 
 
