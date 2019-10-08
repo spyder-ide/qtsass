@@ -118,6 +118,12 @@ You can also use watch mode to watch the entire directory for changes.
 qtsass ./static/scss -o ./static/css -w
 ```
 
+Set the Environment Variable QTSASS_DEBUG to 1 or pass the --debug flag to enable logging.
+
+```bash
+qtsass ./static/scss -o ./static/css --debug
+```
+
 ## API methods
 
 ### `compile(string, **kwargs)`
@@ -151,7 +157,7 @@ Examples:
 
 ```bash
 >>> import qtsass
->>> qtsass.compile_filename('dummy.scss', 'dummy.css') 
+>>> qtsass.compile_filename('dummy.scss', 'dummy.css')
 ```
 
 Arguments:
@@ -167,7 +173,7 @@ Examples:
 
 ```bash
 >>> import qtsass
->>> qtsass.compile_filename('dummy.scss', 'dummy.css') 
+>>> qtsass.compile_filename('dummy.scss', 'dummy.css')
 ```
 
 Arguments:
@@ -189,7 +195,28 @@ Arguments:
 - output_dir: Directory to write compiled Qt compliant CSS files to.
 - kwargs: Keyword arguments to pass to sass.compile
 
-### watch(source, destination, compiler=None, recursive=True):
+### `enable_logging(level=None, handler=None)`:
+Enable logging for qtsass.
+
+Sets the qtsass logger's level to:
+    1. the provided logging level
+    2. logging.DEBUG if the QTSASS_DEBUG envvar is a True value
+    3. logging.WARNING
+
+```bash
+>>> import logging
+>>> import qtsass
+>>> handler = logging.StreamHandler()
+>>> formatter = logging.Formatter('%(level)-8s: %(name)s> %(message)s')
+>>> handler.setFormatter(formatter)
+>>> qtsass.enable_logging(level=logging.DEBUG, handler=handler)
+```
+
+Arguments:
+- level: Optional logging level
+- handler: Optional handler to add
+
+### `watch(source, destination, compiler=None, Watcher=None)`:
 Watches a source file or directory, compiling QtSass files when modified.
 
 The compiler function defaults to compile_filename when source is a file
@@ -199,11 +226,10 @@ Arguments:
 - source: Path to source QtSass file or directory.
 - destination: Path to output css file or directory.
 - compiler: Compile function (optional)
-- recursive: If True, watch subdirectories (default: True).
+- Watcher: Defaults to qtsass.watchers.Watcher (optional)
 
-Returns: 
-- watchdog.Observer
-
+Returns:
+- qtsass.watchers.Watcher instance
 
 ## Contributing
 

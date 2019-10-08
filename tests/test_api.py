@@ -12,6 +12,7 @@ from __future__ import absolute_import
 
 # Standard library imports
 from os.path import exists
+import logging
 
 # Third party imports
 import pytest
@@ -20,6 +21,7 @@ import sass
 # Local imports
 import qtsass
 
+# Local imports
 from . import EXAMPLES_DIR, PROJECT_DIR, example
 
 
@@ -54,6 +56,14 @@ QWidget {
     border: custom_border();
 }
 """
+
+
+def setup_module():
+    qtsass.enable_logging(level=logging.DEBUG)
+
+
+def teardown_module():
+    qtsass.enable_logging(level=logging.WARNING)
 
 
 def test_compile_strings():

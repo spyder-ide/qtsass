@@ -16,7 +16,7 @@ from os.path import basename, exists
 from subprocess import PIPE, Popen
 import time
 
-#Local imports
+# Local imports
 from . import PROJECT_DIR, await_condition, example, touch
 
 

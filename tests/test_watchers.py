@@ -25,6 +25,7 @@ from qtsass import compile_filename
 from qtsass.watchers import PollingWatcher, QtWatcher
 from qtsass.watchers.api import retry
 
+# Local imports
 from . import EXAMPLES_DIR, await_condition, example, touch
 
 
