@@ -25,7 +25,7 @@
   aliases:
   - Gonzalo Pena-Castellanos
   - goanpeca
-  num_commits: 2
+  num_commits: 22
   first_commit: 2017-11-22 18:15:12
   github: goanpeca
 - name: Carlos Cordoba
@@ -42,6 +42,6 @@
   email: yann.lanthony@gmail.com
   aliases:
   - yann.lanthony
-  num_commits: 1
+  num_commits: 22
   first_commit: 2015-08-16 05:22:05
   github: yann-lty
