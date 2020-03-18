@@ -175,7 +175,7 @@ def clean_repo():
     for p in pathlib.Path('.').rglob('__pycache__'):
         p.rmdir()        
 
-    rm CHANGELOG.temp
+    rm -rf CHANGELOG.temp
     rm -rf .pytest_cache/
     rm -rf build/
     rm -rf dist/
