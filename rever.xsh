@@ -20,8 +20,8 @@ $ACTIVITIES = [
     'install_test_distributions',
     'run_install_tests',
     'create_changelog',
-    'authors',
     'commit_release_version',
+    'authors',
     'add_tag',
     'upload_python_distributions',
     'update_dev_version',
@@ -312,7 +312,7 @@ def commit_release_version():
     Commit release version.
     """
     git add .
-    git commit -m @('Set release version to ' + $NEW_VERSION + ' [ci skip]') --no-verify
+    git commit -m @('Set release version to ' + $NEW_VERSION + ' [ci skip]')
 
 
 @activity

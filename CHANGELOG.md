@@ -1,37 +1,5 @@
 # History of changes
 
-## Version qtsass v0.3.0 (2020/03/18)
-
-### Issues Closed
-
-* [Issue 50](https://github.com/spyder-ide/qtsass/issues/50) - Add rever to release process ([PR 51](https://github.com/spyder-ide/qtsass/pull/51) by [@goanpeca](https://github.com/goanpeca))
-* [Issue 48](https://github.com/spyder-ide/qtsass/issues/48) - Move CI to github actions ([PR 49](https://github.com/spyder-ide/qtsass/pull/49) by [@goanpeca](https://github.com/goanpeca))
-
-In this release 2 issues were closed.
-
-### Pull Requests Merged
-
-* [PR 51](https://github.com/spyder-ide/qtsass/pull/51) - PR: Add rever to release process, by [@goanpeca](https://github.com/goanpeca) ([50](https://github.com/spyder-ide/qtsass/issues/50))
-* [PR 49](https://github.com/spyder-ide/qtsass/pull/49) - PR: Move to github actions, by [@goanpeca](https://github.com/goanpeca) ([48](https://github.com/spyder-ide/qtsass/issues/48))
-
-In this release 2 pull requests were closed.
-
-## Version qtsass v0.3.0 (2020/03/18)
-
-### Issues Closed
-
-* [Issue 50](https://github.com/spyder-ide/qtsass/issues/50) - Add rever to release process ([PR 51](https://github.com/spyder-ide/qtsass/pull/51) by [@goanpeca](https://github.com/goanpeca))
-* [Issue 48](https://github.com/spyder-ide/qtsass/issues/48) - Move CI to github actions ([PR 49](https://github.com/spyder-ide/qtsass/pull/49) by [@goanpeca](https://github.com/goanpeca))
-
-In this release 2 issues were closed.
-
-### Pull Requests Merged
-
-* [PR 51](https://github.com/spyder-ide/qtsass/pull/51) - PR: Add rever to release process, by [@goanpeca](https://github.com/goanpeca) ([50](https://github.com/spyder-ide/qtsass/issues/50))
-* [PR 49](https://github.com/spyder-ide/qtsass/pull/49) - PR: Move to github actions, by [@goanpeca](https://github.com/goanpeca) ([48](https://github.com/spyder-ide/qtsass/issues/48))
-
-In this release 2 pull requests were closed.
-
 ## Version 0.2 (2020-02-23)
 
 ### Issues Closed
