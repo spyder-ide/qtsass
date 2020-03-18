@@ -1,51 +1,144 @@
 # Release process
 
-## To release a new version of **qtsass** on PyPI:
+## Using rever
 
-* Ensure you have the latest version from upstream and update your fork
+You need to have `conda` install since the process relies on conda environments.
 
-      git pull upstream master
-      git push origin master
+Make sure your current environment has [rever](https://regro.github.io/rever-docs/) installed.
 
-* Clean the repo
+```bash
+conda install rever -c conda-forge
+```
 
-      git clean -xfdi
+Run checks before to make sure things are in order.
 
-* Update CHANGELOG.md
+```bash
+rever check
+```
 
-* Update version in `__init__.py` (set release version, remove 'dev0')
+Delete the `rever/` folder to start a clean release.
 
-* Commit changes
+```bash
+rm -rf rever/
+```
 
-      git add .
-      git commit -m "Release X.X.X"
+Run rever with the type version (major|minor|patch|MAJOR.MINOR.PATCH) to update.
 
-* Create distributions
+### Major release
 
-      python setup.py sdist bdist_wheel
+If the current version is `3.0.0.dev0`, running:
 
-* Upload distributions
+```bash
+rever major
+```
 
-      twine upload dist/* -u <username> -p <password>
+Will produce version `4.0.0` and update the dev version to `4.0.0.dev0`
 
-* Add release tag
+### Minor release
 
-      git tag -a vX.X.X -m "Release X.X.X"
+If the current version is `3.0.0.dev0`, running:
 
-* Update `__init__.py` (add 'dev0' and increment minor)
+```bash
+rever minor
+```
 
-* Commint changes
+Will produce version `3.1.0` and update the dev version to `3.1.0.dev0`
 
-      git add .
-      git commit -m "Back to work"
+### Patch release
 
-* Push changes
-    
-      git push upstream master
-      git push origin master
-      git push --tags
+If the current version is `3.0.0.dev0`, running:
 
+```bash
+rever patch
+```
 
-## To release a new version of **qtsass** on conda-forge:
+Will produce version `3.0.1` and update the dev version to `3.0.1.dev0`
 
-* Update recipe on the qtsass feedstock: https://github.com/conda-forge/qtsass-feedstock
+### MAJOR.MINOR.PATCH release
+
+If the current version is `3.0.0.dev0`, running:
+
+```bash
+rever 5.0.1
+```
+
+Will produce version `5.0.1` and update the dev version to `5.0.1.dev0`
+
+### Important
+
+- In case some of the steps appear as completed, delete the `rever` folder.
+
+```bash
+rm -rf rever/
+```
+
+- Some of the intermediate steps may ask for feedback, like checking the changelog.
+
+## Manual process
+
+- Ensure you have the latest version from upstream and update your fork
+
+```bash
+git pull upstream master
+git push origin master
+```
+
+- Clean the repo
+
+```bash
+git clean -xfdi
+```
+
+- Update CHANGELOG.md using loghub
+
+```bash
+loghub spyder-ide/qtsass -zr <release>
+```
+
+- Update version in `__init__.py` (set release version, remove 'dev0')
+
+- Commit changes
+
+```bash
+git add .
+git commit -m "Release X.X.X"
+```
+
+- Create distributions
+
+```bash
+python setup.py sdist bdist_wheel
+```
+
+- Upload distributions
+
+```bash
+twine upload dist/* -u <username> -p <password>
+```
+
+- Add release tag
+
+```bash
+git tag -a vX.X.X -m "Release X.X.X"
+```
+
+- Update `__init__.py` (add 'dev0' and increment minor)
+
+- Commint changes
+
+```bash
+git add .
+git commit -m "Back to work"
+```
+
+- Push changes
+
+```bash
+git push upstream master
+git push origin master
+git push --tags
+```
+
+## To release a new version of **qtsass** on conda-forge
+
+- Update recipe on the [qtsass feedstock](https://github.com/conda-forge/qtsass-feedstock)

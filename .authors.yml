@@ -1,0 +1,47 @@
+- name: Andrey Galkin
+  email: andrey@futoin.eu
+  alternate_emails:
+  - andrey@futoin.org
+  num_commits: 5
+  first_commit: 2019-02-25 16:41:43
+  github: tmpfork
+- name: Eric Werner
+  email: ewerybody+github@gmail.com
+  num_commits: 16
+  first_commit: 2019-08-29 09:56:15
+  github: ewerybody
+- name: Matthew Joyce
+  email: matsjoyce@gmail.com
+  num_commits: 2
+  first_commit: 2019-07-25 07:53:58
+  github: matsjoyce
+- name: Dan Bradham
+  email: danielbradham@gmail.com
+  num_commits: 66
+  first_commit: 2018-05-01 16:28:41
+  github: danbradham
+- name: Gonzalo Peña-Castellanos
+  email: goanpeca@gmail.com
+  aliases:
+  - Gonzalo Pena-Castellanos
+  - goanpeca
+  num_commits: 2
+  first_commit: 2017-11-22 18:15:12
+  github: goanpeca
+- name: Carlos Cordoba
+  email: ccordoba12@gmail.com
+  num_commits: 3
+  first_commit: 2019-04-26 04:36:01
+  github: ccordoba12
+- name: C.A.M. Gerlach
+  email: widenetservices@gmail.com
+  num_commits: 3
+  first_commit: 2018-06-11 16:08:54
+  github: CAM-Gerlach
+- name: Yann Lanthony
+  email: yann.lanthony@gmail.com
+  aliases:
+  - yann.lanthony
+  num_commits: 1
+  first_commit: 2015-08-16 05:22:05
+  github: yann-lty
