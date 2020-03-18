@@ -41,5 +41,21 @@ logging.getLogger(__name__).addHandler(logging.NullHandler())
 enable_logging()
 
 # Constants
-VERSION_INFO = (0, 1, 2, 'dev0')
-__version__ = '.'.join(map(str, VERSION_INFO))
+__version__ = '0.2.2.dev0'
+
+
+def _to_version_info(version):
+    """Convert a version string to a number and string tuple."""
+    parts = []
+    for part in version.split('.'):
+        try:
+            part = int(part)
+        except ValueError:
+            pass
+
+        parts.append(part)
+
+    return tuple(parts)
+
+
+VERSION_INFO = _to_version_info(__version__)

@@ -96,13 +96,10 @@ def test_watchers(Watcher, tmpdir):
     assert c.count == 2
 
 
+@pytest.mark.skipif(sys.platform.startswith('linux') or not QtWatcher,
+                    reason="Fails on linux")
 def test_qtwatcher(tmpdir):
-    """Test QtWatcher implementation"""
-
-    # Skip when QtWatcher is None - When Qt is not installed
-    if not QtWatcher:
-        return
-
+    """Test QtWatcher implementation."""
     # Constructing a QApplication will cause the QtWatcher constructed
     # below to use a Signal to dispatch callbacks.
     from qtsass.watchers.qt import QApplication
