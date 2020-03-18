@@ -1,7 +1,0 @@
-* Yann Lanthony <https://github.com/yann-lty> (Original qtsass author).
-
-The Spyder Project Contributors are composed of:
-
-* Dan Bradham <danielbradham@gmail.com> (Current maintainer).
-* All other developers who have contributed to this repository
-  and/or the original documentation on the main spyder-ide/spyder repository.

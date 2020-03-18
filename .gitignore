@@ -268,3 +268,10 @@ crashlytics-build.properties
 
 # Project virtualenv
 venv/
+
+# Rever
+rever/
+activate.xsh
+
+# Loghub
+CHANGELOG.temp
