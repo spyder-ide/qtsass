@@ -25,12 +25,13 @@ def get_version(module='qtsass'):
     """Get version."""
     with open(os.path.join(HERE, module, '__init__.py'), 'r') as f:
         data = f.read()
+
     lines = data.split('\n')
     for line in lines:
-        if line.startswith('VERSION_INFO'):
-            version_tuple = ast.literal_eval(line.split('=')[-1].strip())
-            version = '.'.join(map(str, version_tuple))
+        if line.startswith('__version__'):
+            version = ast.literal_eval(line.split('=')[-1].strip())
             break
+
     return version
 
 
@@ -38,6 +39,7 @@ def get_description():
     """Get long description."""
     with open(os.path.join(HERE, 'README.md'), 'r', encoding='utf-8') as f:
         data = f.read()
+
     return data
 
 
@@ -66,12 +68,17 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Topic :: Software Development :: Build Tools',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ),
     install_requires=[
         'libsass',
     ],
-    keywords='qt sass qtsass scss css stylesheets',
+    keywords='qt sass qtsass scss css qss stylesheets',
 )

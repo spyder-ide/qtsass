@@ -1,0 +1,178 @@
+name: Tests
+
+on:
+  # This avoids having duplicate builds for a pull request
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  smoke:
+    name: Linux smoke test Py${{ matrix.PYTHON_VERSION }}
+    runs-on: ubuntu-latest
+    env:
+      CI: True
+      PYTHON_VERSION: ${{ matrix.PYTHON_VERSION }}
+      QT_DEBUG_PLUGINS: 1
+    strategy:
+      fail-fast: false 
+      matrix:
+        PYTHON_VERSION: ['2.7', '3.5', '3.8']
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+      - name: Install Conda
+        uses: goanpeca/setup-miniconda@v1
+        with:
+           activate-environment: test
+           python-version: ${{ matrix.PYTHON_VERSION }} 
+      - name: Install Dependencies
+        shell: bash -l {0}
+        run: pip install -r requirements/install.txt
+      - name: Install Test Dependencies
+        shell: bash -l {0}
+        run: pip install -r requirements/dev.txt
+      - name: Install Package
+        shell: bash -l {0}
+        run: python setup.py develop
+      - name: Show Environment
+        shell: bash -l {0}
+        run: |
+          conda info
+          conda list
+      - name: Format
+        if: matrix.PYTHON_VERSION == '2.7'
+        shell: bash -l {0}
+        run: python run_checks_and_format.py
+      - name: Run tests
+        shell: bash -l {0}
+        run: xvfb-run --auto-servernum pytest tests --cov=qtsass --cov-report=term-missing -x -vv
+      - name: Upload coverage to Codecov  
+        shell: bash -l {0}
+        run: codecov -t 74b56e56-6c81-4b43-b830-c46638da84a7
+
+  linux:
+    name: Linux Py${{ matrix.PYTHON_VERSION }}
+    needs: smoke
+    runs-on: ubuntu-latest
+    env:
+      CI: True
+      PYTHON_VERSION: ${{ matrix.PYTHON_VERSION }}
+      QT_DEBUG_PLUGINS: 1
+    strategy:
+      fail-fast: false 
+      matrix:
+        PYTHON_VERSION: ['3.6', '3.7']
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+      - name: Install Conda
+        uses: goanpeca/setup-miniconda@v1
+        with:
+           activate-environment: test
+           python-version: ${{ matrix.PYTHON_VERSION }} 
+      - name: Install Dependencies
+        shell: bash -l {0}
+        run: pip install -r requirements/install.txt
+      - name: Install Test Dependencies
+        shell: bash -l {0}
+        run: pip install -r requirements/dev.txt
+      - name: Install Package
+        shell: bash -l {0}
+        run: python setup.py develop
+      - name: Show Environment
+        shell: bash -l {0}
+        run: |
+          conda info
+          conda list
+      - name: Run tests
+        shell: bash -l {0}
+        run: xvfb-run --auto-servernum pytest tests --cov=qtsass --cov-report=term-missing -x -vv
+      - name: Upload coverage to Codecov  
+        shell: bash -l {0}
+        run: codecov -t 74b56e56-6c81-4b43-b830-c46638da84a7
+
+  macos:
+    name: Mac Py${{ matrix.PYTHON_VERSION }}
+    needs: smoke
+    runs-on: macos-latest
+    env:
+      CI: True
+      PYTHON_VERSION: ${{ matrix.PYTHON_VERSION }}
+      QT_DEBUG_PLUGINS: 1
+    strategy:
+      fail-fast: false 
+      matrix:
+        PYTHON_VERSION: ['2.7', '3.5', '3.6', '3.7', '3.8']
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+      - name: Install Conda
+        uses: goanpeca/setup-miniconda@v1
+        with:
+           activate-environment: test
+           python-version: ${{ matrix.PYTHON_VERSION }} 
+      - name: Install Dependencies
+        shell: bash -l {0}
+        run: pip install -r requirements/install.txt
+      - name: Install Test Dependencies
+        shell: bash -l {0}
+        run: pip install -r requirements/dev.txt
+      - name: Install Package
+        shell: bash -l {0}
+        run: python setup.py develop
+      - name: Show Environment
+        shell: bash -l {0}
+        run: |
+          conda info
+          conda list
+      - name: Run tests
+        shell: bash -l {0}
+        run: pytest tests --cov=qtsass --cov-report=term-missing -x -vv
+      - name: Upload coverage to Codecov  
+        shell: bash -l {0}
+        run: codecov -t 74b56e56-6c81-4b43-b830-c46638da84a7
+
+  windows:
+    name: Windows Py${{ matrix.PYTHON_VERSION }}
+    needs: smoke
+    runs-on: windows-latest
+    env:
+      CI: True
+      PYTHON_VERSION: ${{ matrix.PYTHON_VERSION }}
+      QT_DEBUG_PLUGINS: 1
+    strategy:
+      fail-fast: false 
+      matrix:
+        PYTHON_VERSION: ['2.7', '3.5', '3.6', '3.7', '3.8']
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+      - name: Install Conda
+        uses: goanpeca/setup-miniconda@v1
+        with:
+           activate-environment: test
+           python-version: ${{ matrix.PYTHON_VERSION }} 
+      - name: Install Dependencies
+        shell: bash -l {0}
+        run: pip install -r requirements/install.txt
+      - name: Install Test Dependencies
+        shell: bash -l {0}
+        run: pip install -r requirements/dev.txt
+      - name: Install Package
+        shell: bash -l {0}
+        run: python setup.py develop
+      - name: Show Environment
+        shell: bash -l {0}
+        run: |
+          conda info
+          conda list
+      - name: Run tests
+        shell: bash -l {0}
+        run: pytest tests --cov=qtsass --cov-report=term-missing -x -vv
+      - name: Upload coverage to Codecov  
+        shell: bash -l {0}
+        run: codecov -t 74b56e56-6c81-4b43-b830-c46638da84a7
