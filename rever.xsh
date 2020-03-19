@@ -31,7 +31,7 @@ $ACTIVITIES = [
 
 
 $PROJECT = "qtsass"
-$MODULE = "qtsass"
+$MODULE = $PROJECT
 $GITHUB_ORG = 'spyder-ide'
 $GITHUB_REPO = $PROJECT
 $VERSION_BUMP_PATTERNS = [
@@ -230,7 +230,7 @@ def run_tests():
     """
     Run simple import tests before cleaning repository.
     """
-    pytest tests
+    pytest tests --cov=$MODULE
 
 
 @activity
@@ -284,7 +284,7 @@ def run_install_tests():
     Run simple import tests before cleaning repository.
     """
     activate($TEMP_ENV)
-    qtsass --help
+    $MODULE --help
 
 
 @activity
