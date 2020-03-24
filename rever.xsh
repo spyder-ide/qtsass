@@ -36,10 +36,11 @@ $GITHUB_ORG = 'spyder-ide'
 $GITHUB_REPO = $PROJECT
 $VERSION_BUMP_PATTERNS = [
     # These note where/how to find the version numbers
-    ($MODULE + '/__init__.py', r'__version__\s*=.*', "__version__ = '$VERSION'"),
+    ($MODULE + '/__init__.py', r'__version__\s*=.*', '__version__ = "$VERSION"'),
 ]
 $AUTHORS_FILENAME = "AUTHORS.md"
-$AUTHORS_TEMPLATE = """
+$AUTHORS_TEMPLATE = """# Authors
+
 The $PROJECT project has some great contributors! They are:
 
 {authors}

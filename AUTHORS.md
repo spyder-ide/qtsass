@@ -1,3 +1,4 @@
+# Authors
 
 The qtsass project has some great contributors! They are:
 
