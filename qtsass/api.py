@@ -13,6 +13,11 @@
 from __future__ import absolute_import, print_function
 
 # Standard library imports
+try:
+    from collections import Mapping, Sequence
+except ImportError:
+    # Python 3.9 or newer:
+    from collections.abc import Mapping, Sequence
 import logging
 import os
 import sys
