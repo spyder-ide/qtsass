@@ -22,7 +22,7 @@ import sass
 
 # Local imports
 from qtsass.conformers import qt_conform, scss_conform
-from qtsass.functions import qlineargradient, rgba
+from qtsass.functions import qlineargradient, qradialgradient, rgba
 from qtsass.importers import qss_importer
 
 
@@ -35,7 +35,7 @@ else:
 # yapf: enable
 
 # Constants
-DEFAULT_CUSTOM_FUNCTIONS = {'qlineargradient': qlineargradient, 'rgba': rgba}
+DEFAULT_CUSTOM_FUNCTIONS = {'qlineargradient': qlineargradient, 'qradialgradient': qradialgradient, 'rgba': rgba}
 DEFAULT_SOURCE_COMMENTS = False
 
 # Logger setup

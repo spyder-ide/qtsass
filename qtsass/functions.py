@@ -80,3 +80,28 @@ def qlineargradient(x1, y1, x2, y2, stops):
     template = 'qlineargradient(x1: {}, y1: {}, x2: {}, y2: {}, {})'
     return template.format(x1.value, y1.value, x2.value, y2.value,
                            ', '.join(stops_str))
+
+def qradialgradient(spread, cx, cy, radius, fx, fy, stops):
+    """
+    Implement qss qradialgradient function for scss.
+
+    :type spread: string
+    :type cx: sass.SassNumber
+    :type cy: sass.SassNumber
+    :type radius: sass.SassNumber
+    :type fx: sass.SassNumber
+    :type fy: sass.SassNumber
+    :type stops: sass.SassList
+    :return:
+    """
+    stops_str = []
+    for stop in stops[0]:
+        pos, color = stop[0]
+        stops_str.append('stop: {} {}'.format(
+            pos.value,
+            rgba_from_color(color),
+        ))
+    template = 'qradialgradient(spread: {}, cx: {}, cy: {}, radius: {}, fx: {}, fy: {}, {})'
+    return template.format(spread, cx.value, cy.value, radius.value, fx.value, fy.value,
+                           ', '.join(stops_str))
+
