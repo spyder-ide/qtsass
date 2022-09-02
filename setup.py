@@ -45,7 +45,7 @@ def get_description():
 
 
 setup(
-    name='qtsass',
+    name='qtsass310',
     version=get_version(),
     description='Compile SCSS files to valid Qt stylesheets.',
     long_description=get_description(),
