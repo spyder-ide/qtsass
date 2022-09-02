@@ -41,7 +41,7 @@ logging.getLogger(__name__).addHandler(logging.NullHandler())
 enable_logging()
 
 # Constants
-__version__ = '0.3.0.dev0'
+__version__ = '0.3.1'
 
 
 def _to_version_info(version):
