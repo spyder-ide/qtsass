@@ -3,6 +3,8 @@ name: Tests
 on:
   # This avoids having duplicate builds for a pull request
   push:
+    tags:
+      - v**
     branches:
     - main
   pull_request:
@@ -160,3 +162,27 @@ jobs:
       - name: Run tests
         shell: bash -l {0}
         run: pytest tests --cov=qtsass --cov-report=term-missing -x -vv
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+    needs: [windows, macos, linux]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U .
+      - name: Build dist
+        run: |
+          python setup.py sdist bdist_wheel
+
+      - name: Publish package
+        uses: pypa/gh-action-pypi-publish@v1.5.1
+        with:
+          user: __token__
+          password: ${{ secrets.pypi_password }}
