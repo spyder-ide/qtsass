@@ -11,6 +11,29 @@
 
 *Copyright © 2017–2018 Spyder Project Contributors*
 
+# THIS IS JUST A FORK RELEASE
+
+The [currently latest release of qtsass (0.3.0)](https://pypi.org/project/qtsass/0.3.0/) isn't compatible
+with python 3.10 but [the current state of the default branch](https://github.com/spyder-ide/qtsass/tree/06f15194239ba430d5a9a144c1cc7c6b03e585a3) is.
+Due to security restrictions, it isn't possible to publish a package on PyPI that has a direct 
+dependency using a URL, which blocks the release of packages supporting python 3.10 using 
+[qtsass](https://github.com/spyder-ide/qtsass) as dependency.
+This distribution is just a workaround until a new version of `qtsass` is released and unblocks 
+python 3.10 support. After a new release of `qtsass` this distribution will give an import warning 
+to use `qtsass` instead. There will be no development on this distribution!
+To bring more attention to the need for a new release refer to 
+[this issue](https://github.com/spyder-ide/qtsass/issues/60).
+
+## Usage
+
+Add the following lines to you `setup.cfg` to enable python 3.10 support
+
+```python
+[options]
+install_requires =
+    qtsass>=0.3.0 ;python_version < '3.10'
+    qtsass310>=0.3.1 ;python_version >= '3.10'
+```
 
 ## Overview
 
