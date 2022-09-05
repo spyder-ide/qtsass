@@ -4,10 +4,10 @@ on:
   # This avoids having duplicate builds for a pull request
   push:
     branches:
-    - master
+      - master
   pull_request:
     branches:
-    - master
+      - master
 
 jobs:
   smoke:
@@ -20,12 +20,12 @@ jobs:
     strategy:
       fail-fast: false 
       matrix:
-        PYTHON_VERSION: ['2.7', '3.5', '3.8']
+        PYTHON_VERSION: ['2.7', '3.7', '3.10']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Install Conda
-        uses: goanpeca/setup-miniconda@v1
+        uses: conda-incubator/setup-miniconda@v2
         with:
            activate-environment: test
            python-version: ${{ matrix.PYTHON_VERSION }} 
@@ -65,12 +65,12 @@ jobs:
     strategy:
       fail-fast: false 
       matrix:
-        PYTHON_VERSION: ['3.6', '3.7']
+        PYTHON_VERSION: ['3.8', '3.9']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Install Conda
-        uses: goanpeca/setup-miniconda@v1
+        uses: conda-incubator/setup-miniconda@v2
         with:
            activate-environment: test
            python-version: ${{ matrix.PYTHON_VERSION }} 
@@ -106,12 +106,12 @@ jobs:
     strategy:
       fail-fast: false 
       matrix:
-        PYTHON_VERSION: ['2.7', '3.5', '3.6', '3.7', '3.8']
+        PYTHON_VERSION: ['2.7', '3.7', '3.8', '3.9', '3.10']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Install Conda
-        uses: goanpeca/setup-miniconda@v1
+        uses: conda-incubator/setup-miniconda@v2
         with:
            activate-environment: test
            python-version: ${{ matrix.PYTHON_VERSION }} 
@@ -147,12 +147,12 @@ jobs:
     strategy:
       fail-fast: false 
       matrix:
-        PYTHON_VERSION: ['2.7', '3.5', '3.6', '3.7', '3.8']
+        PYTHON_VERSION: ['2.7', '3.7', '3.8', '3.9', '3.10']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Install Conda
-        uses: goanpeca/setup-miniconda@v1
+        uses: conda-incubator/setup-miniconda@v2
         with:
            activate-environment: test
            python-version: ${{ matrix.PYTHON_VERSION }} 
