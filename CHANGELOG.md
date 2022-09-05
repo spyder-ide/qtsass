@@ -1,18 +1,20 @@
 # History of changes
 
-## Version 0.3.1 (2022/09/05)
+## Version 0.3.1 (2022-09-05)
 
 ### Issues Closed
 
 * [Issue 60](https://github.com/spyder-ide/qtsass/issues/60) - Release QtSASS 0.3.1 ([PR 64](https://github.com/spyder-ide/qtsass/pull/64) by [@dalthviz](https://github.com/dalthviz))
+* [Issue 52](https://github.com/spyder-ide/qtsass/issues/52) - Update 'collections' imports for Python 3.3+ ([PR 54](https://github.com/spyder-ide/qtsass/pull/54) by [@goanpeca](https://github.com/goanpeca))
 
-In this release 1 issue was closed.
+In this release 2 issues were closed.
 
 ### Pull Requests Merged
 
 * [PR 64](https://github.com/spyder-ide/qtsass/pull/64) - PR: Update CI Python versions and classifiers, by [@dalthviz](https://github.com/dalthviz) ([60](https://github.com/spyder-ide/qtsass/issues/60))
+* [PR 54](https://github.com/spyder-ide/qtsass/pull/54) - PR: Add check for deprecated api between 2 and 3 versions, by [@goanpeca](https://github.com/goanpeca) ([52](https://github.com/spyder-ide/qtsass/issues/52))
 
-In this release 1 pull request was closed.
+In this release 2 pull requests were closed.
 
 ## Version qtsass v0.3.0 (2020/03/18)
 
