@@ -1,6 +1,6 @@
 # History of changes
 
-## Version 0.3.1 (2022-09-05)
+## Version 0.3.1 (2022/09/05)
 
 ### Issues Closed
 
