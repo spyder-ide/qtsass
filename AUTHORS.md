@@ -12,4 +12,4 @@ The qtsass project has some great contributors! They are:
 - [Yann Lanthony](https://github.com/yann-lty)
 
 
-These have been sorted alphabetically.
+These have been sorted alphabetically. The full list of contributors can be found at: https://github.com/spyder-ide/qtsass/graphs/contributors
