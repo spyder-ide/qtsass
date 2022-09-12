@@ -104,23 +104,10 @@ git add .
 git commit -m "Release X.X.X"
 ```
 
-- Create distributions
+- Make a [new release](https://github.com/spyder-ide/qtsass/releases) with tag name `vX.X.X`
 
-```bash
-python setup.py sdist bdist_wheel
-```
-
-- Upload distributions
-
-```bash
-twine upload dist/* -u <username> -p <password>
-```
-
-- Add release tag
-
-```bash
-git tag -a vX.X.X -m "Release X.X.X"
-```
+- Check that [the CI workflow](https://github.com/spyder-ide/qtsass/actions) for `vX.X.X` 
+  successfully deployed the new release
 
 - Update `__init__.py` (add 'dev0' and increment minor)
 
