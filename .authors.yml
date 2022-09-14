@@ -45,8 +45,14 @@
   num_commits: 22
   first_commit: 2015-08-16 05:22:05
   github: yann-lty
-- name: Daniel Althviz
+- name: Daniel Althviz Moré
   email: d.althviz10@uniandes.edu.co
   aliases:
   - dalthviz
+  - Daniel Althviz
   github: dalthviz
+- name: Sebastian Weigand
+  email: s.weigand.phy@gmail.com
+  aliases:
+  - s-weigand
+  github: s-weigand
