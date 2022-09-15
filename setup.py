@@ -81,7 +81,7 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ),
     install_requires=[
-        'libsass',
+        'libsass<=0.21.0',
     ],
     keywords='qt sass qtsass scss css qss stylesheets',
 )
