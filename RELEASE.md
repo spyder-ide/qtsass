@@ -74,7 +74,7 @@ rm -rf rever/
 
 - Some of the intermediate steps may ask for feedback, like checking the changelog.
 
-## Manual process
+## Semi-automatic process using Git and GitHub actions
 
 - Ensure you have the latest version from upstream and update your fork
 
@@ -83,25 +83,27 @@ git pull upstream master
 git push origin master
 ```
 
-- Clean the repo
+- Clean the repo (select option 1)
 
 ```bash
 git clean -xfdi
 ```
 
-- Update CHANGELOG.md using loghub
+- Update `CHANGELOG.md` using loghub
 
 ```bash
-loghub spyder-ide/qtsass -zr <release>
+loghub spyder-ide/qtsass -m <vX.X.X>
 ```
 
 - Update version in `__init__.py` (set release version, remove 'dev0')
 
-- Commit changes
+- Commit and push changes
 
 ```bash
 git add .
 git commit -m "Release X.X.X"
+git push upstream master
+git push origin master
 ```
 
 - Make a [new release](https://github.com/spyder-ide/qtsass/releases) with tag name `vX.X.X`
@@ -111,19 +113,13 @@ git commit -m "Release X.X.X"
 
 - Update `__init__.py` (add 'dev0' and increment minor)
 
-- Commint changes
+- Commit and push changes
 
 ```bash
 git add .
 git commit -m "Back to work"
-```
-
-- Push changes
-
-```bash
 git push upstream master
 git push origin master
-git push --tags
 ```
 
 ## To release a new version of **qtsass** on conda-forge
