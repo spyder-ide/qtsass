@@ -1,5 +1,15 @@
 # History of changes
 
+## Version 0.3.2 (2022/09/16)
+
+### Pull Requests Merged
+
+* [PR 68](https://github.com/spyder-ide/qtsass/pull/68) - PR: Constraint libsass to 0.21.0 and update .authors.yml file, by [@dalthviz](https://github.com/dalthviz)
+* [PR 66](https://github.com/spyder-ide/qtsass/pull/66) - PR: Update changelog and authors, by [@dalthviz](https://github.com/dalthviz)
+* [PR 65](https://github.com/spyder-ide/qtsass/pull/65) - PR:🚇 Add deployment pipeline step, by [@s-weigand](https://github.com/s-weigand)
+
+In this release 3 pull requests were closed.
+
 ## Version 0.3.1 (2022/09/05)
 
 ### Issues Closed
