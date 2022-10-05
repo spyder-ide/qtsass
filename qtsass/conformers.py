@@ -211,11 +211,11 @@ class QRadialGradientConformer(Conformer):
 
     def to_scss(self, qss):
         """
-        Conform qss qlineargradient to scss qlineargradient form.
+        Conform qss qradialgradient to scss qradialgradient form.
 
         Normalize all whitespace including the removal of newline chars.
 
-        qradialgradient(cy: 0, cy: 0, radius: 0,
+        qradialgradient(cx: 0, cy: 0, radius: 0,
                         fx: 0, fy: 0, stop: 0 red, stop: 1 blue)
         =>
         qradialgradient(0, 0, 0, 0, 0, (0 red, 1 blue))
@@ -223,7 +223,7 @@ class QRadialGradientConformer(Conformer):
         conformed = qss
 
         for spread, coords, stops in self.qss_pattern.findall(qss):
-            new_spread = "'" + self._conform_spread_to_scss(spread) + "',"
+            new_spread = "'" + self._conform_spread_to_scss(spread) + "', "
             conformed = conformed.replace(spread, new_spread, 1)
             new_coords = self._conform_coords_to_scss(coords)
             conformed = conformed.replace(coords, new_coords, 1)

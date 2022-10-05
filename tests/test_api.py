@@ -43,6 +43,19 @@ QWidget {
     );
 }
 """
+QRADIANTGRADIENTS_STR = """
+QWidget {
+    background: qradialgradient(
+        spread: repeat,
+        cx: 0,
+        cy: 0,
+        fx: 0,
+        fy: 1,
+        stop: 0.1 blue,
+        stop: 0.8 green
+    );
+}
+"""
 QNOT_STR = """
 QLineEdit:!editable {
     background: white;
@@ -71,6 +84,7 @@ def test_compile_strings():
 
     qtsass.compile(COLORS_STR)
     qtsass.compile(QLINEARGRADIENTS_STR)
+    qtsass.compile(QRADIANTGRADIENTS_STR)
     qtsass.compile(QNOT_STR)
 
 
