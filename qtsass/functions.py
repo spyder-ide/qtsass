@@ -81,6 +81,7 @@ def qlineargradient(x1, y1, x2, y2, stops):
     return template.format(x1.value, y1.value, x2.value, y2.value,
                            ', '.join(stops_str))
 
+
 def qradialgradient(spread, cx, cy, radius, fx, fy, stops):
     """
     Implement qss qradialgradient function for scss.
@@ -101,7 +102,8 @@ def qradialgradient(spread, cx, cy, radius, fx, fy, stops):
             pos.value,
             rgba_from_color(color),
         ))
-    template = 'qradialgradient(spread: {}, cx: {}, cy: {}, radius: {}, fx: {}, fy: {}, {})'
-    return template.format(spread, cx.value, cy.value, radius.value, fx.value, fy.value,
-                           ', '.join(stops_str))
-
+    template = ('qradialgradient('
+                'spread: {}, cx: {}, cy: {}, radius: {}, fx: {}, fy: {}, {}'
+                ')')
+    return template.format(spread, cx.value, cy.value, radius.value, fx.value,
+                           fy.value, ', '.join(stops_str))

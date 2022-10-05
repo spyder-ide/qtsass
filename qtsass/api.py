@@ -35,7 +35,11 @@ else:
 # yapf: enable
 
 # Constants
-DEFAULT_CUSTOM_FUNCTIONS = {'qlineargradient': qlineargradient, 'qradialgradient': qradialgradient, 'rgba': rgba}
+DEFAULT_CUSTOM_FUNCTIONS = {
+    'qlineargradient': qlineargradient,
+    'qradialgradient': qradialgradient,
+    'rgba': rgba
+}
 DEFAULT_SOURCE_COMMENTS = False
 
 # Logger setup

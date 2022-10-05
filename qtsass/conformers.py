@@ -18,6 +18,7 @@ import re
 
 # yapf: enable
 
+
 class Conformer(object):
     """Base class for all text transformations."""
 
@@ -46,7 +47,7 @@ class QLinearGradientConformer(Conformer):
     """Conform QSS qlineargradient function."""
 
     _DEFAULT_COORDS = ('x1', 'y1', 'x2', 'y2')
-    
+
     qss_pattern = re.compile(
         r'qlineargradient\('
         r'((?:(?:\s+)?(?:x1|y1|x2|y2):(?:\s+)?[0-9A-Za-z$_\.-]+,?)+)'  # coords
@@ -133,12 +134,15 @@ class QRadialGradientConformer(Conformer):
     """Conform QSS qradialgradient function."""
 
     _DEFAULT_COORDS = ('cx', 'cy', 'radius', 'fx', 'fy')
-    
+
     qss_pattern = re.compile(
         r'qradialgradient\('
-        r'((?:(?:\s+)?(?:spread):(?:\s+)?[0-9A-Za-z$_\.-]+,?)+)?'  # spread
-        r'((?:(?:\s+)?(?:cx|cy|radius|fx|fy):(?:\s+)?[0-9A-Za-z$_\.-]+,?)+)'  # coords
-        r'((?:(?:\s+)?stop:.*,?)+(?:\s+)?)?'  # stops
+        # spread
+        r'((?:(?:\s+)?(?:spread):(?:\s+)?[0-9A-Za-z$_\.-]+,?)+)?'
+        # coords
+        r'((?:(?:\s+)?(?:cx|cy|radius|fx|fy):(?:\s+)?[0-9A-Za-z$_\.-]+,?)+)'
+        # stops
+        r'((?:(?:\s+)?stop:.*,?)+(?:\s+)?)?'
         r'\)',
         re.MULTILINE,
     )
@@ -154,7 +158,7 @@ class QRadialGradientConformer(Conformer):
             try:
                 key, value = key_values
                 key = key.strip()
-                if(key == 'spread'):
+                if key == 'spread':
                     value = value.strip()
             except ValueError:
                 pass
@@ -211,7 +215,8 @@ class QRadialGradientConformer(Conformer):
 
         Normalize all whitespace including the removal of newline chars.
 
-        qradialgradient(cy: 0, cy: 0, radius: 0, fx: 0, fy: 0, stop: 0 red, stop: 1 blue)
+        qradialgradient(cy: 0, cy: 0, radius: 0,
+                        fx: 0, fy: 0, stop: 0 red, stop: 1 blue)
         =>
         qradialgradient(0, 0, 0, 0, 0, (0 red, 1 blue))
         """
@@ -220,12 +225,8 @@ class QRadialGradientConformer(Conformer):
         for spread, coords, stops in self.qss_pattern.findall(qss):
             new_spread = "'" + self._conform_spread_to_scss(spread) + "',"
             conformed = conformed.replace(spread, new_spread, 1)
-            #print(spread + " -> " + new_spread)
-
             new_coords = self._conform_coords_to_scss(coords)
             conformed = conformed.replace(coords, new_coords, 1)
-            #print(coords + " -> " + new_coords)
-
             if not stops:
                 continue
 
