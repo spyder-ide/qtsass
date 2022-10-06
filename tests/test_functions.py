@@ -58,5 +58,21 @@ class TestQLinearGradientFunc(BaseCompileTest):
         )
 
 
+class TestQRadialGradientFunc(BaseCompileTest):
+    def test_color(self):
+        self.assertEqual(
+            self.compile_scss('qradialgradient(pad, 1, 2, 1, 3, 4, (0 red, 1 blue))'),
+            'qradialgradient(spread: pad, cx: 1.0, cy: 2.0, radius: 1.0, fx: 3.0, fy: 4.0, '
+            'stop: 0.0 rgba(255, 0, 0, 100%), stop: 1.0 rgba(0, 0, 255, 100%))'
+        )
+
+    def test_rgba(self):
+        self.assertEqual(
+            self.compile_scss('qradialgradient(pad, 1, 2, 1, 3, 4, (0 red, 0.2 rgba(5, 6, 7, 0.8)))'),
+            'qradialgradient(spread: pad, cx: 1.0, cy: 2.0, radius: 1.0, fx: 3.0, fy: 4.0, '
+            'stop: 0.0 rgba(255, 0, 0, 100%), stop: 0.2 rgba(5, 6, 7, 80%))'
+        )
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
