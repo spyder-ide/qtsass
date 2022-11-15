@@ -138,12 +138,26 @@ def test_compile_filename(tmpdir):
     assert exists(output.strpath)
 
 
+def test_compile_filename_no_save():
+    """compile_filename simple."""
+
+    qss = qtsass.compile_filename(example('dummy.scss'))
+    assert isinstance(qss, str)
+
+
 def test_compile_filename_imports(tmpdir):
     """compile_filename with imports."""
 
     output = tmpdir.join('dark.css')
     qtsass.compile_filename(example('complex', 'dark.scss'), output.strpath)
     assert exists(output.strpath)
+
+
+def test_compile_filename_imports_no_save():
+    """compile_filename with imports."""
+
+    qss = qtsass.compile_filename(example('complex', 'dark.scss'))
+    assert isinstance(qss, str)
 
 
 def test_compile_dirname(tmpdir):
