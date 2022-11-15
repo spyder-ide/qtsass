@@ -113,7 +113,8 @@ def compile(string, **kwargs):
 
 
 def compile_filename(input_file, output_file=None, **kwargs):
-    """Compile and return a QtSASS file as Qt compliant CSS. Optionally save to a file.
+    """Compile and return a QtSASS file as Qt compliant CSS.
+    Optionally save to a file.
 
     .. code-block:: python
 
@@ -142,7 +143,8 @@ def compile_filename(input_file, output_file=None, **kwargs):
 
         with open(output_file, 'w') as css_file:
             css_file.write(css)
-            _log.info('Created CSS file {}'.format(os.path.normpath(output_file)))
+            _log.info('Created CSS file {}'.format(
+                os.path.normpath(output_file)))
 
     return css
 
