@@ -3,7 +3,7 @@ flaky
 isort==4.3.15
 pycodestyle==2.5.0
 pydocstyle==3.0.0
-PySide2; python_version=="3.6"
+PySide2; python_version=="3.7"
 pytest
 pytest-cov
 yapf==0.26
