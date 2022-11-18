@@ -13,14 +13,12 @@
 
 # Standard library imports
 from subprocess import PIPE, Popen
-import os
 import sys
 
 
 # yapf: enable
 
 # Constants
-PY3 = sys.version[0] == '3'
 COMMANDS = [
     ['pydocstyle', 'qtsass'],
     ['pycodestyle', 'qtsass'],
@@ -38,9 +36,8 @@ def run_process(cmd_list):
         raise OSError('Could not call command list: "%s"' % cmd_list)
 
     out, err = p.communicate()
-    if PY3:
-        out = out.decode()
-        err = err.decode()
+    out = out.decode()
+    err = err.decode()
     return out, err
 
 

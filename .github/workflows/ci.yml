@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false 
       matrix:
-        PYTHON_VERSION: ['2.7', '3.7', '3.10']
+        PYTHON_VERSION: ['3.7', '3.10']
     steps:
       - name: Checkout branch
         uses: actions/checkout@v2
@@ -46,7 +46,7 @@ jobs:
           conda info
           conda list
       - name: Format
-        if: matrix.PYTHON_VERSION == '2.7'
+        if: matrix.PYTHON_VERSION == '3.7'
         shell: bash -l {0}
         run: python run_checks_and_format.py
       - name: Run tests
@@ -108,7 +108,7 @@ jobs:
     strategy:
       fail-fast: false 
       matrix:
-        PYTHON_VERSION: ['2.7', '3.7', '3.8', '3.9', '3.10']
+        PYTHON_VERSION: ['3.7', '3.8', '3.9', '3.10']
     steps:
       - name: Checkout branch
         uses: actions/checkout@v2
@@ -149,7 +149,7 @@ jobs:
     strategy:
       fail-fast: false 
       matrix:
-        PYTHON_VERSION: ['2.7', '3.7', '3.8', '3.9', '3.10']
+        PYTHON_VERSION: ['3.7', '3.8', '3.9', '3.10']
     steps:
       - name: Checkout branch
         uses: actions/checkout@v2

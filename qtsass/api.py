@@ -13,9 +13,9 @@
 from __future__ import absolute_import, print_function
 
 # Standard library imports
+from collections.abc import Mapping, Sequence
 import logging
 import os
-import sys
 
 # Third party imports
 import sass
@@ -24,12 +24,6 @@ import sass
 from qtsass.conformers import qt_conform, scss_conform
 from qtsass.functions import qlineargradient, qradialgradient, rgba
 from qtsass.importers import qss_importer
-
-
-if sys.version_info[0] == 3:
-    from collections.abc import Mapping, Sequence
-else:
-    from collections import Mapping, Sequence
 
 
 # yapf: enable
