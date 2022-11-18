@@ -106,16 +106,18 @@ def compile(string, **kwargs):
         raise
 
 
-def compile_filename(input_file, output_file, **kwargs):
-    """Compile and save QtSASS file as CSS.
+def compile_filename(input_file, output_file=None, **kwargs):
+    """Compile and return a QtSASS file as Qt compliant CSS.
+    Optionally save to a file.
 
     .. code-block:: python
 
         >>> import qtsass
         >>> qtsass.compile_filename("dummy.scss", "dummy.css")
+        >>> css = qtsass.compile_filename("dummy.scss")
 
     :param input_file: Path to QtSass file.
-    :param output_file: Path to write Qt compliant CSS.
+    :param output_file: Optional path to write Qt compliant CSS.
     :param kwargs: Keyword arguments to pass to sass.compile
     :returns: CSS string
     """
@@ -128,13 +130,15 @@ def compile_filename(input_file, output_file, **kwargs):
     _log.info('Compiling {}...'.format(os.path.normpath(input_file)))
     css = compile(string, **kwargs)
 
-    output_root = os.path.abspath(os.path.dirname(output_file))
-    if not os.path.isdir(output_root):
-        os.makedirs(output_root)
+    if output_file is not None:
+        output_root = os.path.abspath(os.path.dirname(output_file))
+        if not os.path.isdir(output_root):
+            os.makedirs(output_root)
 
-    with open(output_file, 'w') as css_file:
-        css_file.write(css)
-        _log.info('Created CSS file {}'.format(os.path.normpath(output_file)))
+        with open(output_file, 'w') as css_file:
+            css_file.write(css)
+            _log.info('Created CSS file {}'.format(
+                os.path.normpath(output_file)))
 
     return css
 

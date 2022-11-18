@@ -148,37 +148,25 @@ Arguments:
 Returns:
 - Qt compliant CSS string
 
-### `compile_filename(input_file, dest_file, **kwargs)`:
+### `compile_filename(input_file, output_file=None, **kwargs)`:
 
-Compile and save QtSASS file as Qt compliant CSS.
-
-Examples:
-
-```bash
->>> import qtsass
->>> qtsass.compile_filename('dummy.scss', 'dummy.css')
-```
-
-Arguments:
-- input_file: Path to QtSass file.
-- dest_file: Path to destination Qt compliant CSS file.
-- kwargs: Keyword arguments to pass to sass.compile
-
-### `compile_filename(input_file, output_file, **kwargs)`:
-
-Compile and save QtSASS file as Qt compliant CSS.
+Compile and return a QtSASS file as Qt compliant CSS. Optionally save to a file.
 
 Examples:
 
 ```bash
 >>> import qtsass
->>> qtsass.compile_filename('dummy.scss', 'dummy.css')
+>>> qtsass.compile_filename("dummy.scss", "dummy.css")
+>>> css = qtsass.compile_filename("dummy.scss")
 ```
 
 Arguments:
 - input_file: Path to QtSass file.
 - output_file: Path to write Qt compliant CSS.
 - kwargs: Keyword arguments to pass to sass.compile
+
+Returns:
+- Qt compliant CSS string
 
 ### `compile_dirname(input_dir, output_dir, **kwargs)`:
 
