@@ -1,5 +1,23 @@
 # History of changes
 
+## Version 0.4.0 (2023/03/27)
+
+### Issues Closed
+
+* [Issue 73](https://github.com/spyder-ide/qtsass/issues/73) - Release QtSASS 0.4.0
+* [Issue 67](https://github.com/spyder-ide/qtsass/issues/67) - Drop support for Python 2.7, 3.5, and 3.6 ([PR 71](https://github.com/spyder-ide/qtsass/pull/71) by [@dalthviz](https://github.com/dalthviz))
+
+In this release 2 issues were closed.
+
+### Pull Requests Merged
+
+* [PR 71](https://github.com/spyder-ide/qtsass/pull/71) - PR: Drop support for Python <=3.6, by [@dalthviz](https://github.com/dalthviz) ([67](https://github.com/spyder-ide/qtsass/issues/67))
+* [PR 70](https://github.com/spyder-ide/qtsass/pull/70) - PR: Made `compile_filename` file output optional, by [@gentlegiantJGC](https://github.com/gentlegiantJGC)
+* [PR 69](https://github.com/spyder-ide/qtsass/pull/69) - PR: Update RELEASE.md, by [@dalthviz](https://github.com/dalthviz)
+* [PR 59](https://github.com/spyder-ide/qtsass/pull/59) - PR: Add the support for QRadialGradient, by [@regrainb](https://github.com/regrainb) ([57](https://github.com/spyder-ide/qtsass/issues/57))
+
+In this release 4 pull requests were closed.
+
 ## Version 0.3.2 (2022/09/16)
 
 ### Pull Requests Merged
