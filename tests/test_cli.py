@@ -14,6 +14,7 @@ from __future__ import absolute_import
 from collections import namedtuple
 from os.path import basename, exists
 from subprocess import PIPE, Popen
+import sys
 import time
 
 # Local imports
@@ -38,7 +39,7 @@ def invoke(args):
         stderr=PIPE,
         cwd=PROJECT_DIR
     )
-    proc = Popen(['python', '-m', 'qtsass'] + args, **kwargs)
+    proc = Popen([sys.executable, '-m', 'qtsass'] + args, **kwargs)
     return proc
 
 
