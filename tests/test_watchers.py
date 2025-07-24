@@ -18,7 +18,6 @@ import sys
 import time
 
 # Third party imports
-from flaky import flaky
 import pytest
 
 # Local imports
@@ -43,7 +42,7 @@ class CallCounter(object):
 @pytest.mark.parametrize(
     'Watcher', (PollingWatcher, QtWatcher),
 )
-@flaky(max_runs=3)
+@pytest.mark.flaky(max_runs=3)
 def test_watchers(Watcher, tmpdir):
     """Stress test Watcher implementations"""
 
