@@ -275,3 +275,7 @@ activate.xsh
 
 # Loghub
 CHANGELOG.temp
+
+# Spyder
+.spyproject/
+

@@ -25,12 +25,13 @@ jobs:
         PYTHON_VERSION: ['3.7', '3.10']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Install Conda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
-           python-version: ${{ matrix.PYTHON_VERSION }} 
+           python-version: ${{ matrix.PYTHON_VERSION }}
+           channels: conda-forge
       - name: Install Dependencies
         shell: bash -l {0}
         run: pip install -r requirements/install.txt
@@ -70,12 +71,13 @@ jobs:
         PYTHON_VERSION: ['3.8', '3.9']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Install Conda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
-           python-version: ${{ matrix.PYTHON_VERSION }} 
+           python-version: ${{ matrix.PYTHON_VERSION }}
+           channels: conda-forge
       - name: Install Dependencies
         shell: bash -l {0}
         run: pip install -r requirements/install.txt
@@ -108,15 +110,16 @@ jobs:
     strategy:
       fail-fast: false 
       matrix:
-        PYTHON_VERSION: ['3.7', '3.8', '3.9', '3.10']
+        PYTHON_VERSION: ['3.8', '3.9', '3.10']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Install Conda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
-           python-version: ${{ matrix.PYTHON_VERSION }} 
+           python-version: ${{ matrix.PYTHON_VERSION }}
+           channels: conda-forge
       - name: Install Dependencies
         shell: bash -l {0}
         run: pip install -r requirements/install.txt
@@ -152,12 +155,13 @@ jobs:
         PYTHON_VERSION: ['3.7', '3.8', '3.9', '3.10']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Install Conda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
-           python-version: ${{ matrix.PYTHON_VERSION }} 
+           python-version: ${{ matrix.PYTHON_VERSION }}
+           channels: conda-forge
       - name: Install Dependencies
         shell: bash -l {0}
         run: pip install -r requirements/install.txt
@@ -184,11 +188,11 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
     needs: [windows, macos, linux]
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.8
+          python-version: 3.10
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip wheel setuptools
@@ -197,7 +201,7 @@ jobs:
           python setup.py sdist bdist_wheel
 
       - name: Publish package
-        uses: pypa/gh-action-pypi-publish@v1.5.1
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.pypi_password }}
