@@ -30,7 +30,8 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
-           python-version: ${{ matrix.PYTHON_VERSION }} 
+           python-version: ${{ matrix.PYTHON_VERSION }}
+           channels: conda-forge
       - name: Install Dependencies
         shell: bash -l {0}
         run: pip install -r requirements/install.txt
@@ -75,7 +76,8 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
-           python-version: ${{ matrix.PYTHON_VERSION }} 
+           python-version: ${{ matrix.PYTHON_VERSION }}
+           channels: conda-forge
       - name: Install Dependencies
         shell: bash -l {0}
         run: pip install -r requirements/install.txt
@@ -116,7 +118,8 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
-           python-version: ${{ matrix.PYTHON_VERSION }} 
+           python-version: ${{ matrix.PYTHON_VERSION }}
+           channels: conda-forge
       - name: Install Dependencies
         shell: bash -l {0}
         run: pip install -r requirements/install.txt
@@ -157,7 +160,8 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
-           python-version: ${{ matrix.PYTHON_VERSION }} 
+           python-version: ${{ matrix.PYTHON_VERSION }}
+           channels: conda-forge
       - name: Install Dependencies
         shell: bash -l {0}
         run: pip install -r requirements/install.txt
