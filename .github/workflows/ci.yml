@@ -25,9 +25,9 @@ jobs:
         PYTHON_VERSION: ['3.7', '3.10']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Conda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
            python-version: ${{ matrix.PYTHON_VERSION }} 
@@ -70,9 +70,9 @@ jobs:
         PYTHON_VERSION: ['3.8', '3.9']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Conda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
            python-version: ${{ matrix.PYTHON_VERSION }} 
@@ -111,9 +111,9 @@ jobs:
         PYTHON_VERSION: ['3.7', '3.8', '3.9', '3.10']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Conda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
            python-version: ${{ matrix.PYTHON_VERSION }} 
@@ -152,9 +152,9 @@ jobs:
         PYTHON_VERSION: ['3.7', '3.8', '3.9', '3.10']
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Conda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
            activate-environment: test
            python-version: ${{ matrix.PYTHON_VERSION }} 
